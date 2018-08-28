@@ -1,0 +1,76 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+.ios,.md{
+    @font-face {
+        font-family: 'Conv_Lato-Regular';
+        src: url('../../www/assets/Lato-Regular/fonts/Lato-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    body {
+        //font-family: "Conv_Lato-Regular" !important;
+        font-family: 'Lato', sans-serif;
+    }
+    .toolbar-background {
+        background: #FFEC19;// #efb511;
+    }
+    [icon-left] ion-icon, [icon-start] ion-icon {
+        line-height: inherit;
+    }
+    .menu_header_avtar {
+        height: 100px !important;
+        width: 100px !important;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+    .menu-card {
+        margin: 0 !important;
+        width: 100% !important;
+        padding: 5px 25px 0 25px !important;
+    }
+    .menu-list .item-ios {
+        padding-left: 0px;
+        padding: 15px 15px 15px 21px;
+        border-bottom: 0.55px solid #c8c7cc;
+    }
+
+    .menu-list [icon-left] ion-icon, [icon-start] ion-icon {
+        font-size: 1.6em;
+        line-height: .67;
+        pointer-events: none;
+        /* padding-right: 0.3em; */
+        padding: 0 0.7em;
+    }
+    .list_item_icon{
+        height: 28px;
+        width: 28px
+    }
+    .list_item_title{
+        padding-top: 7px;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+    }
+    .menu-list .item-ios, .md .menu-list .item-ios {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .menu-list button .label-ios {
+        //margin: 9px 8px 7px 0;
+        margin: 7px 8px 2px 0;
+    }
+    
+} 

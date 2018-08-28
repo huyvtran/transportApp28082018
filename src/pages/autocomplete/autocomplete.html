@@ -1,0 +1,61 @@
+<!--
+  Generated template for the AutocompletePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+        <ion-label class="close" text-right (click)="close()">
+            Cancel
+        </ion-label>
+        <!--<ion-buttons right>
+            <button [disabled]="saveDisabled" ion-button (click)="save()">Save</button>
+        </ion-buttons>-->
+    <ion-item *ngIf="action == 'pickup'" class="pickup">
+        <ion-icon item-start ios="md-navigate" md="md-navigate"></ion-icon>
+        <ion-label stacked>Pickup Location</ion-label>    
+        <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input>
+        <button *ngIf="autocomplete.query != ''? true : false" icon-only  ion-button small item-end (click)="clear()"><ion-icon ios="md-close" md="md-close"></ion-icon></button>
+    </ion-item>
+    <!--<ion-toolbar *ngIf="action == 'pickup'">
+      <ion-title>Enter address</ion-title>
+      <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+    </ion-toolbar>-->
+    <!--<ion-toolbar *ngIf="action == 'drop'">
+        <ion-title>Enter address</ion-title>
+        <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+      </ion-toolbar>-->
+      <ion-item *ngIf="action == 'drop'" class="drop">
+          <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
+          <ion-label stacked>Drop Off Location</ion-label>
+          <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input>
+        <button *ngIf="autocomplete.query != ''? true : false" icon-only  ion-button small item-end (click)="clear()"><ion-icon ios="md-close" md="md-close"></ion-icon></button>
+          <!-- <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input> -->
+      </ion-item>
+
+      <ion-item *ngIf="action != 'drop' && action != 'pickup' && action != 'getDriver'" class="drop">
+          <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
+          <ion-label stacked>Select Your Favorite Location</ion-label>
+          <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input>
+          
+      </ion-item>
+
+      <ion-item *ngIf="action == 'driver'" class="drop">
+          <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
+          <ion-label stacked>Select Your Favourite Driver</ion-label>
+          <ion-input [(ngModel)]="qdriver.query" (ionChange)="updateDriverSearch()" (ionCancel)="dismiss()"></ion-input>
+      </ion-item>
+
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+        <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
+        {{ item }}
+      </ion-item>
+      <ion-item *ngFor="let item of allDrivers" tappable (click)="chooseItem(item)">
+          {{ item }}
+        </ion-item>
+    </ion-list>
+  </ion-content>
+  

@@ -1,0 +1,33 @@
+.ios,.md{
+    page-edit-profile {
+        .list-ios > .item-block:first-child {
+            border-top: none;
+        }
+        .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+            border-bottom: none;
+        }
+        ion-item {
+            padding: 10px !important;
+        }
+        .label-ios[stacked] {
+            margin-bottom: 4px;
+            font-size: 1.4rem;
+        }
+        button.profile-btn {
+            width: auto;
+            padding: 25px 30px !important;
+            margin: 15px auto;
+            font-size: 20px !important;
+            background-color: #ffec19;
+            color: #000;
+            font-weight: 500;
+            -webkit-box-shadow: 1px 2px #e2d10a;
+            box-shadow: 1px 2px #e2d10a;
+        }
+        form.profile_form {
+            margin-top: 9px;
+            padding: 10px;   
+        }
+    }
+    
+}

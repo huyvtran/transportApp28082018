@@ -1,0 +1,84 @@
+<!--
+  Generated template for the EditProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle >
+        <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
+    </button>
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+         
+<ion-content padding>
+  <form class="profile_form" [formGroup]="profile" (ngSubmit)="ProfileForm(user_details)"> 
+    <ion-list>
+ 
+    <ion-item>
+        <ion-label stacked>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="user_details.fname" value="{{user_details.fname}}" formControlName="fname" [class.invalid]="!profile.valid && (profile.controls.fname.dirty || submitAttempt)" ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="profile.get('fname').hasError('required')  && profile.get('fname').touched">
+          Please fill out this field
+      </div>
+        
+      <ion-item>
+      <ion-label stacked>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="user_details.lname" formControlName="lname" [class.invalid]="!profile.valid && (profile.controls.lname.dirty || submitAttempt)"  ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="profile.get('lname').hasError('required')  && profile.get('lname').touched">
+          Please fill out this field
+      </div>
+      
+      <!--<ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="email" [(ngModel)]="user_details.email" formControlName="email" [class.invalid]="!profile.valid && (profile.controls.email.dirty || submitAttempt)" ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="profile.get('email').hasError('required') && profile.get('email').touched">
+          Please fill out this field.
+      </div>
+          
+      <div class="error" *ngIf="!profile.get('email').hasError('required') && (profile.get('email').hasError('email') && profile.get('email').dirty )">
+          Please enter valid Email address
+      </div>-->
+
+      <ion-item>
+          <ion-label stacked>Phone No.</ion-label>
+          <ion-input type="text" [(ngModel)]="user_details.phone" formControlName="phone" [class.invalid]="!profile.valid && (profile.controls.phone.dirty || submitAttempt)"  ></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="profile.get('phone').hasError('required')  && profile.get('phone').touched">
+            Please fill out this field
+        </div>
+        <!--<div class="error" *ngIf="profile.get('phone').hasError('required') && profile.get('phone').touched && profile.get('phone').pattern">
+            Please fill out valid phone
+        </div>-->
+
+      <ion-item>
+          <ion-label stacked>Address</ion-label>
+          <ion-input type="text" [(ngModel)]="user_details.address" formControlName="address" [class.invalid]="!profile.valid && (profile.controls.address.dirty || submitAttempt)"  ></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="profile.get('address').hasError('required')  && profile.get('address').touched">
+              Please fill out this field
+          </div>
+   
+      <!--<ion-item>
+          <ion-label stacked>Avatar</ion-label>
+          <ion-input type="file" [(ngModel)]="user_details.avatar" formControlName="avatar" [class.invalid]="!profile.valid && (profile.controls.avatar.dirty || submitAttempt)"  ></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="profile.get('avatar').hasError('required')  && profile.get('avatar').touched">
+              Please fill out this field
+          </div>-->
+
+      <ion-item class="submit_btn_item">
+          <button class="profile-btn" ion-button color="primary" block [disabled]="!this.profile.valid">Update</button>
+      </ion-item>
+
+    </ion-list>
+  </form>
+</ion-content>

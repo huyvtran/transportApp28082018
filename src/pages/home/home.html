@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar color="sideMenu" hideBackButton>
+    <button ion-button menuToggle >
+      <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
+    </button>
+    <ion-title>
+        Book A Ride
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="home-content">
+  <!--<ion-grid>
+    <ion-row>
+      <ion-col col-6 text-center>
+          <img src="../../assets/imgs/143366-200.png" width="100" height="100" class="book_icon"/>
+          <h2>Book a Ride</h2>
+      </ion-col>
+      <ion-col col-6 text-center>
+          <img src="../../assets/imgs/delivery (1).png" width="100" height="100" class="book_icon" />
+          <h2>Book a Delivery</h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>-->
+  <div #pleaseConnect id="please-connect">
+    <p>Please connect to the Internet...</p>
+  </div>
+
+  <ion-card class="directionsPanel">
+      <ion-card-content>
+          <div #directionsPanel></div>
+      </ion-card-content>
+  </ion-card>
+
+  <div #map id="map">
+      <ion-spinner></ion-spinner>
+  </div>
+  
+  <ion-card class="card-content">  
+      <ion-list no-lines>
+        <ion-item>
+            <ion-icon item-start ios="md-navigate" md="md-navigate"></ion-icon>
+            <ion-label stacked>Pickup Location</ion-label>
+            <ion-input (click)="showAddressModal(action.pickup)" [(ngModel)]="address.place" type="text" ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
+            <ion-label stacked>Drop Off Location</ion-label>
+            <ion-input (click)="showAddressModal(action.drop)" [(ngModel)]="address.drop_place" type="text"  ></ion-input>
+        </ion-item>
+        <div #distance id="distance">
+            <ion-input [(ngModel)]="maps.distance" type="hidden"  ></ion-input>
+        </div>
+      </ion-list>
+    </ion-card>
+</ion-content>
+<div class="last_div">  
+  <div class="inner_last_div">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 class="ride_now" (click)='rideNow(maps.distance)'><p>Ride Now</p></ion-col>
+        <ion-col col-6 class="ride_later" (click)='rideLater(maps.distance)'><p>Ride Later</p></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div> 
