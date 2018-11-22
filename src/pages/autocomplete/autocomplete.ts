@@ -2,7 +2,10 @@ import {Component, NgZone} from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DataProvider } from '../../providers/data/data';
-
+import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
+import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
 /**
@@ -18,13 +21,23 @@ declare var google;
   templateUrl: 'autocomplete.html',
 })
 export class AutocompletePage {
+  currentMapTrack = null;
+  isTracking = false;
+  trackedRoute = [];
+  previousTracks = [];
+  positionSubscription: Subscription;
   action :any;
   autocompleteItems;
   autocomplete;
   allDrivers;
   qdriver;
+  lat : any;
+  lng : any;
+  latlng : any;
+  fav_locations : any;
+
   service = new google.maps.places.AutocompleteService();
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, private zone: NgZone, private storage : Storage, public data : DataProvider) {
+  constructor(public navCtrl: NavController, public geolocation: Geolocation, public navParams: NavParams,public viewCtrl: ViewController, private zone: NgZone, private storage : Storage, public data : DataProvider) {
     this.action = navParams.get('action');
     console.log(this.action);
     this.autocompleteItems = [];
@@ -35,10 +48,19 @@ export class AutocompletePage {
     this.qdriver = {
       query:''
     };
+
+
+    this.data.getCustomerFavLocation().subscribe(result=>{
+      if(result.status == "OK")
+      {
+        this.fav_locations = result.success.favlocations;
+      }
+    });
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AutocompletePage');
+    console.log('ionViewDidLoad AutocompletePage');    
   }
 
   dismiss() {
@@ -54,8 +76,24 @@ export class AutocompletePage {
       this.autocompleteItems = [];
       return;
     }
+    
     let me = this;
-    this.service.getPlacePredictions({ input: this.autocomplete.query}, function (predictions, status) {
+
+    /*this.positionSubscription = this.geolocation.watchPosition()
+    .pipe(
+      filter((p) => p.coords !== undefined) //Filter Out Errors       
+    )
+    .subscribe(data => {
+      console.log(data);
+      setTimeout(() => {
+        let latLng = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+         console.log('coords===>'+this.latlng);
+        //this.lng = data.coords.longitude;
+        //this.redrawPath(this.trackedRoute);        
+      }, 0);    
+    });  */      
+
+    this.service.getPlacePredictions({input:this.autocomplete.query,location:this.latlng}, function (predictions, status) {
       me.autocompleteItems = []; 
       me.zone.run(function () {
         if (status != google.maps.places.PlacesServiceStatus.OK) {
@@ -69,38 +107,13 @@ export class AutocompletePage {
     });
   }
 
-  updateDriverSearch()               
-  {
-    if (this.qdriver.query == '') {
-      this.allDrivers = [];
-      return;
-    }
-    this.data.getallDrivers().subscribe(result=>{
-      console.log(result);    
-      //this.userData = result; 
-      if(result.status == "ERROR")     
-      {
-          this.data.presentToast(result.error.email);
-          return false;
-      }
-      else
-      {   
-        //this.storage.set("customer_data",data.msg[0]);
-        this.data.presentToast('Profile Updated Successfully!');
-        //this.navCtrl.setRoot(CustomerProfilePage);     
-      }                    
-    }); 
-  }
-
   close(){
     this.viewCtrl.dismiss();
   } 
 
   clear(){
-
     console.log(this.autocomplete.query);  
-
     this.autocomplete.query = "";       
   }
-
+  
 }

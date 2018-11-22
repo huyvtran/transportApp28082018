@@ -51,9 +51,11 @@
             box-shadow: 1px 1px 1px rgba(195, 195, 195, 0.3);
         }
         .lock-icon{
-            background: #FFEC19;//#efb511;
+            //background: #FFEC19;//#efb511;
+            background: #1A237E;
             padding: 20px 25px;
             font-size: 30px;
+            color: #fff;
         }
         .change_pass_btn .label{
             margin: 0px 8px 0px 0 !important;
@@ -97,12 +99,14 @@
 
         .inner_last_div{
             text-align: center;
-            background: #FFEC19;
+            //background: #FFEC19;
+            background: #1A237E;
             font-weight: 500;
             padding: 12px;
             p{
                 margin: 0;
                 font-size: 18px !important;
+                color: #fff;
                 ion-icon.icon {
                     margin: 0px 6px;
                 }
@@ -115,6 +119,75 @@
         .profile_edit_list ion-grid
         {
             padding: 0px !important;
+        }
+        .vehicle_details h3 {
+            width: 50%;
+            float: left;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            color: #8c8787;
+            display: block;
+        }
+        .vehicle_details span {
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            color: #685959;
+            display: block;
+        }
+        .vehicle_details_header ion-card-header{
+            font-size: 18px;
+            color: #695e5e;
+            background: #eee;
+        }
+        .vehicle_details{
+            padding-top: 15px !important;
+        }
+        
+
+        /*.social_icons{
+            width: 50%;
+            margin: 0 auto;
+            display: block;
+            padding: 10px;
+        }
+        
+        ion-icon {
+            display: inline-block;
+            font-size: 26px;
+            padding: 5px;
+        }
+       
+        .google{
+            color: #f42c2c;
+        }
+           
+        .facebook{
+           color: #4a81f1;
+        }
+        
+        .twitter{
+            color: #42c5fe;
+        }
+           
+        .instagram{
+            color: #c32aa3;
+        }*/
+
+        .social_icons ion-item{	   
+            padding: 0;
+            padding-bottom: 12px;
+            color: #5f5656;
+            margin-left: 11%;
+            border-bottom: 1px solid #b4aeae !important;
+            width: 78%;
+        }
+            
+        .social_icons span.add_social_link {
+            font-size: 16px;
+            margin-left: 10px;
+            top: 25px;
+            position: absolute;
+            letter-spacing: 0.5px;
         }
         
     }

@@ -1,0 +1,85 @@
+<!--
+  Generated template for the DeliveryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="sideMenu" hideBackButton>
+    <button ion-button menuToggle >
+      <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
+    </button>
+    <ion-title>Book a Delivery</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="home-content">
+  <div #pleaseConnect id="please-connect">
+    <p>Please connect to the Internet...</p>
+  </div>
+
+  <ion-card class="directionsPanel">
+      <ion-card-content>
+          <div #directionsPanel></div>
+      </ion-card-content>
+  </ion-card>
+
+  <div #map id="map">
+      <ion-spinner></ion-spinner>
+  </div>
+  
+  <ion-card *ngIf='role == 2' class="card-content">  
+      <ion-list no-lines>
+        <ion-item (click)="showAddressModal(action.pickup)">
+            <ion-icon item-start ios="md-navigate" md="md-navigate"></ion-icon>
+            <ion-label stacked>Pickup Location</ion-label>
+            <ion-input [(ngModel)]="address.place" type="text" disabled ></ion-input>
+        </ion-item>
+        <ion-item (click)="showAddressModal(action.drop)">
+            <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
+            <ion-label stacked>Drop Off Location</ion-label>
+            <ion-input [(ngModel)]="address.drop_place" type="text" disabled ></ion-input>
+        </ion-item>
+        <div #distance id="distance">
+           {{calculated_distance}}
+        </div>
+      </ion-list>   
+    </ion-card>
+</ion-content>
+<div *ngIf='role == 2' class="last_div">  
+  <div *ngIf='display_vehicleTypes==1' class="type_btn_div">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <button class="type_btn" [ngClass]="active === 'economy' ? 'active_payment' : ''" (click)="updateActive('economy')" (click)='selectVehicle(vehicle_types[0].type,cost.economy_cost)'>
+            <img src="assets/imgs/img3.png" />
+            <p>{{vehicle_types[0].type}}</p>
+            <div class="appx_cost">${{cost.economy_cost}} Appx.</div>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="type_btn" [ngClass]="active === 'comfort' ? 'active_payment' : ''" (click)="updateActive('comfort')" (click)='selectVehicle(vehicle_types[1].type,cost.comfort_cost)'>
+            <img src="assets/imgs/img2.png" />
+            <p>{{vehicle_types[1].type}}</p>
+            <div class="appx_cost">${{cost.comfort_cost}} Appx.</div>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="type_btn" [ngClass]="active === 'business' ? 'active_payment' : ''" (click)="updateActive('business')" (click)='selectVehicle(vehicle_types[2].type,cost.business_cost)'>
+            <img src="assets/imgs/img1.png" />
+            <p>{{vehicle_types[2].type}}</p>
+            <div class="appx_cost">${{cost.business_cost}} Appx.</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>   
+  <div class="inner_last_div">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 class="ride_now" (click)='rideNow(calculated_distance,vehicle_type)'><p>Deliver Now</p></ion-col>
+        <ion-col col-6 class="ride_later" (click)='rideLater(calculated_distance,vehicle_type)'><p>Deliver Later</p></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div> 

@@ -12,10 +12,16 @@
                 font-size: 14px !important;
                 color: gray;
                 letter-spacing: 0.7px;
+                text-transform: capitalize;
             }
     
             ion-input{
                 border-bottom: 1px solid lightgray;
+            }
+
+            .favLoc_label {
+                display: inline;    
+                margin-left: 24px;
             }
         }
     

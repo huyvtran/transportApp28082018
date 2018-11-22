@@ -41,16 +41,18 @@
             Please fill out this field
         </div>
 
+        <ion-item>
+            <ion-label>Remember Me</ion-label>
+            <ion-checkbox (ionChange)="notify(isRemember)"></ion-checkbox>
+        </ion-item>
+    
         <ion-item class="submit_btn_item">
           <a class="forgot_pass" (click)="gotoForgotPass()"><p>Forgot password?</p></a>
           <button class="login-btn" ion-button color="primary" block  (click)="signIn(uname, pass)" [disabled]="!this.signin.valid">SIGN IN</button>
           <p class="new_acc" (click)='red_list()'>Create New Account</p>
         </ion-item>
-
       </ion-list> 
     </form>
-
   </div>
-    
 </ion-content>      
 

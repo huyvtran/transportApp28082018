@@ -3,10 +3,10 @@
       <!--<ion-toolbar>
         <ion-title>Menu</ion-title>
       </ion-toolbar>-->
-      <ion-card class="menu-card">
+      <ion-card class="menu-card" menuClose (click)="nav.push(pages.customerProfilePage)">
         <ion-item text-center>
           <ion-avatar>
-            <img class="menu_header_avtar" src="../assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png">
+            <img class="menu_header_avtar" src="{{avatar}}">
           </ion-avatar>
           <h2>{{fname}} {{lname}}</h2>
           <p>{{email}}</p>
@@ -25,7 +25,7 @@
             <ion-grid>
               <ion-row>
                 <ion-col col-3>
-                  <img class="list_item_icon" src="../assets/imgs/riding-car.png"/>
+                  <img class="list_item_icon" src="assets/imgs/riding-car.png"/>
                 </ion-col>
                 <ion-col col-9>
                     <div class="list_item_title">Book A Ride</div>
@@ -33,12 +33,25 @@
               </ion-row>
             </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.customerProfilePage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.deliveryPage)">
+            <!--<ion-icon class="sideMenuIcons" name="home"></ion-icon>-->
+            <ion-grid>
+              <ion-row>
+                <ion-col col-3>
+                  <img class="list_item_icon" src="assets/imgs/riding-car.png"/>
+                </ion-col>
+                <ion-col col-9>
+                    <div class="list_item_title">Book A Delivery</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </button>
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.customerProfilePage)">  
             <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
             <ion-grid>
                 <ion-row>
                   <ion-col col-3>
-                    <img class="list_item_icon" src="../assets/imgs/user.png"/>
+                    <img class="list_item_icon" src="assets/imgs/user.png"/>
                   </ion-col>
                   <ion-col col-9>
                       <div class="list_item_title">Profile</div>
@@ -46,12 +59,12 @@
                 </ion-row>
               </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.mapPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.bookinghistoryPage)">  
               <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/calendar-page-with-circular-clock-symbol.png"/>
+                      <img class="list_item_icon" src="assets/imgs/calendar-page-with-circular-clock-symbol.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Your Bookings</div>
@@ -59,12 +72,12 @@
                   </ion-row>
                 </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.emailverificationPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.paymentwalletPage)">  
               <!--<ion-icon ios="ios-cog" md="md-cog"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/wallet.png"/>
+                      <img class="list_item_icon" src="assets/imgs/wallet1.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Payments</div>
@@ -72,12 +85,12 @@
                   </ion-row>
                 </ion-grid> 
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.settingsPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.settingsPage)">  
               <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>   
-                      <img class="list_item_icon" src="../assets/imgs/settings.png"/>
+                      <img class="list_item_icon" src="assets/imgs/settings.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Settings</div>
@@ -85,12 +98,12 @@
                   </ion-row>
                 </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.homePage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.feedbackPage)">  
               <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/notification.png"/>
+                      <img class="list_item_icon" src="assets/imgs/notification.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Notifications</div>
@@ -98,12 +111,12 @@
                   </ion-row>
                 </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.homePage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.homePage)">  
               <!--<ion-icon ios="logo-usd" md="logo-usd"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/giftbox-outline.png"/>
+                      <img class="list_item_icon" src="assets/imgs/giftbox-outline.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Refer & Earn</div>
@@ -116,7 +129,7 @@
               <ion-grid>
                   <ion-row>      
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/chat.png"/>
+                      <img class="list_item_icon" src="assets/imgs/chat.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Help</div>
@@ -124,12 +137,12 @@
                   </ion-row>
                 </ion-grid>    
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.homePage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.paymentPage)">  
               <!--<ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/notepad.png"/>
+                      <img class="list_item_icon" src="assets/imgs/notepad.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Privacy Policy</div>
@@ -140,20 +153,27 @@
       </ion-list>    
     </ion-content>
 
-
-
     <ion-content *ngIf="role==3" class="sideMenu">
         <ion-list class="menu-list" no-lines>
-          <!-- <button class="sideMenuItem" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-            <ion-icon name="add-circle"></ion-icon>
-            {{p.title}}
-          </button> -->
-            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.customerProfilePage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.homePage)">
+            <!--<ion-icon class="sideMenuIcons" name="home"></ion-icon>-->
+            <ion-grid>
+              <ion-row>
+                <ion-col col-3>
+                  <img class="list_item_icon" src="assets/imgs/riding-car.png"/>
+                </ion-col>
+                <ion-col col-9>
+                    <div class="list_item_title">Dashboard</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </button>
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.customerProfilePage)">  
               <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
-                      <img class="list_item_icon" src="../assets/imgs/user.png"/>
+                      <img class="list_item_icon" src="assets/imgs/user.png"/>
                     </ion-col>
                     <ion-col col-9>
                         <div class="list_item_title">Profile</div>
@@ -161,10 +181,48 @@
                   </ion-row>
                 </ion-grid>
             </button>
-            
-        </ion-list>    
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.paymentwalletPage)">  
+                <!--<ion-icon ios="ios-cog" md="md-cog"></ion-icon>-->
+                <ion-grid>
+                    <ion-row>
+                      <ion-col col-3>
+                        <img class="list_item_icon" src="assets/imgs/wallet1.png"/>
+                      </ion-col>
+                      <ion-col col-9>
+                          <div class="list_item_title">Payments</div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid> 
+            </button>
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.driversettingPage)">  
+                <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
+                <ion-grid>
+                    <ion-row>
+                      <ion-col col-3>   
+                        <img class="list_item_icon" src="assets/imgs/settings.png"/>
+                      </ion-col>
+                      <ion-col col-9>
+                          <div class="list_item_title">Settings</div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+            </button>
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.bookingListPage)">  
+              <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
+              <ion-grid>
+                  <ion-row>
+                    <ion-col col-3>
+                      <img class="list_item_icon" src="assets/imgs/calendar-page-with-circular-clock-symbol.png"/>
+                    </ion-col>
+                    <ion-col col-9>
+                        <div class="list_item_title">Your Bookings</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+          </button>
+        </ion-list>       
       </ion-content>
-  
   </ion-menu>
-
+  
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+     

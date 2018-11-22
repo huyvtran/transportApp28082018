@@ -14,7 +14,11 @@
 
 
 <ion-content padding>
-    <!-- <ion-card class='faqs' *ngFor="let item of information; let i = index">
+
+  <div *ngIf='showDiv == 1'>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+
+    <ion-card class='faqs' *ngFor="let item of information; let i = index">
         <ion-list>
           <ion-item>
               <button class="questions" text-wrap ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
@@ -27,10 +31,43 @@
               {{item.answer}}
           </ion-item>
       </ion-list>
-    </ion-card> -->
+    </ion-card> 
+  </div>
 
 
-    <ion-card>
+  <div *ngIf='showDiv == 2'>
+    <ion-card class='faqs' *ngFor="let item of information; let i = index">
+        <ion-list>
+          <ion-item>
+              <button class="questions" text-wrap ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+                <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+                <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+                    {{ item.question }}
+              </button>
+          </ion-item>
+          <ion-item class='answers' *ngIf="item.open" text-wrap>      
+              {{item.answer}}
+          </ion-item>
+      </ion-list>
+    </ion-card> 
+  </div>
+
+
+  <div *ngIf='showDiv == 3'>
+    <h2 class="suggestion_title">Have thoughts? We're listening...</h2>
+    <ion-card class='suggestions'>
+        <ion-list>
+          <ion-item>     
+            <ion-textarea text-wrap [(ngModel)]="msg"></ion-textarea>
+          </ion-item>
+      </ion-list>
+    </ion-card>      
+      <button class="suggestion-btn" ion-button color="primary" block (click)='addSuggestion(msg)'>Done</button>
+  </div>
+    
+
+
+    <!--<ion-card>
       <ion-row class="first-row">
         <ion-col col-1><ion-icon [name]="icon_name" (click)="change()"></ion-icon></ion-col>
         <ion-col col-11>
@@ -43,12 +80,36 @@
           <p>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
         </ion-col>
       </ion-row>
-    </ion-card>
+    </ion-card>-->
 
 
 </ion-content>
-<!--<div class="last_div">  
+  <div class="last_div">  
     <div class="inner_last_div">
-      <p>For more queries Click Here</p>
-    </div>
-  </div> -->
+      <div class = "tabs-striped tabs-background-positive tabs-color-light">
+        <div class = "tabs">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 (click)='changeTab("1")'>
+                  <a class = "tab-item">
+                      FAQ
+                   </a>
+              </ion-col>
+              <ion-col col-4 (click)='changeTab("2")'>
+                  <a class = "tab-item active">
+                      Help
+                    </a>
+              </ion-col>
+              <ion-col col-4 (click)='changeTab("3")'>
+                  <a class = "tab-item">
+                      Suggestions
+                   </a>
+             </ion-col>
+            </ion-row>
+          </ion-grid>
+           
+
+        </div>
+     </div>
+    </div>    
+  </div>     

@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-filepath",
+  "_from": "cordova-plugin-filepath@^1.4.2",
   "_id": "cordova-plugin-filepath@1.4.2",
   "_inBundle": false,
   "_integrity": "sha512-6AKL6dIUkY+iOYesP+3/9LC1cxIilDIo0Hdu4tdDNM/ELIxrmxKywTqGy4x76Fv/LIl6l7g8R2tgCbBXTaBvMw==",
   "_location": "/cordova-plugin-filepath",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-filepath",
+    "raw": "cordova-plugin-filepath@^1.4.2",
     "name": "cordova-plugin-filepath",
     "escapedName": "cordova-plugin-filepath",
-    "rawSpec": "",
+    "rawSpec": "^1.4.2",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^1.4.2"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-filepath/-/cordova-plugin-filepath-1.4.2.tgz",
   "_shasum": "8a1cbfb20f081671e684e81abd3f6763376a36bd",
-  "_spec": "cordova-plugin-filepath",
-  "_where": "E:\\Ionic\\myApp1",
+  "_spec": "cordova-plugin-filepath@^1.4.2",
+  "_where": "E:\\transportApp28082018",
   "author": {
     "name": "Ramesh Nair",
     "email": "ram@hiddentao.com"

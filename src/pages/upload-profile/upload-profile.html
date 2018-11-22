@@ -12,10 +12,12 @@
 
 
 <ion-content padding>
-  <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
+  <img src="{{imgPreview}}">
+  <h3 >Please Select Image!</h3>
+  <!--<img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
   <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
-</ion-content>
- 
+</ion-content>-->
+       
 <ion-footer>
       <ion-grid>
         <ion-row>
@@ -25,7 +27,7 @@
             </button>
           </ion-col>
           <ion-col col-6>          
-            <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+            <button ion-button icon-left (click)="uploadImage()" >
               <ion-icon name="cloud-upload"></ion-icon>Upload
             </button>
           </ion-col>

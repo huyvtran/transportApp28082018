@@ -3,9 +3,12 @@
     <button ion-button menuToggle >
       <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
     </button>
-    <ion-title>
+    <ion-title *ngIf='role == 2'>
         Book A Ride
     </ion-title>
+    <ion-title *ngIf='role == 3'>
+       Dashboard
+  </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -36,31 +39,87 @@
       <ion-spinner></ion-spinner>
   </div>
   
-  <ion-card class="card-content">  
+  <ion-card *ngIf='role == 2' class="card-content">  
       <ion-list no-lines>
-        <ion-item>
+        <ion-item (click)="showAddressModal(action.pickup)">
             <ion-icon item-start ios="md-navigate" md="md-navigate"></ion-icon>
             <ion-label stacked>Pickup Location</ion-label>
-            <ion-input (click)="showAddressModal(action.pickup)" [(ngModel)]="address.place" type="text" ></ion-input>
+            <ion-input [(ngModel)]="address.place" type="text" disabled ></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="showAddressModal(action.drop)">
             <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
             <ion-label stacked>Drop Off Location</ion-label>
-            <ion-input (click)="showAddressModal(action.drop)" [(ngModel)]="address.drop_place" type="text"  ></ion-input>
+            <ion-input [(ngModel)]="address.drop_place" type="text" disabled ></ion-input>
         </ion-item>
-        <div #distance id="distance">
-            <ion-input [(ngModel)]="maps.distance" type="hidden"  ></ion-input>
+        <div *ngIf='displaydistance == true' #distance id="distance">
+            <!--<ion-input [(ngModel)]="distance" type="hidden"  ></ion-input>-->
+           {{calculated_distance}}
         </div>
-      </ion-list>
+      </ion-list>   
     </ion-card>
+
+
+    <div *ngIf='role == 3' class="card-content">  
+      <ion-fab top right edge>
+        <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+        <ion-fab-list>
+          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+    </div>
+
+
 </ion-content>
-<div class="last_div">  
+<div *ngIf='role == 2' class="last_div">  
+  <div *ngIf='display_vehicleTypes==1' class="type_btn_div">
+    <ion-grid>
+      <ion-row>   
+        <ion-col col-4>
+          <button class="type_btn" [ngClass]="active === 'economy' ? 'active_payment' : ''" (click)="updateActive('economy')" (click)='selectVehicle(vehicle_types[0].type,cost.economy_cost)'>
+            <img src="assets/imgs/img3.png" />
+            <p>{{vehicle_types[0].type}}</p>
+            <div class="appx_cost">${{cost.economy_cost}} Appx.</div>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="type_btn" [ngClass]="active === 'comfort' ? 'active_payment' : ''" (click)="updateActive('comfort')" (click)='selectVehicle(vehicle_types[1].type,cost.comfort_cost)'>
+            <img src="assets/imgs/img2.png" />
+            <p>{{vehicle_types[1].type}}</p>
+            <div class="appx_cost">${{cost.comfort_cost}} Appx.</div>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="type_btn" [ngClass]="active === 'business' ? 'active_payment' : ''" (click)="updateActive('business')" (click)='selectVehicle(vehicle_types[2].type,cost.business_cost)'>
+            <img src="assets/imgs/img1.png" />
+            <p>{{vehicle_types[2].type}}</p>
+            <div class="appx_cost">${{cost.business_cost}} Appx.</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>   
   <div class="inner_last_div">
     <ion-grid>
       <ion-row>
-        <ion-col col-6 class="ride_now" (click)='rideNow(maps.distance)'><p>Ride Now</p></ion-col>
-        <ion-col col-6 class="ride_later" (click)='rideLater(maps.distance)'><p>Ride Later</p></ion-col>
+        <button col-6 class="ride_now" (click)='rideNow(calculated_distance,vehicle_type)' [disabled]="!isnowenabled"><p>Ride Now</p></button>
+        <button col-6 class="ride_later" (click)='rideLater(calculated_distance,vehicle_type)' [disabled]="!islaterenabled"><p>Ride Later</p></button>
       </ion-row>
     </ion-grid>
   </div>
-</div> 
+</div>
+
+
+<div *ngIf='role == 3' class="last_div">  
+  <div class="inner_last_div">
+    <ion-grid>
+      <ion-row>
+        <button col-12 class="ride_now" (click)='startRide()' *ngIf="isnowenabled == true"><p>Start Ride</p></button>
+        <button col-12 class="ride_now" (click)='finishRide()' *ngIf="endRide == true"><p>End Ride</p></button>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>
+   

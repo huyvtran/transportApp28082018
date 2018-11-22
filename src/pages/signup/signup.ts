@@ -42,8 +42,6 @@ export class SignupPage {
         else{
           this.data.presentToast(result.status);
         }
-        
-
       });
   }
 
@@ -75,7 +73,7 @@ export class SignupPage {
    let loader = this.loading.create({
 
         content :"Please wait...",
-        spinner : 'bubbles'
+        spinner : 'crescent'
     });
 
     loader.present();

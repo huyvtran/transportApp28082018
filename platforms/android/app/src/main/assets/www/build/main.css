@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
 .ion-ios-add:before {
   content: "\f102";
 }
@@ -5527,19 +5528,19 @@ ion-footer {
 }
 
 ion-app.ios {
-  font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 1.4rem;
   background-color: #fff;
 }
 
 ion-app.md {
-  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 1.4rem;
   background-color: #fff;
 }
 
 ion-app.wp {
-  font-family: "Segoe UI", "Noto Sans", sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 1.4rem;
   background-color: #fff;
 }
@@ -25678,8 +25679,34 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+@font-face {
+  .ios, .md {
+    font-family: 'Conv_Lato-Regular';
+    src: url("../../www/assets/Lato-Regular/fonts/Lato-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+.ios body, .md body {
+  font-family: 'Lato', sans-serif;
+}
+
 .ios .toolbar-background, .md .toolbar-background {
-  background: #FFEC19;
+  background: #1A237E;
+}
+
+.ios .toolbar-background button ion-icon, .ios .toolbar-title, .md .toolbar-background button ion-icon, .md .toolbar-title {
+  color: #fff;
+}
+
+.ios .bar-buttons, .md .bar-buttons {
+  color: #fff !important;
+  background-color: transparent;
+}
+
+.ios button.back-button, .md button.back-button {
+  color: #fff !important;
 }
 
 .ios [icon-left] ion-icon, .ios [icon-start] ion-icon, .md [icon-left] ion-icon, .md [icon-start] ion-icon {
@@ -25714,14 +25741,27 @@ ion-navbar.toolbar {
 }
 
 .ios .list_item_icon, .md .list_item_icon {
-  height: 28px;
-  width: 28px;
+  height: 25px;
+  width: 25px;
 }
 
 .ios .list_item_title, .md .list_item_title {
-  padding-top: 7px;
-  font-size: 18px;
+  padding-top: 3px;
+  font-size: 17px;
   letter-spacing: 0.5px;
+}
+
+.ios .sideMenuItem ion-grid, .md .sideMenuItem ion-grid {
+  padding: 0;
+}
+
+.ios .menu-list [col-3], .md .menu-list [col-3] {
+  text-align: center;
+  width: 20% !important;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 22%;
+  -ms-flex: 0 0 22%;
+  flex: 0 0 22%;
 }
 
 .ios .menu-list .item-ios, .ios .md .menu-list .item-ios, .md .menu-list .item-ios, .md .md .menu-list .item-ios {
@@ -25731,6 +25771,96 @@ ion-navbar.toolbar {
 
 .ios .menu-list button .label-ios, .md .menu-list button .label-ios {
   margin: 7px 8px 2px 0;
+}
+
+.ios .menu-list .label-md, .md .menu-list .label-md {
+  margin: 0 8px 0px 0;
+}
+
+.ios .loading-wrapper, .md .loading-wrapper {
+  border-radius: 2px;
+  max-width: inherit;
+  max-height: inherit;
+  color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+  padding: 24px;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  height: 100vh;
+  opacity: 0.8 !important;
+  color: #fff;
+  background: transparent;
+}
+
+.ios .loading-spinner + .loading-content, .md .loading-spinner + .loading-content {
+  /* margin-left: 16px; */
+  top: 200px;
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  width: 33%;
+}
+
+.ios .loading-spinner, .md .loading-spinner {
+  top: 200px;
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  width: 15%;
+}
+
+.ios ion-loading .loading-wrapper, .md ion-loading .loading-wrapper {
+  background: transparent;
+}
+
+.ios ion-loading .loading-wrapper .spinner-crescent circle, .md ion-loading .loading-wrapper .spinner-crescent circle {
+  stroke-width: 8px;
+  stroke: #1A237E;
+}
+
+.ios ion-loading .loading-content, .md ion-loading .loading-content {
+  color: #1A237E;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.ios .picker-prefix, .ios .picker-suffix, .ios .picker-opt.picker-opt-selected, .md .picker-prefix, .md .picker-suffix, .md .picker-opt.picker-opt-selected {
+  color: #fbfbfb;
+  opacity: 1;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.ios .picker-opt, .md .picker-opt {
+  margin: 0;
+  height: 4.3rem;
+  font-size: 22px;
+  line-height: 42px;
+  color: #000;
+  background: transparent;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  pointer-events: auto;
+  padding: 0;
+  color: #fff;
+  opacity: 0.5;
+}
+
+.ios .picker-button, .ios .picker-button.activated, .md .picker-button, .md .picker-button.activated {
+  color: #fff;
+}
+
+.ios .picker-toolbar, .md .picker-toolbar {
+  background: #040c5d !important;
+  border-bottom: 1px solid #454d95;
+}
+
+.ios .picker-columns, .md .picker-columns {
+  background: #040c5d;
 }
 
 .ios page-autocomplete ion-item, .md page-autocomplete ion-item {
@@ -25746,10 +25876,16 @@ ion-navbar.toolbar {
   font-size: 14px !important;
   color: gray;
   letter-spacing: 0.7px;
+  text-transform: capitalize;
 }
 
 .ios page-autocomplete ion-item ion-input, .md page-autocomplete ion-item ion-input {
   border-bottom: 1px solid lightgray;
+}
+
+.ios page-autocomplete ion-item .favLoc_label, .md page-autocomplete ion-item .favLoc_label {
+  display: inline;
+  margin-left: 24px;
 }
 
 .ios page-autocomplete .text-input-ios, .md page-autocomplete .text-input-ios {
@@ -25770,20 +25906,377 @@ ion-navbar.toolbar {
   padding: 5px;
 }
 
+.ios page-autocomplete ion-item.pickup button, .md page-autocomplete ion-item.pickup button {
+  margin-bottom: 0px !important;
+  margin-top: 10px !important;
+  background: transparent;
+}
+
+.ios page-autocomplete ion-item.pickup button ion-icon, .md page-autocomplete ion-item.pickup button ion-icon {
+  -webkit-transform: none;
+  transform: none;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  font-size: 20px !important;
+  color: gray;
+}
+
+.ios page-autocomplete ion-item.drop button, .md page-autocomplete ion-item.drop button {
+  margin-bottom: 0px !important;
+  margin-top: 10px !important;
+  background: transparent;
+}
+
+.ios page-autocomplete ion-item.drop button ion-icon, .md page-autocomplete ion-item.drop button ion-icon {
+  -webkit-transform: none;
+  transform: none;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  font-size: 20px !important;
+  color: gray;
+}
+
 .ios page-autocomplete .close, .md page-autocomplete .close {
   font-size: 18px;
   padding: 10px;
   padding-bottom: 0;
 }
 
-.ios page-customer-profile .item-ios ion-avatar img, .md page-customer-profile .item-ios ion-avatar img {
+.ios page-booking-list .segment-md .segment-button, .md page-booking-list .segment-md .segment-button {
+  border: none;
+  background: #eee;
+  border-radius: 100px;
+  margin: 0 12px;
+}
+
+.ios page-booking-list .segment-md .segment-button.activated, .ios page-booking-list .segment-md .segment-button.segment-activated, .md page-booking-list .segment-md .segment-button.activated, .md page-booking-list .segment-md .segment-button.segment-activated {
+  background: #488aff;
+  color: #fff;
+}
+
+.ios page-booking-list ion-card, .md page-booking-list ion-card {
+  padding: 15px;
+  width: 100%;
+  margin: 0;
+}
+
+.ios page-booking-list .action_icon, .md page-booking-list .action_icon {
+  background: #488afffa;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 50%;
+}
+
+.ios page-booking-list .pending_list ion-row, .md page-booking-list .pending_list ion-row {
+  padding: 5px;
+  border-bottom: 1px solid #dddbdb;
+}
+
+.ios page-bookinghistory ion-content, .md page-bookinghistory ion-content {
+  background-color: #f7f7f7 !important;
+}
+
+.ios page-bookinghistory ion-card, .md page-bookinghistory ion-card {
+  position: relative;
+  overflow: visible !important;
+  margin: 30px 12px !important;
+}
+
+.ios page-bookinghistory ion-card .price, .md page-bookinghistory ion-card .price {
+  float: right;
+  padding: 10px 15px;
+  font-weight: 600;
+}
+
+.ios page-bookinghistory ion-card .abs_div, .md page-bookinghistory ion-card .abs_div {
+  height: 50px;
+  width: 120px;
+  background-color: #08138085;
+  margin-left: 20px;
+  position: absolute;
+  top: -19px;
+  z-index: 999;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.ios page-bookinghistory ion-card .abs_div span, .md page-bookinghistory ion-card .abs_div span {
+  color: white;
+}
+
+.ios page-bookinghistory ion-item ion-icon, .md page-bookinghistory ion-item ion-icon {
+  font-size: 20px;
+}
+
+.ios page-bookinghistory ion-item span, .md page-bookinghistory ion-item span {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.ios page-bookinghistory ion-item .src_pin, .md page-bookinghistory ion-item .src_pin {
+  color: #d40000;
+}
+
+.ios page-bookinghistory ion-item .dest_pin, .md page-bookinghistory ion-item .dest_pin {
+  color: #065f06;
+}
+
+.ios page-bookinghistory ion-item:last-child, .md page-bookinghistory ion-item:last-child {
+  padding-bottom: 10px;
+}
+
+.ios page-bookinghistory .last_div, .md page-bookinghistory .last_div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.ios page-bookinghistory .inner_last_div, .md page-bookinghistory .inner_last_div {
+  text-align: center;
+  background: #1A237E;
+  font-weight: 500;
+  padding: 7px 0 !important;
+}
+
+.ios page-bookinghistory .inner_last_div p, .md page-bookinghistory .inner_last_div p {
+  margin: 0;
+  padding: 15px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.ios page-bookinghistory .inner_last_div ion-grid.grid, .md page-bookinghistory .inner_last_div ion-grid.grid {
+  padding: 0;
+}
+
+.ios page-bookinghistory a.tab-item, .md page-bookinghistory a.tab-item {
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-bookinghistory .toptabs a.toptab_item.active, .md page-bookinghistory .toptabs a.toptab_item.active {
+  background: #7e84bd33 !important;
+  color: #1a237e !important;
+  border-bottom: 2px solid #1a237e;
+}
+
+.ios page-bookinghistory .toptabs a.toptab_item, .md page-bookinghistory .toptabs a.toptab_item {
+  color: #1a237e;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  display: block;
+  padding: 8px;
+  border-bottom: 2px solid #f7f7f7;
+}
+
+.ios page-bookinghistory .toptabs ion-col.col, .md page-bookinghistory .toptabs ion-col.col {
+  padding: 0;
+}
+
+.ios page-bookinghistory .toptabs ion-row.row, .md page-bookinghistory .toptabs ion-row.row {
+  padding: 0;
+}
+
+.ios page-bookinghistory .toptabs ion-grid.grid, .md page-bookinghistory .toptabs ion-grid.grid {
+  padding: 0;
+}
+
+.ios page-bookinghistory .toptabs, .md page-bookinghistory .toptabs {
+  text-align: center;
+  border-bottom: 1px solid #d8d7d7;
+}
+
+.ios page-bookinghistory .nulldiv, .md page-bookinghistory .nulldiv {
+  text-align: center;
+  margin-top: 150px;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+}
+
+.ios page-bookinghistory .r_star, .md page-bookinghistory .r_star {
+  color: #ead704;
+}
+
+.ios page-bookinghistory .n_start, .md page-bookinghistory .n_start {
+  color: #a09d9d;
+}
+
+.ios page-bookinghistory .not_rated_item span, .md page-bookinghistory .not_rated_item span {
+  font-size: 12px;
+  color: #1455ec;
+  letter-spacing: 0.7px;
+  float: right;
+  margin-right: 20px;
+  margin-top: 2px;
+}
+
+.ios page-bookinghistory .not_rated_item ion-label, .md page-bookinghistory .not_rated_item ion-label {
+  margin: 0;
+  padding: 12px 2px 12px 20px;
+  background: #eee;
+}
+
+.ios page-bookinghistory .not_rated_item .item-inner, .md page-bookinghistory .not_rated_item .item-inner {
+  padding: 0 !important;
+}
+
+.ios page-bookinghistory .not_rated_item, .md page-bookinghistory .not_rated_item {
+  padding: 0 !important;
+}
+
+.ios page-confirm-payment ion-content, .md page-confirm-payment ion-content {
+  margin: 40px 0;
+}
+
+.ios page-confirm-payment .signoutcontentdiv, .md page-confirm-payment .signoutcontentdiv {
+  padding: 12px;
+  border-bottom: 2px solid #c2c2c2;
+}
+
+.ios page-confirm-payment .signoutimgdiv, .md page-confirm-payment .signoutimgdiv {
+  text-align: center;
+}
+
+.ios page-confirm-payment .signoutimgdiv .live_trak, .md page-confirm-payment .signoutimgdiv .live_trak {
+  height: 200px;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 25px #eee;
+  box-shadow: 0px 0px 25px #eee;
+  border-radius: 50%;
+  margin: 40px auto;
+}
+
+.ios page-confirm-payment .signoutcontentdiv, .md page-confirm-payment .signoutcontentdiv {
+  padding: 12px;
+  border-bottom: 2px solid #c2c2c2;
+}
+
+.ios page-confirm-payment .signoutcontentdiv h1, .md page-confirm-payment .signoutcontentdiv h1 {
+  font-size: 26px;
+  letter-spacing: 0.7px;
+  color: #1a237e;
+}
+
+.ios page-confirm-payment button.login-btn, .md page-confirm-payment button.login-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 25px 18px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 15px !important;
+  border-radius: 5px;
+  width: 100%;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 0;
+}
+
+.ios page-confirm-payment .driver_status, .md page-confirm-payment .driver_status {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  float: right;
+  border: 1px solid #a2a19d;
+}
+
+.ios page-confirm-payment .bg_reject, .md page-confirm-payment .bg_reject {
+  background: #ff1515;
+}
+
+.ios page-confirm-payment .bg_accept, .md page-confirm-payment .bg_accept {
+  background: #60d206;
+}
+
+.ios page-confirm-payment .trak_image, .md page-confirm-payment .trak_image {
+  display: block;
+}
+
+.ios page-confirm-payment .no_trak_image, .md page-confirm-payment .no_trak_image {
+  display: none;
+}
+
+.ios page-confirm-payment .trak_div, .md page-confirm-payment .trak_div {
+  display: block;
+}
+
+.ios page-confirm-payment .no_trak_div, .md page-confirm-payment .no_trak_div {
+  display: none;
+}
+
+.ios page-confirm-payment #map, .md page-confirm-payment #map {
+  position: relative;
+  height: 175px;
+  overflow: hidden;
+  height: 240px;
+  padding: 20px;
+  margin: -40px -20px;
+}
+
+.ios page-confirm-payment div#distance, .md page-confirm-payment div#distance {
+  padding: 0px 14px;
+  position: absolute;
+  left: 38%;
+  color: #504b4b;
+  z-index: 10000000 !important;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+  top: -1px;
+  letter-spacing: 1px;
+}
+
+.ios page-customer-profile, .md page-customer-profile {
+  /*.social_icons{
+            width: 50%;
+            margin: 0 auto;
+            display: block;
+            padding: 10px;
+        }
+        
+        ion-icon {
+            display: inline-block;
+            font-size: 26px;
+            padding: 5px;
+        }
+       
+        .google{
+            color: #f42c2c;
+        }
+           
+        .facebook{
+           color: #4a81f1;
+        }
+        
+        .twitter{
+            color: #42c5fe;
+        }
+           
+        .instagram{
+            color: #c32aa3;
+        }*/
+}
+
+.ios page-customer-profile ion-avatar img, .md page-customer-profile ion-avatar img {
   width: 80px !important;
   height: 80px !important;
   -webkit-box-shadow: 0px 0px 6px 5px #f5f3f3;
   box-shadow: 0px 0px 6px 5px #f5f3f3;
 }
 
-.ios page-customer-profile .card-ios, .md page-customer-profile .card-ios {
+.ios page-customer-profile .item-md ion-avatar img, .md page-customer-profile .item-md ion-avatar img {
+  height: 74px !important;
+}
+
+.ios page-customer-profile .card, .md page-customer-profile .card {
   margin: 9px;
   border-radius: 5px;
   width: calc(100% - 20px);
@@ -25791,6 +26284,10 @@ ion-navbar.toolbar {
   background: #fff;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 1px 1px 1px rgba(195, 195, 195, 0.3);
+}
+
+.ios page-customer-profile .profile_edit_list, .md page-customer-profile .profile_edit_list {
+  padding: 0;
 }
 
 .ios page-customer-profile .profile_name, .md page-customer-profile .profile_name {
@@ -25809,10 +26306,11 @@ ion-navbar.toolbar {
 .ios page-customer-profile .profile_edit_icon_main, .md page-customer-profile .profile_edit_icon_main {
   display: inline-block;
   font-size: 1em;
-  padding: 15px;
+  padding: 10px;
   background: #efebeb;
   border-radius: 50%;
-  margin-top: 16px;
+  margin-top: 55px;
+  margin-left: 10px;
   -webkit-box-shadow: 0px 0px 0px 3px #f5f3f3;
   box-shadow: 0px 0px 0px 3px #f5f3f3;
 }
@@ -25829,12 +26327,13 @@ ion-navbar.toolbar {
 }
 
 .ios page-customer-profile .lock-icon, .md page-customer-profile .lock-icon {
-  background: #FFEC19;
+  background: #1A237E;
   padding: 20px 25px;
   font-size: 30px;
+  color: #fff;
 }
 
-.ios page-customer-profile .change_pass_btn .label-ios, .md page-customer-profile .change_pass_btn .label-ios {
+.ios page-customer-profile .change_pass_btn .label, .md page-customer-profile .change_pass_btn .label {
   margin: 0px 8px 0px 0 !important;
 }
 
@@ -25867,11 +26366,11 @@ ion-navbar.toolbar {
   letter-spacing: 0.7px;
 }
 
-.ios page-customer-profile .Saved_places_card ion-card-content.card-content.card-content-ios, .md page-customer-profile .Saved_places_card ion-card-content.card-content.card-content-ios {
+.ios page-customer-profile .Saved_places_card ion-card-content.card-content.card-content, .md page-customer-profile .Saved_places_card ion-card-content.card-content.card-content {
   font-size: 16px;
 }
 
-.ios page-customer-profile .Saved_places_card ion-card-header.card-header.card-header-ios, .md page-customer-profile .Saved_places_card ion-card-header.card-header.card-header-ios {
+.ios page-customer-profile .Saved_places_card ion-card-header.card-header.card-header, .md page-customer-profile .Saved_places_card ion-card-header.card-header.card-header {
   font-size: 20px;
   padding-bottom: 10px;
 }
@@ -25885,7 +26384,7 @@ ion-navbar.toolbar {
 
 .ios page-customer-profile .inner_last_div, .md page-customer-profile .inner_last_div {
   text-align: center;
-  background: #FFEC19;
+  background: #1A237E;
   font-weight: 500;
   padding: 12px;
 }
@@ -25893,10 +26392,284 @@ ion-navbar.toolbar {
 .ios page-customer-profile .inner_last_div p, .md page-customer-profile .inner_last_div p {
   margin: 0;
   font-size: 18px !important;
+  color: #fff;
 }
 
-.ios page-customer-profile .inner_last_div p ion-icon.icon.icon-ios.ion-ios-power, .md page-customer-profile .inner_last_div p ion-icon.icon.icon-ios.ion-ios-power {
+.ios page-customer-profile .inner_last_div p ion-icon.icon, .md page-customer-profile .inner_last_div p ion-icon.icon {
   margin: 0px 6px;
+}
+
+.ios page-customer-profile .profile_edit_list .item-inner, .md page-customer-profile .profile_edit_list .item-inner {
+  padding: 0px !important;
+}
+
+.ios page-customer-profile .profile_edit_list ion-grid, .md page-customer-profile .profile_edit_list ion-grid {
+  padding: 0px !important;
+}
+
+.ios page-customer-profile .vehicle_details h3, .md page-customer-profile .vehicle_details h3 {
+  width: 50%;
+  float: left;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #8c8787;
+  display: block;
+}
+
+.ios page-customer-profile .vehicle_details span, .md page-customer-profile .vehicle_details span {
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #685959;
+  display: block;
+}
+
+.ios page-customer-profile .vehicle_details_header ion-card-header, .md page-customer-profile .vehicle_details_header ion-card-header {
+  font-size: 18px;
+  color: #695e5e;
+  background: #eee;
+}
+
+.ios page-customer-profile .vehicle_details, .md page-customer-profile .vehicle_details {
+  padding-top: 15px !important;
+}
+
+.ios page-customer-profile .social_icons ion-item, .md page-customer-profile .social_icons ion-item {
+  padding: 0;
+  padding-bottom: 12px;
+  color: #5f5656;
+  margin-left: 11%;
+  border-bottom: 1px solid #b4aeae !important;
+  width: 78%;
+}
+
+.ios page-customer-profile .social_icons span.add_social_link, .md page-customer-profile .social_icons span.add_social_link {
+  font-size: 16px;
+  margin-left: 10px;
+  top: 25px;
+  position: absolute;
+  letter-spacing: 0.5px;
+}
+
+.ios page-delivery .toolbar-title, .md page-delivery .toolbar-title {
+  letter-spacing: 0.7px;
+}
+
+.ios page-delivery .toolbar-background, .ios page-delivery .toolbar-background, .md page-delivery .toolbar-background, .md page-delivery .toolbar-background {
+  background: #1A237E;
+}
+
+.ios page-delivery .last_div, .md page-delivery .last_div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.ios page-delivery .inner_last_div, .md page-delivery .inner_last_div {
+  text-align: center;
+  background: #1A237E;
+  font-weight: 500;
+}
+
+.ios page-delivery .inner_last_div p, .md page-delivery .inner_last_div p {
+  margin: 0;
+}
+
+.ios page-delivery .inner_last_div ion-grid.grid, .md page-delivery .inner_last_div ion-grid.grid {
+  padding: 0;
+}
+
+.ios page-delivery .ride_now, .md page-delivery .ride_now {
+  border-right: 1px solid #babec3;
+}
+
+.ios page-delivery .ride_now, .ios page-delivery .ride_later, .md page-delivery .ride_now, .md page-delivery .ride_later {
+  padding: 15px;
+  letter-spacing: 0.7px;
+}
+
+.ios page-delivery ion-card, .md page-delivery ion-card {
+  border-radius: 8px !important;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ios page-delivery ion-item, .md page-delivery ion-item {
+  padding-bottom: 15px !important;
+}
+
+.ios page-delivery ion-item ion-icon, .md page-delivery ion-item ion-icon {
+  font-size: 2.2rem !important;
+  color: #278DF8;
+}
+
+.ios page-delivery ion-item ion-label, .md page-delivery ion-item ion-label {
+  font-size: 14px !important;
+  color: gray;
+  letter-spacing: 0.7px;
+}
+
+.ios page-delivery ion-item ion-input, .md page-delivery ion-item ion-input {
+  border-bottom: 1px solid lightgray;
+}
+
+.ios page-delivery .text-input-ios, .md page-delivery .text-input-ios {
+  margin: 0 !important;
+  padding: 4px !important;
+  font-size: 18px !important;
+}
+
+.ios page-delivery .text-input-md, .md page-delivery .text-input-md {
+  margin: 0 !important;
+  padding: 4px !important;
+  font-size: small !important;
+}
+
+.ios page-delivery ion-item:first-child ion-icon, .md page-delivery ion-item:first-child ion-icon {
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+  padding: 5px;
+}
+
+.ios page-delivery #map, .md page-delivery #map {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  bottom: 0px;
+  top: 0px;
+}
+
+.ios page-delivery #please-connect, .md page-delivery #please-connect {
+  position: absolute;
+  background-color: #000;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.ios page-delivery #please-connect p, .md page-delivery #please-connect p {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  font-size: 1.6em;
+  top: 30%;
+}
+
+.ios page-delivery .scroll-content, .md page-delivery .scroll-content {
+  overflow: hidden;
+}
+
+.ios page-delivery .directionsPanel, .md page-delivery .directionsPanel {
+  margin: 0 !important;
+  height: 0;
+}
+
+.ios page-delivery .item-md ion-icon[item-start] + .item-inner, .md page-delivery .item-md ion-icon[item-start] + .item-inner {
+  margin-left: 6px !important;
+}
+
+.ios page-delivery div#distance, .md page-delivery div#distance {
+  background: #2b8ff8;
+  padding: 12px;
+  position: absolute;
+  left: 38%;
+  color: #fff;
+  z-index: 10000000 !important;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.ios page-delivery button.type_btn, .md page-delivery button.type_btn {
+  border-radius: 10px;
+  background: #eeeeeed6;
+  -webkit-box-shadow: 0px 0px 5px #b8b1b1;
+  box-shadow: 0px 0px 5px #b8b1b1;
+}
+
+.ios page-delivery .type_btn_div p, .md page-delivery .type_btn_div p {
+  margin: 0;
+  padding: 5px;
+  font-size: 16px;
+  letter-spacing: 0.7px;
+  color: #6e6464;
+}
+
+.ios page-delivery .type_btn_div, .md page-delivery .type_btn_div {
+  background: #fff;
+}
+
+.ios page-delivery .appx_cost, .md page-delivery .appx_cost {
+  font-size: 12px;
+  background: #fff;
+  padding: 3px;
+  border-radius: 10px;
+  color: #2b8ff8;
+  letter-spacing: 0.5px;
+}
+
+.ios page-delivery .type_btn img, .md page-delivery .type_btn img {
+  max-width: 80%;
+}
+
+.ios page-delivery .ios page-home button.type_btn:active, .ios page-delivery .md page-home button.type_btn:active, .md page-delivery .ios page-home button.type_btn:active, .md page-delivery .md page-home button.type_btn:active {
+  background: #000 !important;
+}
+
+.ios page-delivery .info_avtar, .md page-delivery .info_avtar {
+  height: 50px;
+  width: 50px !important;
+}
+
+.ios page-delivery .info_info, .md page-delivery .info_info {
+  padding: 0px 8px;
+  float: left;
+}
+
+.ios page-delivery .info_info h6, .md page-delivery .info_info h6 {
+  margin: 0;
+}
+
+.ios page-delivery .info_info p, .md page-delivery .info_info p {
+  margin: 5px 0;
+}
+
+.ios page-delivery .rating_p, .md page-delivery .rating_p {
+  margin: 5px 0;
+  /* margin: 0 !important; */
+  font-size: 13px;
+  float: left;
+}
+
+.ios page-delivery .arrival_p, .md page-delivery .arrival_p {
+  font-size: 13px;
+  float: right;
+  margin-left: 15px !important;
+}
+
+.ios page-delivery .active_payment, .md page-delivery .active_payment {
+  background: #f0fbfc !important;
+  border: 2px solid #ccf3f8;
+}
+
+.ios page-driversetting ion-item, .md page-driversetting ion-item {
+  padding: 18px !important;
+  border-bottom: 1px solid #eee !important;
+  -webkit-box-shadow: 0px 1px #eee;
+  box-shadow: 0px 1px #eee;
+}
+
+.ios page-driversetting .item-inner, .md page-driversetting .item-inner {
+  border: none !important;
+}
+
+.ios page-driversetting ion-label, .md page-driversetting ion-label {
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  color: #615656;
+  border: 0;
 }
 
 .ios page-edit-profile .list-ios > .item-block:first-child, .md page-edit-profile .list-ios > .item-block:first-child {
@@ -25917,20 +26690,376 @@ ion-navbar.toolbar {
 }
 
 .ios page-edit-profile button.profile-btn, .md page-edit-profile button.profile-btn {
-  width: auto;
+  width: 100%;
   padding: 25px 30px !important;
   margin: 15px auto;
   font-size: 20px !important;
-  background-color: #ffec19;
-  color: #000;
+  background: #1A237E;
+  color: #fff;
   font-weight: 500;
-  -webkit-box-shadow: 1px 2px #e2d10a;
-  box-shadow: 1px 2px #e2d10a;
+  -webkit-box-shadow: 1px 2px #1A237E;
+  box-shadow: 1px 2px #1A237E;
 }
 
 .ios page-edit-profile form.profile_form, .md page-edit-profile form.profile_form {
   margin-top: 9px;
   padding: 10px;
+}
+
+.ios page-emailverification, .md page-emailverification {
+  /* ion-content.content.content-ios{
+            background: url(../../assets/imgs/verify_email_attachment.jpg);
+            background-position: top;
+            background-size: cover;
+            background-position-x: 0px;
+        }*/
+}
+
+.ios page-emailverification .emptydiv, .md page-emailverification .emptydiv {
+  height: 150px;
+}
+
+.ios page-emailverification .emptydiv img, .md page-emailverification .emptydiv img {
+  width: 85px;
+  padding-top: 20px;
+}
+
+.ios page-emailverification h2, .md page-emailverification h2 {
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  margin: 40px 0px;
+}
+
+.ios page-emailverification p, .md page-emailverification p {
+  font-size: 18px;
+  padding: 5px 20px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-emailverification button.login-btn, .md page-emailverification button.login-btn {
+  background: #1A237E;
+  color: #000;
+  padding: 28px 28px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 40px !important;
+  border-radius: 5px;
+  width: auto;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.ios page-emailverification .contentdiv, .md page-emailverification .contentdiv {
+  padding: 15px;
+  padding-top: 30px;
+}
+
+.ios page-emailverification .toolbar-background, .md page-emailverification .toolbar-background {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ios page-feedback input[type="email"], .md page-feedback input[type="email"] {
+  width: 85%;
+  padding: 17px;
+  background: #eeeeeeb5;
+  margin: 10px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.ios page-feedback h2, .md page-feedback h2 {
+  font-size: 26px;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  background: #0000007d;
+  color: #fff;
+  margin: 15px 0;
+}
+
+.ios page-feedback p, .md page-feedback p {
+  font-size: 16px;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  letter-spacing: 0.4px;
+  font-style: italic;
+}
+
+.ios page-feedback img, .md page-feedback img {
+  margin-top: 25px;
+  height: 225px;
+}
+
+.ios page-feedback button.login-btn, .md page-feedback button.login-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 28px 40px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 20px !important;
+  border-radius: 5px;
+  width: auto;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.ios page-feedback .error, .md page-feedback .error {
+  text-align: center;
+  color: red;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-feedback ion-textarea, .md page-feedback ion-textarea {
+  border: 1px solid #eee;
+  margin: 0px auto;
+  width: 80%;
+  -webkit-box-shadow: 0px 0px 2px #bcbaba;
+  box-shadow: 0px 0px 2px #bcbaba;
+}
+
+.ios page-feedback ul, .md page-feedback ul {
+  padding: 0px;
+}
+
+.ios page-feedback ul.rating li, .md page-feedback ul.rating li {
+  padding: 5px 10px !important;
+  background: none;
+  color: #ffb400;
+}
+
+.ios page-feedback ul.rating li ion-icon, .md page-feedback ul.rating li ion-icon {
+  font-size: 30px;
+}
+
+.ios page-feedback button.fav_driver, .md page-feedback button.fav_driver {
+  float: right;
+  padding: 8px;
+  background: #1A237E;
+  color: #fff;
+  letter-spacing: 0.5px;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+.ios page-feedback .forgetPass-img ion-label, .md page-feedback .forgetPass-img ion-label {
+  margin: 0;
+}
+
+.ios page-feedback .forgetPass-img .item-inner, .md page-feedback .forgetPass-img .item-inner {
+  border: none !important;
+  padding-right: 6px !important;
+}
+
+.ios page-feedback .forgetPass-img ion-item, .md page-feedback .forgetPass-img ion-item {
+  position: absolute;
+  top: 0;
+  background: transparent;
+}
+
+.ios page-forgotpasswoed .toolbar-background, .md page-forgotpasswoed .toolbar-background {
+  background: #fff;
+}
+
+.ios page-forgotpasswoed input[type="email"], .md page-forgotpasswoed input[type="email"] {
+  width: 85%;
+  padding: 17px;
+  background: #eeeeeeb5;
+  margin: 10px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.ios page-forgotpasswoed h2, .md page-forgotpasswoed h2 {
+  font-size: 26px;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.ios page-forgotpasswoed p, .md page-forgotpasswoed p {
+  font-size: 16px;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-forgotpasswoed img, .md page-forgotpasswoed img {
+  margin-top: 25px;
+}
+
+.ios page-forgotpasswoed button.login-btn, .md page-forgotpasswoed button.login-btn {
+  background: #1A237E;
+  color: #000;
+  padding: 28px 40px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 20px !important;
+  border-radius: 5px;
+  width: auto;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.ios page-forgotpasswoed .error, .md page-forgotpasswoed .error {
+  text-align: center;
+  color: red;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-help, .md page-help {
+  /*ion-content{
+            background-color: #f5f5f5fa;
+        }
+
+        .first-row{
+            padding: 10px 10px 0px;
+        }    
+
+        [col-1]{
+            text-align: center;
+            font-size: 24px;
+
+            ion-icon{
+                font-weight: 600;
+            }
+        }
+
+        [col-11]{
+            span{
+                font-size: 20px;
+            }
+
+            p{
+                font-size: 16px;
+                padding: 0px 10px 10px;
+            }
+        }*/
+}
+
+.ios page-help ion-item, .md page-help ion-item {
+  padding: 0;
+}
+
+.ios page-help .answers, .md page-help .answers {
+  padding-left: 20px !important;
+}
+
+.ios page-help .last_div, .md page-help .last_div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.ios page-help .inner_last_div, .md page-help .inner_last_div {
+  text-align: center;
+  background: #1A237E;
+  font-weight: 500;
+  padding: 7px 0 !important;
+}
+
+.ios page-help .inner_last_div p, .md page-help .inner_last_div p {
+  margin: 0;
+  padding: 15px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.ios page-help .inner_last_div ion-grid.grid, .md page-help .inner_last_div ion-grid.grid {
+  padding: 0;
+}
+
+.ios page-help button.questions ion-label, .md page-help button.questions ion-label {
+  font-size: 20px !important;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: #868581;
+}
+
+.ios page-help ion-item.answers ion-label, .md page-help ion-item.answers ion-label {
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: #868581;
+}
+
+.ios page-help ion-card, .md page-help ion-card {
+  border-radius: 10px;
+}
+
+.ios page-help ion-label.label, .md page-help ion-label.label {
+  margin: 0;
+}
+
+.ios page-help ion-tabs, .md page-help ion-tabs {
+  margin: 0;
+  padding: 15px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  z-index: 100 !important;
+  position: relative;
+}
+
+.ios page-help a.tab-item, .md page-help a.tab-item {
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-help .searchbar-input, .md page-help .searchbar-input {
+  padding: 15px 48px !important;
+  font-size: 1.6rem !important;
+}
+
+.ios page-help .searchbar-ios, .md page-help .searchbar-ios {
+  padding: 4px 5px;
+  border-radius: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+.ios page-help .searchbar-search-icon, .md page-help .searchbar-search-icon {
+  top: 10px !important;
+  margin-top: 10px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: 22px;
+}
+
+.ios page-help button.suggestion-btn, .md page-help button.suggestion-btn {
+  width: 100%;
+  padding: 25px 30px !important;
+  margin: 40px auto;
+  font-size: 20px !important;
+  background: #1A237E;
+  color: #fff;
+  font-weight: 500;
+  -webkit-box-shadow: 1px 2px #1A237E;
+  box-shadow: 1px 2px #1A237E;
+}
+
+.ios page-help ion-textarea, .md page-help ion-textarea {
+  min-height: 200px;
+  font-size: 20px;
+  padding: 10px 18px;
+}
+
+.ios page-help h2.suggestion_title, .md page-help h2.suggestion_title {
+  padding: 20px;
+  text-align: center;
+  font-style: oblique;
+  letter-spacing: 1px;
+  color: #4CAF50;
+}
+
+.ios page-help .card, .md page-help .card {
+  -webkit-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 .ios page-home, .md page-home {
@@ -25944,12 +27073,8 @@ ion-navbar.toolbar {
         }*/
 }
 
-.ios page-home .toolbar-background-ios, .md page-home .toolbar-background-ios {
-  background: #FFEC19;
-}
-
-.ios page-home .toolbar-background-md, .md page-home .toolbar-background-md {
-  background: #FFEC19;
+.ios page-home .toolbar-title, .md page-home .toolbar-title {
+  letter-spacing: 0.7px;
 }
 
 .ios page-home .last_div, .md page-home .last_div {
@@ -25961,16 +27086,40 @@ ion-navbar.toolbar {
 
 .ios page-home .inner_last_div, .md page-home .inner_last_div {
   text-align: center;
-  background: #FFEC19;
+  background: #1A237E;
   font-weight: 500;
 }
 
 .ios page-home .inner_last_div p, .md page-home .inner_last_div p {
   margin: 0;
+  color: #fff;
+}
+
+.ios page-home .inner_last_div button, .md page-home .inner_last_div button {
+  background: #1A237E;
 }
 
 .ios page-home .inner_last_div ion-grid.grid, .md page-home .inner_last_div ion-grid.grid {
   padding: 0;
+}
+
+.ios page-home ion-spinner, .md page-home ion-spinner {
+  position: relative;
+  /* display: inline-block; */
+  width: 50px;
+  height: 50px;
+  top: 230px;
+  margin: 0 auto;
+  display: block;
+}
+
+.ios page-home .loading-content, .md page-home .loading-content {
+  top: 200px !important;
+  position: relative !important;
+  margin: 0 auto !important;
+  display: block !important;
+  width: 45% !important;
+  color: #fff !important;
 }
 
 .ios page-home .ride_now, .md page-home .ride_now {
@@ -25979,6 +27128,7 @@ ion-navbar.toolbar {
 
 .ios page-home .ride_now, .ios page-home .ride_later, .md page-home .ride_now, .md page-home .ride_later {
   padding: 15px;
+  letter-spacing: 0.7px;
 }
 
 .ios page-home ion-card, .md page-home ion-card {
@@ -26059,8 +27209,409 @@ ion-navbar.toolbar {
   height: 0;
 }
 
+.ios page-home .item-md ion-icon[item-start] + .item-inner, .md page-home .item-md ion-icon[item-start] + .item-inner {
+  margin-left: 6px !important;
+}
+
+.ios page-home div#distance, .md page-home div#distance {
+  background: #2b8ff8;
+  padding: 12px;
+  position: absolute;
+  left: 38%;
+  color: #fff;
+  z-index: 10000000 !important;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.ios page-home button.type_btn, .md page-home button.type_btn {
+  border-radius: 10px;
+  background: #eeeeeed6;
+  -webkit-box-shadow: 0px 0px 5px #b8b1b1;
+  box-shadow: 0px 0px 5px #b8b1b1;
+}
+
+.ios page-home .type_btn_div p, .md page-home .type_btn_div p {
+  margin: 0;
+  padding: 5px;
+  font-size: 16px;
+  letter-spacing: 0.7px;
+  color: #6e6464;
+}
+
+.ios page-home .type_btn_div, .md page-home .type_btn_div {
+  background: #fff;
+}
+
+.ios page-home .appx_cost, .md page-home .appx_cost {
+  font-size: 12px;
+  background: #fff;
+  padding: 3px;
+  border-radius: 10px;
+  color: #2b8ff8;
+  letter-spacing: 0.5px;
+}
+
+.ios page-home .type_btn img, .md page-home .type_btn img {
+  max-width: 80%;
+}
+
+.ios page-home .ios page-home button.type_btn:active, .ios page-home .md page-home button.type_btn:active, .md page-home .ios page-home button.type_btn:active, .md page-home .md page-home button.type_btn:active {
+  background: #000 !important;
+}
+
+.ios page-home .info_avtar, .md page-home .info_avtar {
+  height: 50px;
+  width: 50px !important;
+}
+
+.ios page-home .info_info, .md page-home .info_info {
+  padding: 0px 8px;
+  float: left;
+}
+
+.ios page-home .info_info h6, .md page-home .info_info h6 {
+  margin: 0;
+}
+
+.ios page-home .info_info p, .md page-home .info_info p {
+  margin: 5px 0;
+}
+
+.ios page-home .rating_p, .md page-home .rating_p {
+  margin: 5px 0;
+  /* margin: 0 !important; */
+  font-size: 13px;
+  float: left;
+}
+
+.ios page-home .arrival_p, .md page-home .arrival_p {
+  font-size: 13px;
+  float: right;
+  margin-left: 15px !important;
+}
+
+.ios page-home .active_payment, .md page-home .active_payment {
+  background: #f0fbfc !important;
+  border: 2px solid #ccf3f8;
+}
+
+.ios page-home .item-md, .md page-home .item-md {
+  padding-top: 5px;
+}
+
+.ios page-intro .scroll-content, .md page-intro .scroll-content {
+  overflow-y: hidden;
+}
+
+.ios page-intro ion-slide, .md page-intro ion-slide {
+  background-color: #66aefb;
+}
+
+.ios page-intro .slider-1-content, .md page-intro .slider-1-content {
+  color: #fff;
+  font-weight: 500;
+}
+
+.ios page-intro .slider-1-content h2, .md page-intro .slider-1-content h2 {
+  font-size: 32px;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  margin-top: 40px;
+}
+
+.ios page-intro .slider-1-content p, .md page-intro .slider-1-content p {
+  letter-spacing: 1px;
+  padding: 5px 22px;
+}
+
+.ios page-intro .slider-1-img img, .ios page-intro .slider-2-img img, .ios page-intro .slider-3-img img, .md page-intro .slider-1-img img, .md page-intro .slider-2-img img, .md page-intro .slider-3-img img {
+  width: 85px;
+}
+
+.ios page-intro .nxtbtn, .md page-intro .nxtbtn {
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 8px 20px;
+  padding: 15px;
+  border-radius: 22px;
+}
+
+.ios page-intro ion-footer.footer, .md page-intro ion-footer.footer {
+  border-top: 1px solid #ffffff87;
+  background: #66aefb;
+}
+
+.ios page-intro ion-footer button, .md page-intro ion-footer button {
+  color: #fff;
+  font-weight: 500;
+  padding: 8px !important;
+  font-size: 16px;
+}
+
+.ios page-intro .arrow-back, .md page-intro .arrow-back {
+  float: left !important;
+}
+
+.ios page-intro .arrow-forward, .md page-intro .arrow-forward {
+  float: right !important;
+}
+
+.ios page-intro .swiper-pagination-bullet-active, .md page-intro .swiper-pagination-bullet-active {
+  background: #fff;
+}
+
 page-map #map {
   height: 100%;
+}
+
+.ios page-modalpage .profile_header p, .md page-modalpage .profile_header p {
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-style: italic;
+  color: #f0b812;
+}
+
+.ios page-modalpage .profile_header h3, .md page-modalpage .profile_header h3 {
+  font-size: 24px;
+  padding: 5px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: #2196F3;
+  border-bottom: 2px solid;
+}
+
+.ios page-modalpage .vehicle_imgDiv, .md page-modalpage .vehicle_imgDiv {
+  background: #c65c44;
+  padding: 25px 12px;
+  border-radius: 50%;
+}
+
+.ios page-modalpage .personalInfoDiv, .md page-modalpage .personalInfoDiv {
+  padding: 20px 15px;
+}
+
+.ios page-modalpage .personalInfoDiv h4, .md page-modalpage .personalInfoDiv h4 {
+  font-size: 24px;
+  color: #615959;
+  padding: 5px;
+}
+
+.ios page-modalpage .Info_title, .md page-modalpage .Info_title {
+  font-size: 18px;
+  float: left;
+  padding: 5px;
+  color: #4f4949;
+}
+
+.ios page-modalpage .Info_desc, .md page-modalpage .Info_desc {
+  padding: 5px;
+  font-size: 18px;
+  float: right !important;
+  color: #4f4949;
+}
+
+.ios page-modalpage button.login-btn, .md page-modalpage button.login-btn {
+  background-color: #efb511;
+  color: #000;
+  margin: 0 auto;
+  padding: 24px !important;
+  font-size: 16px !important;
+  margin-top: 20px !important;
+  border-radius: 5px;
+  width: auto;
+}
+
+.ios page-modalpage .selectDriverbtn, .md page-modalpage .selectDriverbtn {
+  width: 100% !important;
+}
+
+.ios page-modalpage .Info_desc ion-icon, .md page-modalpage .Info_desc ion-icon {
+  color: #efdb2c;
+}
+
+.ios page-modalpage .signoutimgdiv img, .md page-modalpage .signoutimgdiv img {
+  width: 32%;
+  margin: 15px auto;
+}
+
+.ios page-modalpage .signoutcontentdiv h5, .md page-modalpage .signoutcontentdiv h5 {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #b1afaf;
+}
+
+.ios page-modalpage .signoutcontentdiv h1, .md page-modalpage .signoutcontentdiv h1 {
+  padding: 10px;
+  letter-spacing: 0.5px;
+  font-size: 26px;
+}
+
+.ios page-modalpage .ride_btn, .md page-modalpage .ride_btn {
+  width: 100% !important;
+}
+
+.ios page-modalpage .addrSection, .md page-modalpage .addrSection {
+  text-align: center;
+}
+
+.ios page-modalpage .addrSection span, .md page-modalpage .addrSection span {
+  color: #67696a;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.ios page-modalpage .pickupaddr, .ios page-modalpage .dropaddr, .md page-modalpage .pickupaddr, .md page-modalpage .dropaddr {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #67696a;
+  padding: 5px;
+  overflow-y: scroll;
+  max-height: 80px !important;
+}
+
+.ios page-modalpage .pin_icon, .md page-modalpage .pin_icon {
+  width: 32%;
+  margin: 0 auto;
+  font-size: 45px;
+  color: #fff;
+  background: yellowgreen;
+  border-radius: 50%;
+  padding: 18px 0px;
+  -webkit-box-shadow: 0px 0px 1px #577c0c;
+  box-shadow: 0px 0px 1px #577c0c;
+}
+
+.ios page-modalpage .nav_left, .md page-modalpage .nav_left {
+  display: inline-block;
+  text-align: left;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  color: #2196f4;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.ios page-modalpage .nav_right, .md page-modalpage .nav_right {
+  display: inline-block;
+  text-align: right;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  color: #2196f4;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.ios page-modalpage .otherInfoDiv, .md page-modalpage .otherInfoDiv {
+  text-align: center;
+  padding: 15px;
+  background: aliceblue;
+}
+
+.ios page-modalpage .otherTitle, .md page-modalpage .otherTitle {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #938c8c;
+}
+
+.ios page-modalpage .otherDescription, .md page-modalpage .otherDescription {
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #494444;
+}
+
+.ios page-modalpage .customerInfoDiv h2, .md page-modalpage .customerInfoDiv h2 {
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  color: #b8b4b4;
+  padding: 10px 0;
+}
+
+.ios page-modalpage .custInfoDiv h3, .md page-modalpage .custInfoDiv h3 {
+  font-size: 18px;
+  padding: 5px;
+  color: #6c6565;
+  letter-spacing: 0.5px;
+}
+
+.ios page-modalpage .custInfoDiv p, .md page-modalpage .custInfoDiv p {
+  font-size: 16px;
+  color: #6c6565;
+  padding: 0 5px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-modalpage .customerInfoDiv p ion-icon, .md page-modalpage .customerInfoDiv p ion-icon {
+  padding: 2px;
+}
+
+.ios page-modalpage .customerInfoDiv ion-card, .md page-modalpage .customerInfoDiv ion-card {
+  padding: 10px;
+}
+
+.ios page-modalpage .accept_btn, .ios page-modalpage .decline_btn, .md page-modalpage .accept_btn, .md page-modalpage .decline_btn {
+  width: 100% !important;
+}
+
+.ios page-modalpage button.sign_up-btn, .md page-modalpage button.sign_up-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 24px !important;
+  font-size: 16px !important;
+  margin-top: 20px !important;
+  border-radius: 5px;
+}
+
+.ios page-modalpage .r_star, .md page-modalpage .r_star {
+  color: #ead704;
+  font-size: 65px;
+}
+
+.ios page-modalpage .n_start, .md page-modalpage .n_start {
+  color: #a09d9d;
+  font-size: 65px;
+}
+
+.ios page-modalpage .showFeedback h2, .md page-modalpage .showFeedback h2 {
+  text-align: center;
+  padding: 30px 5px 5px 5px;
+}
+
+.ios page-modalpage .showFeedback h1, .md page-modalpage .showFeedback h1 {
+  text-align: center;
+  background: #c0bfbf;
+  padding: 5px;
+}
+
+.ios page-modalpage .datetimeDiv, .md page-modalpage .datetimeDiv {
+  margin: -16px;
+}
+
+.ios page-modalpage .d_label, .md page-modalpage .d_label {
+  margin: 0 !important;
+}
+
+.ios page-modalpage .item, .md page-modalpage .item {
+  margin: 5px 0;
+  -webkit-box-shadow: 0 -2px 4px #1A237E;
+  box-shadow: 0 -2px 4px #1A237E;
+}
+
+.ios page-modalpage .item-datetime .label-md, .md page-modalpage .item-datetime .label-md {
+  color: #1A237E;
+}
+
+.ios page-modalpage ion-datetime.datetime, .md page-modalpage ion-datetime.datetime {
+  padding: 10px;
+}
+
+.ios page-modalpage .datetime-text, .md page-modalpage .datetime-text {
+  color: #1A237E;
 }
 
 .ios page-password-reset .list-ios .item-block .item-inner, .md page-password-reset .list-ios .item-block .item-inner {
@@ -26106,15 +27657,15 @@ page-map #map {
 }
 
 .ios page-password-reset button.login-btn, .md page-password-reset button.login-btn {
-  width: auto;
-  padding: 25px 30px !important;
+  width: 100%;
+  padding: 22px 30px !important;
   margin: 15px auto;
   font-size: 20px !important;
-  background-color: #ffec19;
-  color: #000;
+  background: #1A237E;
+  color: #fff;
   font-weight: 500;
-  -webkit-box-shadow: 1px 2px #e2d10a;
-  box-shadow: 1px 2px #e2d10a;
+  -webkit-box-shadow: 1px 2px #1A237E;
+  box-shadow: 1px 2px #1A237E;
 }
 
 .ios page-password-reset .error, .md page-password-reset .error {
@@ -26122,6 +27673,596 @@ page-map #map {
   color: red;
   font-size: 15px;
   letter-spacing: 0.5px;
+}
+
+.ios page-payment, .md page-payment {
+  /* button.profile-btn {
+            width: 100%;
+            padding: 25px 30px !important;
+            margin: 15px auto;
+            font-size: 20px !important;
+            //background-color: #ffec19;
+            background: #1A237E;
+            color: #fff;
+            font-weight: 500;
+            -webkit-box-shadow: 1px 2px #1A237E;
+            box-shadow: 1px 2px #1A237E;
+        }*/
+}
+
+.ios page-payment button.profile-btn, .md page-payment button.profile-btn {
+  width: auto;
+  padding: 25px 50px !important;
+  font-size: 20px !important;
+  font-weight: 500;
+  -webkit-box-shadow: 1px 2px #1A237E;
+  box-shadow: 1px 2px #a0a6e3;
+  color: #1A237E;
+  background: #fff;
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  top: -75px;
+}
+
+.ios page-payment .desc img, .md page-payment .desc img {
+  max-width: 100%;
+  border: 0;
+  height: 200px;
+  width: 100%;
+}
+
+.ios page-payment .desc h3, .md page-payment .desc h3 {
+  margin-top: 50px !important;
+  padding: 0px 0px;
+  text-align: center;
+  font-size: 20px !important;
+  font-style: oblique;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+  color: #fff !important;
+}
+
+.ios page-payment .scroll-content, .md page-payment .scroll-content {
+  background: #eaebf3;
+  background: #7d7d7d;
+  margin-top: 56px;
+}
+
+.ios page-payment ion-item.desc.item.item-block, .md page-payment ion-item.desc.item.item-block {
+  background: #eaebf3;
+  background: #7d7d7d;
+  padding: 50px 0;
+}
+
+.ios page-payment .desc .item-inner, .md page-payment .desc .item-inner {
+  border: none !important;
+}
+
+.ios page-payment span.cost, .md page-payment span.cost {
+  color: #fff;
+  background: #61647d;
+  position: relative;
+  display: block;
+  top: -95px;
+  font-size: 26px;
+  text-align: center;
+  padding: 15px;
+  text-shadow: 2px 2px #4d516c;
+}
+
+.ios page-paymentwallet, .md page-paymentwallet {
+  /*ion-input {
+            /* background: #eee; *
+            padding: 5px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            box-shadow: 1px 1px #d2cbcb;
+        }
+        button.login-btn {
+            //background-color: #ffe508;
+            background: #1A237E;
+            color: #fff;
+            padding: 28px 75px !important;
+            font-size: 20px !important;
+            margin: 0 auto;
+            margin-top: 20px !important;
+            border-radius: 5px;
+            width: auto;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }*/
+}
+
+.ios page-paymentwallet .walletBalanceDiv, .md page-paymentwallet .walletBalanceDiv {
+  background: linear-gradient(45deg, #f0f0f0 0%, #eff3f5 47%, #cdd9df 100%);
+  text-align: center;
+  padding: 45px;
+  -webkit-box-shadow: 2px 4px #eee;
+  box-shadow: 0px 4px #eee;
+  border: 1px solid #e8dbdb;
+}
+
+.ios page-paymentwallet h2, .md page-paymentwallet h2 {
+  font-size: 26px;
+  letter-spacing: 0.7px;
+  color: #4e4646;
+}
+
+.ios page-paymentwallet h1, .md page-paymentwallet h1 {
+  /* font-size: 60px;
+            letter-spacing: 0.5px;
+            color: #4e4646;
+            background: #ffec198c;
+            padding: 5px;
+            box-shadow: 0px 0px 5px #ecda12;*/
+  font-size: 40px;
+  letter-spacing: 0.5px;
+  color: #4e4646;
+  background: #ffec199e;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 5px #ecda12;
+  background: linear-gradient(45deg, #efdb09 0%, #fbec4e 44%, #f9f04a 100%);
+  box-shadow: 0px 0px 5px #ecda12;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.ios page-paymentwallet .transactionHead, .md page-paymentwallet .transactionHead {
+  padding: 10px;
+  letter-spacing: 1px;
+  color: #8c8484;
+  margin-top: 40px;
+}
+
+.ios page-paymentwallet .transactionList, .md page-paymentwallet .transactionList {
+  padding: 12px;
+  color: #8c8484;
+  letter-spacing: 1px;
+  width: 92%;
+  margin: 0px auto;
+}
+
+.ios page-paymentwallet form, .md page-paymentwallet form {
+  padding: 20px;
+}
+
+.ios page-paymentwallet button.login-btn, .md page-paymentwallet button.login-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 75px 75px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 20px !important;
+  border-radius: 5px;
+  width: auto;
+  margin-top: 50px !important;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 25px #1a237e;
+  box-shadow: 0px 0px 25px #1a237e;
+}
+
+.ios page-ride-later .scroll-content, .md page-ride-later .scroll-content {
+  background: #eeeded !important;
+}
+
+.ios page-ride-later .nav_icon, .md page-ride-later .nav_icon {
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+  padding: 5px;
+}
+
+.ios page-ride-later .srcpt .addr_row.row, .md page-ride-later .srcpt .addr_row.row {
+  background: #fff;
+  padding: 5px;
+}
+
+.ios page-ride-later .srcpt .addr, .md page-ride-later .srcpt .addr {
+  text-align: left;
+  padding: 6px;
+  letter-spacing: 0.7px;
+}
+
+.ios page-ride-later .srcpt ion-icon, .md page-ride-later .srcpt ion-icon {
+  display: inline-block;
+  font-size: 1.6em;
+  color: #1a237e;
+}
+
+.ios page-ride-later .srcpt.grid, .md page-ride-later .srcpt.grid {
+  padding: 16px 16px 0px 16px;
+}
+
+.ios page-ride-later button.login-btn, .md page-ride-later button.login-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 25px 18px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 15px !important;
+  border-radius: 5px;
+  width: 100%;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 0;
+}
+
+.ios page-ride-later .moreInfo, .md page-ride-later .moreInfo {
+  padding: 20px 16px;
+}
+
+.ios page-ride-later .moreInfo .title_col, .md page-ride-later .moreInfo .title_col {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 15px;
+}
+
+.ios page-ride-later .moreInfo .value_col, .md page-ride-later .moreInfo .value_col {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  font-size: 15px;
+}
+
+.ios page-ride-later .paymentMethodDiv ion-grid, .md page-ride-later .paymentMethodDiv ion-grid {
+  padding: 0 !important;
+}
+
+.ios page-ride-later .paymentMethodDiv ion-row, .md page-ride-later .paymentMethodDiv ion-row {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.ios page-ride-later .paymentMethodDiv .list_item_icon, .md page-ride-later .paymentMethodDiv .list_item_icon {
+  left: 0px !important;
+  position: relative;
+  height: 50px;
+  width: 50px;
+}
+
+.ios page-ride-later .paymentMethodDiv ion-label, .md page-ride-later .paymentMethodDiv ion-label {
+  margin: 0 !important;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #055696;
+  padding: 5px;
+}
+
+.ios page-ride-later .innerDiv, .md page-ride-later .innerDiv {
+  margin: 4px;
+  padding: 10px;
+  background: #d0d1de;
+  -webkit-box-shadow: 0px 0px 6px #ccf3f8;
+  box-shadow: 0px 0px 6px #ccf3f8;
+}
+
+.ios page-ride-later .active_payment, .md page-ride-later .active_payment {
+  background: #f0fbfc;
+  border: 2px solid #ccf3f8;
+}
+
+.ios page-ride-later .paymentMethodDiv, .md page-ride-later .paymentMethodDiv {
+  text-align: center;
+  margin-top: -25px !important;
+}
+
+.ios page-ride-later ion-grid.warnMessage.grid, .md page-ride-later ion-grid.warnMessage.grid {
+  background: #c2c4da;
+  color: #1a237e;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+  line-height: 1.5;
+}
+
+.ios page-ride-now .scroll-content, .md page-ride-now .scroll-content {
+  background: #eeeded !important;
+}
+
+.ios page-ride-now .nav_icon, .md page-ride-now .nav_icon {
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+  padding: 5px;
+}
+
+.ios page-ride-now .srcpt .addr_row.row, .md page-ride-now .srcpt .addr_row.row {
+  background: #fff;
+  padding: 5px;
+}
+
+.ios page-ride-now .srcpt .addr, .md page-ride-now .srcpt .addr {
+  text-align: left;
+  padding: 6px;
+  letter-spacing: 0.7px;
+}
+
+.ios page-ride-now .srcpt ion-icon, .md page-ride-now .srcpt ion-icon {
+  display: inline-block;
+  font-size: 1.6em;
+  color: #1a237e;
+}
+
+.ios page-ride-now .srcpt.grid, .md page-ride-now .srcpt.grid {
+  padding: 16px 16px 0px 16px;
+}
+
+.ios page-ride-now button.login-btn, .md page-ride-now button.login-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 25px 18px !important;
+  font-size: 20px !important;
+  margin: 0 auto;
+  margin-top: 15px !important;
+  border-radius: 5px;
+  width: 100%;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 0;
+}
+
+.ios page-ride-now .moreInfo, .md page-ride-now .moreInfo {
+  padding: 40px 16px;
+}
+
+.ios page-ride-now .moreInfo .title_col, .md page-ride-now .moreInfo .title_col {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 15px;
+}
+
+.ios page-ride-now .moreInfo .value_col, .md page-ride-now .moreInfo .value_col {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  font-size: 15px;
+}
+
+.ios page-ride-now .paymentMethodDiv ion-grid, .md page-ride-now .paymentMethodDiv ion-grid {
+  padding: 0 !important;
+}
+
+.ios page-ride-now .paymentMethodDiv ion-row, .md page-ride-now .paymentMethodDiv ion-row {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.ios page-ride-now .paymentMethodDiv .list_item_icon, .md page-ride-now .paymentMethodDiv .list_item_icon {
+  left: 0px !important;
+  position: relative;
+  height: 50px;
+  width: 50px;
+}
+
+.ios page-ride-now .paymentMethodDiv ion-label, .md page-ride-now .paymentMethodDiv ion-label {
+  margin: 0 !important;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #055696;
+  padding: 5px;
+}
+
+.ios page-ride-now .innerDiv, .md page-ride-now .innerDiv {
+  margin: 4px;
+  padding: 10px;
+  background: #d0d1de;
+  -webkit-box-shadow: 0px 0px 6px #ccf3f8;
+  box-shadow: 0px 0px 6px #ccf3f8;
+}
+
+.ios page-ride-now .active_payment, .md page-ride-now .active_payment {
+  background: #f0fbfc;
+  border: 2px solid #ccf3f8;
+}
+
+.ios page-ride-now .paymentMethodDiv, .md page-ride-now .paymentMethodDiv {
+  text-align: center;
+  margin-top: -25px !important;
+}
+
+.ios page-settings button.login-btn, .md page-settings button.login-btn {
+  background: #1A237E;
+  color: #fff;
+  padding: 24px !important;
+  font-size: 16px !important;
+  margin-top: 20px !important;
+  border-radius: 5px;
+}
+
+.ios page-settings .fav_loc_icons ion-icon, .ios page-settings .fav_driver_icons ion-icon, .md page-settings .fav_loc_icons ion-icon, .md page-settings .fav_driver_icons ion-icon {
+  font-size: 24px;
+  padding: 0px 3px;
+  margin-left: 0px;
+  color: #635a5a;
+}
+
+.ios page-settings .fav_loc, .ios page-settings .fav_driver, .md page-settings .fav_loc, .md page-settings .fav_driver {
+  padding: 3px;
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.ios page-settings .fav_loc_label, .ios page-settings .fav_driver_label, .md page-settings .fav_loc_label, .md page-settings .fav_driver_label {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  padding: 0 5px;
+}
+
+.ios page-settings ion-list, .md page-settings ion-list {
+  padding: 7px 0;
+}
+
+.ios page-settings ion-card, .md page-settings ion-card {
+  padding: 10px;
+  margin: 18px auto !important;
+  border-radius: 10px !important;
+  -webkit-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+}
+
+.ios page-settings .setting_label, .md page-settings .setting_label {
+  padding: 0 15px;
+  color: #6b5e5e;
+  letter-spacing: 0.5px;
+}
+
+.ios page-settings .setting_label .item-inner, .md page-settings .setting_label .item-inner {
+  border: none;
+}
+
+.ios page-settings .setting_icons, .md page-settings .setting_icons {
+  font-size: 20px;
+  color: #6e5e5e;
+}
+
+.ios page-settings .setting_title h3, .md page-settings .setting_title h3 {
+  font-size: 16px;
+  padding: 6px 15px;
+  color: #6e5e5e;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+  margin: 0;
+  line-height: 0.5;
+}
+
+.ios page-settings .favlocDiv, .md page-settings .favlocDiv {
+  padding: 0 15px;
+}
+
+.ios page-settings .setting_title span, .md page-settings .setting_title span {
+  display: block;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.7px;
+  padding: 5px 15px;
+  width: 85%;
+  margin-bottom: 5px;
+  color: #6e5e5e;
+}
+
+.ios page-settings .favlocDiv ion-col, .md page-settings .favlocDiv ion-col {
+  padding: 0;
+}
+
+.ios page-settings p.delete_op, .md page-settings p.delete_op {
+  margin: 0;
+  font-size: 12px;
+  right: 22px;
+  position: absolute;
+  top: 24px;
+  color: #9c9c9c;
+}
+
+.ios page-settings .addLocGrid .setting_title span, .md page-settings .addLocGrid .setting_title span {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #9d8c8c;
+  margin: 0;
+  padding: 0 15px;
+}
+
+.ios page-settings .addLocGrid .setting_title h3, .md page-settings .addLocGrid .setting_title h3 {
+  font-weight: 500;
+}
+
+.ios page-settings .addLocGrid, .md page-settings .addLocGrid {
+  border-top: 1px solid #d3d2d2;
+  border-bottom: 1px solid #d3d2d2;
+}
+
+.ios page-settings ion-list.set_list, .md page-settings ion-list.set_list {
+  padding: 0 !important;
+}
+
+.ios page-settings .set_list ion-list, .md page-settings .set_list ion-list {
+  padding: 0;
+}
+
+.ios page-settings .set_list ion-item, .md page-settings .set_list ion-item {
+  -webkit-box-shadow: 0 0 1px 2px #eee;
+  box-shadow: 0 0 1px 2px #eee;
+}
+
+.ios page-settings .set_list .item-inner, .md page-settings .set_list .item-inner {
+  border: none;
+}
+
+.ios page-settings .set_list ion-label, .md page-settings .set_list ion-label {
+  margin: 0;
+}
+
+.ios page-settings .set_list img.list_item_icon, .md page-settings .set_list img.list_item_icon {
+  height: 32px;
+  width: 32px;
+}
+
+.ios page-settings .set_list [col-9], .md page-settings .set_list [col-9] {
+  padding-top: 10px;
+}
+
+.ios page-settings .last_div, .md page-settings .last_div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.ios page-settings .favDriverDiv, .md page-settings .favDriverDiv {
+  padding: 0 15px;
+}
+
+.ios page-settings .favDriverDiv ion-grid.grid, .md page-settings .favDriverDiv ion-grid.grid {
+  padding-left: 15PX;
+  border: 1px solid #eee;
+  margin: 5px 0;
+}
+
+.ios page-settings .favDriverDiv ion-col, .md page-settings .favDriverDiv ion-col {
+  padding: 0;
+}
+
+.ios page-settings .favDriverDiv h2, .md page-settings .favDriverDiv h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #635b5b;
+  letter-spacing: 0.7px;
+}
+
+.ios page-settings .favDriverDiv span, .md page-settings .favDriverDiv span {
+  display: block;
+  padding: 2px 0;
+  color: #635b5b;
+  letter-spacing: 0.7px;
+}
+
+.ios page-settings .inner_last_div, .md page-settings .inner_last_div {
+  text-align: center;
+  background: #1A237E;
+  font-weight: 500;
+  padding: 12px;
+}
+
+.ios page-settings .inner_last_div p, .md page-settings .inner_last_div p {
+  margin: 0;
+  font-size: 18px !important;
+  color: #fff;
+}
+
+.ios page-settings .inner_last_div p ion-icon.icon, .md page-settings .inner_last_div p ion-icon.icon {
+  margin: 0px 6px;
 }
 
 .ios page-signin .title_div, .md page-signin .title_div {
@@ -26134,7 +28275,7 @@ page-map #map {
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: 8px;
-  color: #efb511;
+  color: #1A237E;
 }
 
 .ios page-signin h3.sub_title, .md page-signin h3.sub_title {
@@ -26146,7 +28287,7 @@ page-map #map {
 .ios page-signin p.title_info, .md page-signin p.title_info {
   margin: 0;
   padding-top: 5px;
-  color: #efb511;
+  color: #1A237E;
 }
 
 .ios page-signin ion-input.input.input-md, .md page-signin ion-input.input.input-md {
@@ -26154,8 +28295,8 @@ page-map #map {
 }
 
 .ios page-signin button.login-btn, .md page-signin button.login-btn {
-  background-color: #efb511;
-  color: #000;
+  background: #1A237E;
+  color: #fff;
   padding: 24px !important;
   font-size: 16px !important;
   margin-top: 20px !important;
@@ -26163,7 +28304,7 @@ page-map #map {
 }
 
 .ios page-signin .sign_in_form, .md page-signin .sign_in_form {
-  padding: 15px 5px;
+  padding: 0px 5px;
 }
 
 .ios page-signin ion-label, .md page-signin ion-label {
@@ -26189,7 +28330,7 @@ page-map #map {
 }
 
 .ios page-signin ion-item.submit_btn_item, .md page-signin ion-item.submit_btn_item {
-  margin: 30px 0 !important;
+  margin: 0 !important;
 }
 
 .ios page-signin .error, .md page-signin .error {
@@ -26204,17 +28345,17 @@ page-map #map {
   padding-left: 7px;
 }
 
+.ios page-signin .checkbox-icon, .md page-signin .checkbox-icon {
+  top: 6px;
+}
+
+.ios page-signin ion-item, .md page-signin ion-item {
+  margin: 10px 0 !important;
+}
+
 .ios page-signup .title_div, .md page-signup .title_div {
   text-align: center;
   padding: 15px;
-}
-
-.ios page-signup h2.head_title, .md page-signup h2.head_title {
-  font-size: 68px;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: 8px;
-  color: #efb511;
 }
 
 .ios page-signup ion-input.input.input-md, .md page-signup ion-input.input.input-md {
@@ -26222,8 +28363,8 @@ page-map #map {
 }
 
 .ios page-signup button.sign_up-btn, .md page-signup button.sign_up-btn {
-  background-color: #efb511;
-  color: #000;
+  background: #1A237E;
+  color: #fff;
   padding: 24px !important;
   font-size: 16px !important;
   margin-top: 20px !important;
@@ -26275,4 +28416,23 @@ page-map #map {
 
 .ios page-signup ion-icon, .md page-signup ion-icon {
   font-size: 40px !important;
+}
+
+.ios page-upload-profile .cordova-camera-capture video, .md page-upload-profile .cordova-camera-capture video {
+  width: 100%;
+  margin-top: 57px !important;
+  -o-object-fit: fill;
+  object-fit: fill;
+  border: 5px solid #7d7c7c;
+  height: 300px;
+}
+
+.ios page-upload-profile .cordova-camera-capture button, .md page-upload-profile .cordova-camera-capture button {
+  width: 30%;
+  padding: 15px;
+  margin: 45px 35%;
+  background: #488aff;
+  color: #fff;
+  letter-spacing: 0.5px;
+  font-size: 16px;
 }

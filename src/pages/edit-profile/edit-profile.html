@@ -7,9 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle >
+    <!--<button ion-button menuToggle >
         <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
-    </button>
+    </button>-->
     <ion-title>Edit Profile</ion-title>
   </ion-navbar>
 
@@ -17,7 +17,7 @@
 
          
 <ion-content padding>
-  <form class="profile_form" [formGroup]="profile" (ngSubmit)="ProfileForm(user_details)"> 
+  <form  *ngIf='role == 2' class="profile_form" [formGroup]="profile" (ngSubmit)="ProfileForm(user_details)"> 
     <ion-list>
  
     <ion-item>
@@ -35,24 +35,57 @@
       <div class="error" *ngIf="profile.get('lname').hasError('required')  && profile.get('lname').touched">
           Please fill out this field
       </div>
-      
-      <!--<ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="user_details.email" formControlName="email" [class.invalid]="!profile.valid && (profile.controls.email.dirty || submitAttempt)" ></ion-input>
-      </ion-item>
-      <div class="error" *ngIf="profile.get('email').hasError('required') && profile.get('email').touched">
-          Please fill out this field.
-      </div>
-          
-      <div class="error" *ngIf="!profile.get('email').hasError('required') && (profile.get('email').hasError('email') && profile.get('email').dirty )">
-          Please enter valid Email address
-      </div>-->
 
       <ion-item>
           <ion-label stacked>Phone No.</ion-label>
-          <ion-input type="text" [(ngModel)]="user_details.phone" formControlName="phone" [class.invalid]="!profile.valid && (profile.controls.phone.dirty || submitAttempt)"  ></ion-input>
+          <ion-input type="text" [(ngModel)]="user_details.phone" maxlength="11" formControlName="phone" [class.invalid]="!profile.valid && (profile.controls.phone.dirty || submitAttempt)"  ></ion-input>
         </ion-item>
         <div class="error" *ngIf="profile.get('phone').hasError('required')  && profile.get('phone').touched">
+            Please fill out this field
+        </div>
+        <div class="error" *ngIf="profile.get('phone').hasError('maxlength') && profile.get('phone').touched">
+            Maximum Length of Phone No. must be 11
+        </div>
+
+      <ion-item>
+          <ion-label stacked>Address</ion-label>
+          <ion-input type="text" [(ngModel)]="user_details.address" formControlName="address" [class.invalid]="!profile.valid && (profile.controls.address.dirty || submitAttempt)"  ></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="profile.get('address').hasError('required')  && profile.get('address').touched">
+        z      Please fill out this field
+          </div>
+      <ion-item class="submit_btn_item">
+          <button class="profile-btn" ion-button color="primary" block [disabled]="!this.profile.valid">Update</button>
+      </ion-item>
+
+    </ion-list>
+  </form>
+
+
+  <form  *ngIf='role == 3' class="profile_form" [formGroup]="Dprofile" (ngSubmit)="ProfileForm(user_details)"> 
+    <ion-list>
+ 
+    <ion-item>
+        <ion-label stacked>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="user_details.fname" value="{{user_details.fname}}" formControlName="fname" [class.invalid]="!Dprofile.valid && (Dprofile.controls.fname.dirty || submitAttempt)" ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="Dprofile.get('fname').hasError('required')  && Dprofile.get('fname').touched">
+          Please fill out this field
+      </div>
+        
+      <ion-item>
+      <ion-label stacked>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="user_details.lname" formControlName="lname" [class.invalid]="!Dprofile.valid && (Dprofile.controls.lname.dirty || submitAttempt)"  ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="Dprofile.get('lname').hasError('required')  && Dprofile.get('lname').touched">
+          Please fill out this field
+      </div>
+
+      <ion-item>
+          <ion-label stacked>Phone No.</ion-label>
+          <ion-input type="text" [(ngModel)]="user_details.phone" formControlName="phone" [class.invalid]="!Dprofile.valid && (Dprofile.controls.phone.dirty || submitAttempt)"  ></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="Dprofile.get('phone').hasError('required')  && Dprofile.get('phone').touched">
             Please fill out this field
         </div>
         <!--<div class="error" *ngIf="profile.get('phone').hasError('required') && profile.get('phone').touched && profile.get('phone').pattern">
@@ -61,24 +94,35 @@
 
       <ion-item>
           <ion-label stacked>Address</ion-label>
-          <ion-input type="text" [(ngModel)]="user_details.address" formControlName="address" [class.invalid]="!profile.valid && (profile.controls.address.dirty || submitAttempt)"  ></ion-input>
+          <ion-input type="text" [(ngModel)]="user_details.address" formControlName="address" [class.invalid]="!Dprofile.valid && (Dprofile.controls.address.dirty || submitAttempt)"  ></ion-input>
           </ion-item>
-          <div class="error" *ngIf="profile.get('address').hasError('required')  && profile.get('address').touched">
+          <div class="error" *ngIf="Dprofile.get('address').hasError('required')  && Dprofile.get('address').touched">
               Please fill out this field
           </div>
    
-      <!--<ion-item>
-          <ion-label stacked>Avatar</ion-label>
-          <ion-input type="file" [(ngModel)]="user_details.avatar" formControlName="avatar" [class.invalid]="!profile.valid && (profile.controls.avatar.dirty || submitAttempt)"  ></ion-input>
-          </ion-item>
-          <div class="error" *ngIf="profile.get('avatar').hasError('required')  && profile.get('avatar').touched">
-              Please fill out this field
-          </div>-->
+        <ion-item>
+            <ion-label stacked></ion-label>
+            <ion-select placeholder="Vehicle Type"  [(ngModel)]="user_details.vehicle_type" formControlName="vehicle_type" [class.invalid]="!Dprofile.valid && (Dprofile.controls.vehicle_type.dirty || submitAttempt)"  >
+                <ion-option *ngFor="let types of vehicle_types" value="{{types.id}}">{{types.type}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <div class="error" *ngIf="Dprofile.get('vehicle_type').hasError('required')  && Dprofile.get('vehicle_type').touched">
+            Please fill out this field
+        </div>
+        
+        <ion-item>
+            <ion-label stacked>Vehicle No.</ion-label>
+            <ion-input type="text" [(ngModel)]="user_details.vehicle_no" formControlName="vehicle_no" [class.invalid]="!Dprofile.valid && (Dprofile.controls.vehicle_no.dirty || submitAttempt)"  ></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="Dprofile.get('vehicle_no').hasError('required')  && Dprofile.get('vehicle_no').touched">
+            Please fill out this field
+        </div>
 
       <ion-item class="submit_btn_item">
-          <button class="profile-btn" ion-button color="primary" block [disabled]="!this.profile.valid">Update</button>
+          <button class="profile-btn" ion-button color="primary" block [disabled]="!this.Dprofile.valid">Update</button>
       </ion-item>
 
     </ion-list>
   </form>
+
 </ion-content>

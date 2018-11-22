@@ -48,7 +48,7 @@ export class PasswordResetPage {
         //console.log(data); 
         //let param = new FormData();
         this.customer_id = data[0].id;
-
+ 
         let param = new FormData();
         if(data[0].role==2)
         {
@@ -65,7 +65,7 @@ export class PasswordResetPage {
         let loader = this.loading.create({
   
               content :"Please wait...",
-              spinner : 'bubbles'
+              spinner : 'crescent'
           });
   
           loader.present();     

@@ -1,0 +1,4 @@
+#Thu Nov 22 11:57:39 IST 2018
+base.0=E\:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

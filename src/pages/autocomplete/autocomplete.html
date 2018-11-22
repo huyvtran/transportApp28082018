@@ -17,14 +17,7 @@
         <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input>
         <button *ngIf="autocomplete.query != ''? true : false" icon-only  ion-button small item-end (click)="clear()"><ion-icon ios="md-close" md="md-close"></ion-icon></button>
     </ion-item>
-    <!--<ion-toolbar *ngIf="action == 'pickup'">
-      <ion-title>Enter address</ion-title>
-      <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
-    </ion-toolbar>-->
-    <!--<ion-toolbar *ngIf="action == 'drop'">
-        <ion-title>Enter address</ion-title>
-        <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
-      </ion-toolbar>-->
+    
       <ion-item *ngIf="action == 'drop'" class="drop">
           <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
           <ion-label stacked>Drop Off Location</ion-label>
@@ -33,17 +26,10 @@
           <!-- <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input> -->
       </ion-item>
 
-      <ion-item *ngIf="action != 'drop' && action != 'pickup' && action != 'getDriver'" class="drop">
+      <ion-item *ngIf="action == 'home' || action == 'work' || action == 'other'" class="drop">
           <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
-          <ion-label stacked>Select Your Favorite Location</ion-label>
+          <ion-label stacked>Select Location</ion-label>
           <ion-input [(ngModel)]="autocomplete.query" (ionChange)="updateSearch()" (ionCancel)="dismiss()"></ion-input>
-          
-      </ion-item>
-
-      <ion-item *ngIf="action == 'driver'" class="drop">
-          <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
-          <ion-label stacked>Select Your Favourite Driver</ion-label>
-          <ion-input [(ngModel)]="qdriver.query" (ionChange)="updateDriverSearch()" (ionCancel)="dismiss()"></ion-input>
       </ion-item>
 
   </ion-header>
@@ -53,9 +39,15 @@
         <ion-icon item-start ios="md-pin" md="md-pin"></ion-icon>
         {{ item }}
       </ion-item>
-      <ion-item *ngFor="let item of allDrivers" tappable (click)="chooseItem(item)">
-          {{ item }}
-        </ion-item>
     </ion-list>
+      <ion-list *ngIf="action != 'home' && action != 'work' && action != 'other' && autocompleteItems == ''">
+        <ion-item *ngFor="let item of fav_locations" class="fav_loc" tappable (click)="chooseItem(item.location)" >
+         <ion-icon item-start name="star"></ion-icon>
+         <!--<div class="favLoc_label">-->
+            {{ item.location_type }}
+         <!--</div>-->
+        </ion-item>
+      </ion-list>
+    
   </ion-content>
   

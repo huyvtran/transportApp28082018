@@ -3,27 +3,32 @@ import { NavController, AlertController, LoadingController,Events } from 'ionic-
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
-
-
+import { Geolocation } from '@ionic-native/geolocation';
+import { OneSignal } from '@ionic-native/onesignal';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { ForgotpasswoedPage } from '../forgotpasswoed/forgotpasswoed';
 import { EmailverificationPage } from '../emailverification/emailverification';
 import { CustomerProfilePage } from '../customer-profile/customer-profile';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @Component({
   selector: 'page-signin',
   templateUrl: 'signin.html'
 })
 export class SigninPage {    
-  signin : any;     
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public data : DataProvider, private storage: Storage, private loading: LoadingController,public events: Events) {
+  signin : any;   
+  lat : any;
+  long : any;  
+  isRemember :any = false;
+
+  constructor( private oneSignal: OneSignal, public navCtrl: NavController, public alertCtrl: AlertController, public data : DataProvider, private storage: Storage, private loading: LoadingController,public events: Events, public geolocation: Geolocation) {
 
     this.signin = new FormGroup({
       email: new FormControl('', [Validators.required,Validators.email]),
-      password: new FormControl('', [Validators.required])
+      password: new FormControl('', [Validators.required]),
       });	     
-  }
+  }      
 
   createUser(user) {
     console.log('User created!')
@@ -36,15 +41,19 @@ export class SigninPage {
      
 
   signIn(uname,pass)
-  {   
-   let param = new FormData();
-    param.append("email",uname);
-    param.append("password",pass);  
+  {  
+    if(this.isRemember == true)
+    {
+      this.storage.set('isRemember', true); 
+    }
     
+    let param = new FormData();
+    param.append("email",uname);    
+    param.append("password",pass);  
+        
      let loader = this.loading.create({
-
-            content :"Please wait...",
-            spinner : 'bubbles'
+        content :"",
+        spinner : 'crescent'
       });
 
       loader.present();
@@ -52,11 +61,13 @@ export class SigninPage {
      this.data.userSignIn(param).subscribe(result=>{
  
            console.log(result);  
-            loader.dismiss();   
-
+            
+           
             if(result.status == "ERROR")
             {
                 this.data.presentToast('Invalid Username or Password!');
+                loader.dismiss(); 
+                
             }
             else   
             {
@@ -64,18 +75,77 @@ export class SigninPage {
               this.createUser(result.success.user);
             
               if(result.success.user[0].active == 1)    
-              {    
+              {   
                 this.storage.set("token",result.success.token);
                 this.storage.set("user",result.success.user);
+
+                /*this.geolocation.getCurrentPosition().then((position) => {
+                    this.lat = position.coords.latitude;
+                    this.long =  position.coords.longitude;
+                });*/
+                
+                //loader.dismiss();  
+                
+                setTimeout(() => {
                 if(result.success.user[0].role == 2)
                 {
+                  this.oneSignal.sendTag('customer_id',result.success.user[0].id);
                   this.navCtrl.setRoot(HomePage); 
+                  loader.dismiss();
                 }else if(result.success.user[0].role == 3){
-                  this.navCtrl.setRoot(CustomerProfilePage);     
-                }              
+                  this.oneSignal.sendTag('driver_id',result.success.user[0].id);
+                  let param = result.success.user[0].id; 
+                  this.data.getDriverProfile(param).subscribe(result=>{
+                         
+                    if(result.status == 'OK')    
+                    {
+                      if(result.success.profile[0].is_completed == 0)
+                      {
+                        loader.dismiss(); 
+                        this.navCtrl.push(EditProfilePage);  
+                      }
+                      else
+                      {
+                        loader.dismiss(); 
+                        this.navCtrl.setRoot(HomePage);  
+                      }
+                      
+                    }   
+                    else{ 
+                      //this.data.presentToast('Unable to get your Profile data!');
+                      this.storage.get('isProfile_Complete').then(data1=>{
+                        if(data1 == null || data1 == undefined || data1 == false)
+                        {
+                          //this.storage.set('showSlide', false);
+                          //show slide logic should run
+                          loader.dismiss();
+                          this.navCtrl.push(EditProfilePage);       
+                        }    
+                        else{
+                          loader.dismiss();
+                          this.navCtrl.setRoot(HomePage);   
+                        }
+                      });
+                    }
+                 }); 
+                 /*this.storage.get('isProfile_Complete').then(data1=>{
+                  if(data1 == null || data1 == undefined || data1 == false)
+                  {
+                    //this.storage.set('showSlide', false);
+                    //show slide logic should run
+                    this.navCtrl.push(EditProfilePage);       
+                  }    
+                  else{
+                    this.navCtrl.setRoot(HomePage); 
+                  }
+                }); */
+                }  
+                }, 2500);   
+                
               }
               else
-              {
+              {    
+                loader.dismiss(); 
                 this.navCtrl.push(EmailverificationPage,{data:result.success.user});  
               }    
             }                           
@@ -89,10 +159,16 @@ export class SigninPage {
     else{    
       this.data.presentToast('Incorrect username or password!');
     }*/
-  }     
+  }    
+  
+  public notify(isRemember) {
+    //console.log("Toggled: "+ isRemember);
+    this.isRemember = !isRemember
+    //console.log("Toggled: "+ this.isRemember); 
+  }
           
   gotoForgotPass()    
   {
     this.navCtrl.push(ForgotpasswoedPage);            
-  }
+  }   
 }

@@ -1,0 +1,30 @@
+.ios,.md{
+    page-booking-list {
+        .segment-md .segment-button {
+            border: none; 
+            background: #eee;
+            border-radius: 100px;
+            margin: 0 12px;
+        }
+        .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
+            background: #488aff;
+            color: #fff;
+        }
+        ion-card{
+            padding: 15px;
+            width: 100%;
+            margin: 0;          
+        }
+        .action_icon{
+            background: #488afffa;
+            color: #fff;
+            padding: 6px 8px;
+            border-radius: 50%;     
+        }
+        .pending_list ion-row{
+            padding: 5px;
+            border-bottom: 1px solid #dddbdb;
+        }
+        
+    }        
+}

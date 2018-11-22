@@ -1,5 +1,16 @@
 # Changes
 
+### cordova-sqlite-storage 2.5.0
+
+- androidDatabaseProvider: 'system' setting, to replace androidDatabaseImplementation setting which is now deprecated
+
+### cordova-sqlite-storage 2.4.0
+
+- Report internal plugin error in case of attempt to open database with no database name on iOS or macOS
+- Cover use of standard (WebKit) Web SQL API in spec test suite
+- Test and document insertId in UPDATE result set on plugin vs (WebKit) Web SQL
+- other test updates
+
 ### cordova-sqlite-storage 2.3.3
 
 - Quick fix for some iOS/macOS internal plugin error log messagess

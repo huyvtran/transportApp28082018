@@ -1,28 +1,28 @@
 {
-  "_from": "cordova-sqlite-storage",
-  "_id": "cordova-sqlite-storage@2.3.3",
+  "_from": "cordova-sqlite-storage@^2.3.3",
+  "_id": "cordova-sqlite-storage@2.5.0",
   "_inBundle": false,
-  "_integrity": "sha512-YZRIFZihX4KPPeeP5pUdSJYv6lf4Pq3P7dHyfDOwr2C/0LSoF8ustqqT6l25WCLccFTk1ZEFJQkXfkPi74lg7g==",
+  "_integrity": "sha512-697fgNS/ZCTXAvV6I/KpKWl4aSoDfI8MYMGTbJYQg+ztwd3dV4sF3PaWmw9Fr1H0iULpIZE64znTvAt/Atsf9Q==",
   "_location": "/cordova-sqlite-storage",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-sqlite-storage",
+    "raw": "cordova-sqlite-storage@^2.3.3",
     "name": "cordova-sqlite-storage",
     "escapedName": "cordova-sqlite-storage",
-    "rawSpec": "",
+    "rawSpec": "^2.3.3",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^2.3.3"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-2.3.3.tgz",
-  "_shasum": "6efa8450291a0387df4d31c72313836f563f9d45",
-  "_spec": "cordova-sqlite-storage",
-  "_where": "E:\\Ionic\\myApp1",
+  "_resolved": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-2.5.0.tgz",
+  "_shasum": "0362149a3d1c58f4523bf21abfeb876ff8992e06",
+  "_spec": "cordova-sqlite-storage@^2.3.3",
+  "_where": "E:\\transportApp28082018",
   "author": {
     "name": "various"
   },
@@ -65,5 +65,5 @@
   "scripts": {
     "start": "node scripts/prepareSpec.js"
   },
-  "version": "2.3.3"
+  "version": "2.5.0"
 }

@@ -36,7 +36,7 @@ export class ForgotpasswoedPage {
      let loader = this.loading.create({
 
             content :"Please wait...",
-            spinner : 'bubbles'
+            spinner : 'crescent'
       });
 
       loader.present();

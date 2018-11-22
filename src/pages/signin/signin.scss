@@ -9,7 +9,7 @@ page-signin {
         font-weight: 600;
         line-height: 1.5;
         letter-spacing: 8px;
-        color: #efb511;
+        color:#1A237E;// #efb511;
     }
     h3.sub_title {
         font-weight: 600;
@@ -20,21 +20,22 @@ page-signin {
         margin: 0;
         padding-top: 5px;
         //color: #908c8c;
-        color: #efb511;
+        color: #1A237E;//#efb511;
     }
     ion-input.input.input-md {
         font-size: 20px !important;
     }
     button.login-btn {
-        background-color: #efb511;
-        color: #000;
+        //background-color: #efb511;
+        background: #1A237E;
+        color: #fff;
         padding: 24px !important;
         font-size: 16px !important;
         margin-top: 20px !important;
         border-radius: 5px;
     }
     .sign_in_form {
-        padding: 15px 5px;
+        padding: 0px 5px;
     }
     ion-label {
         color: #484444 !important;
@@ -55,7 +56,7 @@ page-signin {
         margin: 18px 0 !important;
     }
     ion-item.submit_btn_item {
-        margin: 30px 0 !important;
+        margin: 0 !important;
     }
     .error{
 		text-align: center;
@@ -67,6 +68,12 @@ page-signin {
 	ion-input{
 		border: 1px solid #867e7e;
 		padding-left: 7px;
+    }
+    .checkbox-icon {
+        top: 6px;
+    }
+    ion-item {
+        margin: 10px 0 !important;
     }
 }
 }
