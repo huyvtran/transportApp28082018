@@ -1,0 +1,85 @@
+<ion-header>
+
+  <ion-navbar color="sideMenu">
+    <ion-title>Package Booking</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      Location
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label floating>From</ion-label>
+          <ion-input type="text" [(ngModel)]="from"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>To</ion-label>
+          <ion-input type="text" [(ngModel)]="to"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="type">
+        <div class="alg1">
+          <ion-card-header>
+            Type
+          </ion-card-header>
+        </div>
+
+        <div class="alg2">
+          <ion-item>
+            <ion-label>Document</ion-label>
+            <ion-radio checked="true" ></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Parcel</ion-label>
+            <ion-radio ></ion-radio>
+          </ion-item>
+        </div>
+
+
+      </ion-list>
+      <ion-item>
+        <ion-label floating>Weight</ion-label>
+        <ion-input type="number" [(ngModel)]="weight"></ion-input>
+      </ion-item>
+
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Enter Parcel Dimensions
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>Length</ion-label>
+        <ion-input type="number" [(ngModel)]="lenght"></ion-input>
+
+
+
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Width</ion-label>
+        <ion-input type="number" [(ngModel)]="width"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Height</ion-label>
+        <ion-input type="number" [(ngModel)]="height"></ion-input>
+
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <button ion-button block color="primary" (click)="goToSubmit()">Submit</button>
+
+</ion-content>
