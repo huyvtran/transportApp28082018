@@ -35,7 +35,7 @@ export class RideNowPage {
   drop_lt :any;
   drop_lg :any;
   vehicle_img : any;
-  // vehicle_type:any;
+  customer_name:any;
   public active: string; 
   isnowenabled:boolean=true;
   
@@ -109,6 +109,7 @@ export class RideNowPage {
 
     this.storage.get('user').then(data=>{   
       this.customer_id = data[0].id;
+      this.customer_name = data[0].first_name+' '+data[0].last_name;
     });    
 
    // console.log('oiuygfbhthis.distance==>>'+this.distance);
@@ -148,6 +149,12 @@ export class RideNowPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad RideNowPage');
   }  
+
+  
+  ionViewWillLeave(){
+    
+  }
+
   
   updateActive(name)
   {
@@ -168,58 +175,92 @@ export class RideNowPage {
   }    
 
   confirmPayment(){ 
-    this.isnowenabled = false;      
-    let param = new FormData();
-    
-    //console.log(id);
-    
-    param.append("customer_id",this.customer_id);
-    param.append("schedule","0");
-    param.append("schedule_time",null);
-    param.append("distance",this.distance);
-    param.append("vehicle_type",this.vehicle_types);
-    param.append("source",this.pick_up);
-    param.append("source_lat",this.pick_up_lt);
-    param.append("source_long",this.pick_up_lg);
-    param.append("destination_lat",this.drop_lt);  
-    param.append("destination_long",this.drop_lg);  
-    param.append("destination",this.drop);  
-    param.append("total",null);
-    param.append("is_cancelled","0");
-    param.append("is_completed","0");
-    param.append("is_paid","0");
-    param.append("status","0");
-    param.append("cost",this.cost);   
-    param.append("driver_id",'');
+    if(this.active != '')
+    {
+      let param1 = new FormData();
+      param1.append("customer_id",this.customer_id);
+      this.data.getWalletAmount(param1).subscribe(result=>{
+        if(result.status == 'OK')
+        {
+          if(parseFloat(result.success.balance) < 0 )
+          {
+            this.data.presentToast("Your wallet balance is in minus, So you can't take Ride");
+          }
+          else{
+            this.isnowenabled = false;      
+            let param = new FormData();
+  
+            param.append("customer_id",this.customer_id);
+            param.append("schedule","0");
+            param.append("schedule_time",null);
+            param.append("distance",this.distance);
+            param.append("vehicle_type",this.vehicle_types);
+            param.append("source",this.pick_up);
+            param.append("source_lat",this.pick_up_lt);
+            param.append("source_long",this.pick_up_lg);
+            param.append("destination_lat",this.drop_lt);  
+            param.append("destination_long",this.drop_lg);  
+            param.append("destination",this.drop);  
+            param.append("total",null);
+            param.append("is_cancelled","0");
+            param.append("is_completed","0");
+            param.append("is_paid","0");
+            param.append("status","0");
+            param.append("cost",this.cost);   
+            param.append("driver_id",'');
+            param.append("payment_method",this.active);
 
-      this.data.bookingRequest(param).subscribe(result=>{
-              console.log(result);    
-              //this.userData = result; 
-              if(result.status == "ERROR")
-              {
-                  this.data.presentToast('Error');        
-                  return false;
-              }
-              else
-              {
-                //this.storage.set("customer_data",data.msg[0]);
-                this.data.presentToast('Booking Request Successfull!');
+            this.data.bookingRequest(param).subscribe(result=>{
+                console.log(result);    
+                //this.userData = result; 
+                if(result.status == "ERROR" || result.status == "Error")
+                {
+                    this.data.presentToast('Your wallet balance is low. Please select another payment method.');     
+                    this.isnowenabled = true;      
+                    return false;
+                }
+                else 
+                {
+                  //this.storage.set("customer_data",data.msg[0]);
+                  this.data.presentToast('Booking Request Successfull!');
 
-                let param1 = new FormData();
-                param1.append("driver_Id",this.Did);
-                param1.append("customer_id",this.customer_id);
-                param1.append("booking_id",result.success.booking_request.id);
+                  let param1 = new FormData();
+                  param1.append("driver_Id",this.Did);
+                  param1.append("customer_id",this.customer_id);
+                  param1.append("booking_id",result.success.booking_request.id);
+                  param1.append("pick_up",'now');
+                  param1.append("source",this.pick_up);
+                  param1.append("customer",this.customer_name);
 
-                this.data.postNotification(param1).subscribe(result=>{   
-                  if(result.status == "ERROR")
-                  {     
-                    
-                  }
-                });
+                  this.data.postNotification(param1).subscribe(result=>{   
+                    if(result.status == "ERROR")
+                    {     
+                      
+                    }
+                  });
 
-                this.navCtrl.setRoot(ConfirmPaymentPage,{'booking_id':result.success.booking_request.id,rideType:'now',source:this.pick_up,destination:this.drop});
-              }                             
-      });
+                  let currentIndex = this.navCtrl.getActive().index;
+                  this.navCtrl.push(ConfirmPaymentPage,{'booking_id':result.success.booking_request.id,rideType:'now',source:this.pick_up,destination:this.drop}).then(() => {
+                      this.navCtrl.remove(currentIndex);
+                  });
+                  //this.navCtrl.push(ConfirmPaymentPage,{'booking_id':result.success.booking_request.id,rideType:'now',source:this.pick_up,destination:this.drop});
+                }                             
+            });
+
+          }
+        }
+        else{
+          this.data.presentToast('Error');     
+          this.isnowenabled = true;    
+          return false;
+        }
+      })
+    }
+    else{
+        this.data.presentToast('Please select Payment method');
+        return false;
+    }
 
     }
 }
+  

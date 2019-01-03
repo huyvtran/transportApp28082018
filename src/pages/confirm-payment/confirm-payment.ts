@@ -3,7 +3,7 @@ import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { Geolocation } from '@ionic-native/geolocation';
-import { IonicPage,ActionSheetController,AlertController, Events, NavController, NavParams, Platform, ViewController, ModalController } from 'ionic-angular';
+import { IonicPage,ActionSheetController,AlertController, Events, NavController, NavParams, Platform, ViewController, ModalController, LoadingController } from 'ionic-angular';
 import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
 import { Subscription } from 'rxjs/Subscription';
 import { AutocompletePage } from '../autocomplete/autocomplete';
@@ -63,8 +63,14 @@ export class ConfirmPaymentPage {
   watch : any;
   rideComplete : boolean = false;
   ref = firebase.database().ref('geolocations/');
+  leave : boolean = false;
+  eve_unsub : any = 'true';
+  live_status :any;
+  loadingCtr : any;
+  Pre_lat : any = 0;
+  Pre_lng : any = 0;
 
-  constructor( public geolocation: Geolocation, private modalCtrl: ModalController, private device: Device, public navParams: NavParams, public zone: NgZone, public platform: Platform, public viewCtrl: ViewController,public actionSheetCtrl: ActionSheetController, public eve: Events,public navCtrl: NavController,public data : DataProvider, private storage: Storage,private alertCtrl: AlertController, public maps: GoogleMapsProvider) {
+  constructor( public geolocation: Geolocation, private modalCtrl: ModalController, private loading: LoadingController, private device: Device, public navParams: NavParams, public zone: NgZone, public platform: Platform, public viewCtrl: ViewController,public actionSheetCtrl: ActionSheetController, public eve: Events,public navCtrl: NavController,public data : DataProvider, private storage: Storage,private alertCtrl: AlertController, public maps: GoogleMapsProvider) {
     this.booking_id = navParams.get('booking_id');
     this.rideType = navParams.get('rideType');
     this.source = navParams.get('source');
@@ -77,26 +83,105 @@ export class ConfirmPaymentPage {
 
     this.storage.get('user').then(data=>{        
       this.customer_id = data[0].id;          
+
+      this.eve.subscribe('live_tracking_Driver_id:created', (live_tracking_Driver_id, time) => {
+        firebase.database().ref('customer/'+this.customer_id).set({ 'status': 'ongoing','booking_id':this.booking_id});
+        console.log('live_tracking_Driver_id'+live_tracking_Driver_id);
+        //this.eve.unsubscribe('live_tracking_Driver_id:created');
+        this.driver_id = live_tracking_Driver_id; 
+        //alert(this.driver_id);
+        this.subscribeAction();
+      });
+  
+      this.eve.subscribe('finished_ride:created', (finished_ride_data, time) => {
+        this.leave = true;
+        if(this.watch && this.watch !== undefined){
+          this.watch.unsubscribe();
+        }
+        this.eve.unsubscribe('finished_ride:created');
+        firebase.database().ref('customer/'+this.customer_id).set({ 'status': 'payment','booking_id':this.booking_id});
+        //this.rideComplete = true;
+        firebase.database().ref(this.booking_id).remove();
+        
+        let currentIndex = this.navCtrl.getActive().index;
+        this.navCtrl.push(PaymentPage,{booking_id : this.booking_id, driver_id : this.driver_id}).then(() => {
+          this.navCtrl.remove(currentIndex);
+        });
+  
+      });
+  
+      if(navParams.get('status'))
+      {
+        this.loadingCtr = this.loading.create({
+          content :"Please wait...",
+          spinner : 'crescent'
+        });
+        this.live_status = navParams.get('status');
+        if(this.live_status != 'waiting')
+        {
+          this.driver_id = navParams.get('driver_id');
+          if(this.live_status == 'ongoing')
+          {
+            this.eve.publish('live_tracking_Driver_id:created', this.driver_id, Date.now());
+            this.loadingCtr.dismiss();
+          }
+          else if(this.live_status == 'payment'){
+            this.eve.publish('finished_ride:created', this.driver_id, Date.now());
+            this.loadingCtr.dismiss();
+          }
+        }
+        else{
+          this.loadingCtr.dismiss();
+        }
+      }
+      else{
+       // setTimeout(()=>{
+          firebase.database().ref('customer/'+this.customer_id).set({ 'status': 'waiting','booking_id':this.booking_id});
+        //},1500);
+          //this.loadingCtr.dismiss();
+      } 
+
+
     }); 
    
-  alert(this.source);
-  alert(this.destination);
-
-    eve.subscribe('live_tracking_Driver_id:created', (live_tracking_Driver_id, time) => {
-      console.log('live_tracking_Driver_id'+live_tracking_Driver_id);
-      this.driver_id = live_tracking_Driver_id; 
-      alert(this.driver_id);
-      this.subscribeAction();
-    });
-
-    eve.subscribe('finished_ride:created', (finished_ride_data, time) => {
-        
-      //this.rideComplete = true;
-      firebase.database().ref(this.booking_id).remove();
-      this.watch.unsubscribe();
-      eve.unsubscribe('finished_ride:created');
-      this.navCtrl.push(PaymentPage,{booking_id : this.booking_id, driver_id : this.driver_id});
-    });
+  //alert(this.source);
+  //alert(this.destination);
+  //this.loadMap();
+  
+  setTimeout(()=>{
+   if(this.driver_id == '')
+   {
+     this.data.presentToast("Unfortunately, Your request is not accepted by any driver. Please request a new ride and we'll get you moving shortly.");
+     let param = new FormData();
+                param.append("customer_id",this.customer_id);
+                if(this.driver_id != '')
+                {
+                  param.append("driver_id",this.driver_id);
+                }
+                else{
+                  param.append("driver_id",'0');
+                }
+                param.append("booking_id",this.booking_id);
+                this.data.customerRejectBooking(param).subscribe(result=>{
+                  console.log(result);
+                  if(result.status == 'OK')
+                  {
+                    //this.data.presentToast('Request Canceled Successfully');
+                    
+                    //this.eve.unsubscribe('finished_ride:created');
+                    if(this.watch && this.watch !== undefined)
+                    {
+                      this.watch.unsubscribe();
+                    }
+                    firebase.database().ref('customer/'+this.customer_id).remove();
+                    firebase.database().ref(this.booking_id).remove();
+                    this.leave = true;
+                    this.navCtrl.setRoot(HomePage);
+                  }
+                });        
+     //this.navCtrl.setRoot(HomePage);
+   }
+  },600000);
 
   }
 
@@ -105,15 +190,42 @@ export class ConfirmPaymentPage {
     /*let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement).then(() => {
       this.autocompleteService = new google.maps.places.AutocompleteService();
       this.searchDisabled = false;  
-    }); */
-
+    }); */   
+//alert('hello');
     this.loadMap();
   }
   
 
+  
+  ionViewCanLeave()
+  {
+    if(this.leave == false){
+      return new Promise((resolve: Function, reject: Function) => {
+        /*let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'leaveAlert'});
+        let me = this;
+                     
+          modal.onDidDismiss(data => {   
+           // alert(data);
+            if(data == 'yes')
+            {
+              resolve();
+              //this.selectdId = data;
+            }  
+            else{*/
+              this.data.presentToast('You can not leave this page until Ride Complete');
+              reject();
+              //this.selectdId = '';
+            /*}     
+          });
+          modal.present();   */ 
+        });
+    }
+    
+  }
+
   ionViewWillLeave()
   {
-    //alert('will');
+    
     /*if(this.watch && this.watch !== undefined){
       this.watch.unsubscribe();
     }*/
@@ -123,14 +235,23 @@ export class ConfirmPaymentPage {
 
   subscribeAction()
   {
+    if(this.eve_unsub) {
+      this.eve.unsubscribe('live_tracking_Driver_id:created');
+      this.eve_unsub = undefined;
+      //this.goToConfirmPage(ride_later_alert.booking_id,pick_up,drop);
+    }  
     this.eve.unsubscribe('live_tracking_Driver_id:created');
+    //this.eve.unsubscribe('live_tracking_Driver_id:created');
     this.traking = 'div';
       //this.live_trak = 'true';
       this.active = 'accept';
       
       //this.startNavigating(this.source,this.destination);
       this.showSelectDriverModal(this.driver_id);
-      this.startNavigating(this.source,this.destination); 
+      /*setTimeout(()=>{
+        this.startNavigating(this.source,this.destination);
+      },1500);*/
+       
       //this.watchMethod();
       /*let marker = new google.maps.Marker({
         position: this.map.getCenter(),
@@ -170,7 +291,11 @@ export class ConfirmPaymentPage {
         marker = new google.maps.Marker({
           position: data,
           map: this.map,
-          icon: 'assets/imgs/car48x48.png'
+          //icon: {'assets/imgs/car48x48.png'},
+          icon : {  path:google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    scale: 4,
+                    strokeColor: '#00F',
+                    rotation: 0}
         });
 
     });
@@ -179,11 +304,18 @@ export class ConfirmPaymentPage {
       this.updateTrak().then(data=>{
         this.userData = data;
         console.log(data);
-        
-          marker.setPosition({lat:this.userData.lat(),lng:this.userData.lng()});
+        //marker.setRotation(this.bearing(this.Pre_lat,this.Pre_lng,this.userData.lat(),this.userData.lng()));
+        marker.setPosition({lat:this.userData.lat(),lng:this.userData.lng()});
+        var bearing = this.bearing(this.Pre_lat,this.Pre_lng,this.userData.lat(),this.userData.lng());
+        console.log(bearing);
+        var icon = marker.getIcon();
+        icon.rotation = bearing;
+        marker.setIcon(icon);
         
           this.trackedRoute.push({ lat: this.userData.lat(), lng: this.userData.lng() });
           this.redrawPath(this.trackedRoute);
+          this.Pre_lat = this.userData.lat();
+          this.Pre_lng = this.userData.lng();
         //alert(this.userData.lat());
         //this.addMarker1(data,'assets/imgs/car48x48.png');
         
@@ -210,7 +342,7 @@ export class ConfirmPaymentPage {
     let me = this;
                  
       modal.onDidDismiss(data => {   
-        
+        this.startNavigating(this.source,this.destination);
         if(data)
         {
           //this.selectdId = data;
@@ -266,7 +398,7 @@ export class ConfirmPaymentPage {
               var duration = response.rows[0].elements[0].duration.text;
               resolve(duration);
           } else {
-              alert("Unable to find the distance via road.");
+              this.data.presentToast("Unable to find the distance via road.");
           }
       });
     });
@@ -295,7 +427,8 @@ export class ConfirmPaymentPage {
         CancelCharge3 = result.success.Charges_list[2].charges;
         let alert = this.alertCtrl.create({
           title: 'Cancellation charges',
-          message:'There are some cancellation charges as per following.<br/>For '+CancelDuration1+' min : $'+CancelCharge1+'<br/> For '+CancelDuration2+'min : $'+CancelCharge2+'<br/> For'+CancelDuration3+' min : $'+CancelCharge3+' <br/>Do you Really want to cancel Ride?',
+          cssClass:'cancel_booking_alert',
+          message:'<div class="info">There are some cancellation charges as per following.</div><div class="min">For '+CancelDuration1+' min : </div><div class="charge">$'+CancelCharge1+'</div> <div class="min">For '+CancelDuration2+' min : </div><div class="charge"> $'+CancelCharge2+'</div><div class="min"> For '+CancelDuration3+' min : </div><div class="charge">$'+CancelCharge3+' </div><div class="que">Do you Really want to cancel Ride?</div>',
           buttons: [
             {
               text: 'Yes',
@@ -316,13 +449,15 @@ export class ConfirmPaymentPage {
                   if(result.status == 'OK')
                   {
                     this.data.presentToast('Request Canceled Successfully');
-                    firebase.database().ref(this.booking_id).remove();
+                    
                     this.eve.unsubscribe('finished_ride:created');
                     if(this.watch && this.watch !== undefined)
                     {
                       this.watch.unsubscribe();
                     }
-                    
+                    firebase.database().ref('customer/'+this.customer_id).remove();
+                    firebase.database().ref(this.booking_id).remove();
+                    this.leave = true;
                     this.navCtrl.setRoot(HomePage);
                   }
                 });        
@@ -386,7 +521,6 @@ export class ConfirmPaymentPage {
     });
   }
 
-
   
   setMapOnAll(map) {
     for (var i = 0; i < this.markers.length; i++) {
@@ -395,15 +529,20 @@ export class ConfirmPaymentPage {
   }
 
 
-
 watchMethod()
 {
-  this.watch = this.geolocation.watchPosition().subscribe((data) => {
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 0,
+    distanceFilter: 1
+  };
+  this.watch = this.geolocation.watchPosition(options).subscribe((data) => {
       //this.deleteMarkers();
       this.updateGeolocation(this.customer_id,this.booking_id, data.coords.latitude,data.coords.longitude);
       
     });
-  }
+}
 
 updateGeolocation(customer_id,booking_id, lat, lng) {
   firebase.database().ref(booking_id+'/'+customer_id).set({ 'latitude': lat, 'longitude' : lng});
@@ -515,6 +654,17 @@ updateTrak()
         } 
       }); 
     });
+  }
+
+  bearing(lat1,lng1,lat2,lng2) {
+    var dLon = (lng2-lng1);
+    var y = Math.sin(dLon) * Math.cos(lat2);
+    var x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+    var brng = this._toDeg(Math.atan2(y, x));
+    return 360 - ((brng + 360) % 360);
+  }
+  _toDeg(rad){
+    return rad * 180 / Math.PI;
   }
 }
 

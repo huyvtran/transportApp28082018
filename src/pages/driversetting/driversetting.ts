@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the DriversettingPage page.
  *
@@ -15,15 +15,69 @@ import { DataProvider } from '../../providers/data/data';
   templateUrl: 'driversetting.html',
 })
 export class DriversettingPage {
+  id : any;
+  role : any;
   visible : any;
   public isToggled: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public data : DataProvider) {
-    this.isToggled = false;
+  public isNotificationOff: boolean;
+  page = 1;
+  maximumPages: any;
+  offset : any = 0;
+  transactions : any =[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public data : DataProvider, private storage: Storage) {
+    
+    this.storage.get('user').then(data => {
+      this.id = data[0].id;
+      this.role = data[0].role;
+
+      let param = new FormData();
+      param.append("driver_id",data[0].id);
+      param.append("status",'get');
+      this.data.driverNotificationSetting(param).subscribe(result=>{
+        console.log(result);
+        if(result.status == 'OK')
+        {
+          if(result.success.Get_notification_setting == "0")
+          {       
+            this.isNotificationOff = false;
+          }
+          else{
+            this.isNotificationOff = true;
+          }
+        }
+        else{
+          this.data.presentToast('Error');
+        }
+      });
+    });
+
+   
+
+    this.data.getAvailableToggle().subscribe(result=>{
+      console.log(result);
+      if(result.status == 'OK')
+      {
+        console.log(result.success.available);
+        if(result.success.available == 'on')
+        {
+          this.isToggled = true;
+        }
+        else{
+          this.isToggled = false;
+        }
+      }
+      else{
+        this.data.presentToast('Error');
+      }
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DriversettingPage');
   }
+
+  
 
   public notify() {
     console.log("Toggled: "+ this.isToggled); 
@@ -35,7 +89,7 @@ export class DriversettingPage {
         if(result.success.available == 'Driver set to On')
         {
           this.data.presentToast('You are visible to nearby customers');
-        }
+        }   
         else{
           this.data.presentToast('You are invisible to nearby customers');
         }
@@ -46,6 +100,25 @@ export class DriversettingPage {
       }
     });
   }
+
+
+  notificationOff()
+  {
+    let param = new FormData();
+    param.append("driver_id",this.id);
+    param.append("status",'change');
+    this.data.driverNotificationSetting(param).subscribe(result=>{
+      console.log(result);
+      if(result.status == 'OK')
+      {
+        
+      }
+      else{
+        this.data.presentToast('Error');
+      }
+    });
+  }
+
 
   setVisibility(visibility)
   {
@@ -86,5 +159,7 @@ export class DriversettingPage {
     }*/
       
   }
+
+ 
 
 }

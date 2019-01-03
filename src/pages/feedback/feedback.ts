@@ -24,8 +24,11 @@ export class FeedbackPage {
   booking_id : any;
   driver_id : any;
   isfav :any = false;
-  favDriver : any = 'Add driver as a favourite';    
+  favDriver : any = '';    
   fav_drivers : any;
+  customer_id:any;
+  id : any;
+  role : any;
 
   constructor(public navCtrl: NavController, private loading: LoadingController, public navParams: NavParams, private storage : Storage, public data : DataProvider) {
     
@@ -35,33 +38,49 @@ export class FeedbackPage {
     });
 
     loader.present();
+
+    this.storage.get('user').then(data=>{   
+      this.id = data[0].id
+      this.role = data[0].role;
+    }); 
     
     this.booking_id = navParams.get('booking_id');
     this.driver_id = navParams.get('driver_id');
+    this.customer_id = navParams.get('customer_id');
+
     this.feedback_form = new FormGroup({    
       feedback: new FormControl('', [Validators.required]),
       rate: new FormControl('', [Validators.required]),
       });	
 
-
-      this.data.getFavDrivers().subscribe(result=>{
-        if(result.status == "OK")
+      this.storage.get('user').then(data=>{   
+        let role = data[0].role;
+        if(role == 2)
         {
-          this.fav_drivers = result.success.favdrivers;    //this.data.presentToast('Feedback sent successfully');
-          //this.navCtrl.setRoot(HomePage);
-          this.checkFavDriver(result.success.favdrivers).then(data=>{
-            if(data == 'favorite')
+          this.data.getFavDrivers().subscribe(result=>{
+            if(result.status == "OK")
             {
-              this.favDriver = 'Added to favourite';
+              this.fav_drivers = result.success.favdrivers;    //this.data.presentToast('Feedback sent successfully');
+              //this.navCtrl.setRoot(HomePage);
+              this.checkFavDriver(result.success.favdrivers).then(data=>{
+                if(data == 'favorite')
+                {
+                  this.favDriver = 'Added to favourite';
+                }
+                else{
+                  this.favDriver = 'Add driver as a favourite';
+                }
+                
+              });
             }
-            loader.dismiss();
+            else   
+            {
+              
+            }                           
           });
         }
-        else   
-        {
-          loader.dismiss();
-        }                           
       });
+      loader.dismiss();
       
   }
         
@@ -91,18 +110,35 @@ export class FeedbackPage {
       let param = new FormData();
       param.append("feedback",feedback);
       param.append("rating",rate);
-      param.append("driver_id",this.driver_id);
       param.append("booking_id",this.booking_id);
-      this.data.feedback(param).subscribe(result=>{
-        if(result.status == "OK")
-        {
-          this.data.presentToast('Feedback sent successfully');
-          this.navCtrl.setRoot(HomePage);
-        }
-        else   
-        {
-        }                           
-      });
+      if(this.role == 2)
+      {
+        param.append("driver_id",this.driver_id);
+        this.data.feedback(param).subscribe(result=>{
+          if(result.status == "OK")
+          {
+            this.data.presentToast('Feedback sent successfully');
+            this.navCtrl.setRoot(HomePage);
+          }
+          else   
+          {
+          }                           
+        });
+      }
+      else if(this.role == 3 )
+      {
+        param.append("customer_id",this.customer_id);
+        this.data.feedbacktoCustomer(param).subscribe(result=>{
+          if(result.status == "OK")
+          {
+            this.data.presentToast('Feedback sent successfully');
+            this.navCtrl.setRoot(HomePage);
+          }
+          else    
+          {
+          }                           
+        });
+      }
 
     }
   }

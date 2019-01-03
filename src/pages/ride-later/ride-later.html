@@ -10,7 +10,7 @@
   </ion-navbar>  
 </ion-header>
 
-<ion-content>
+<ion-content overflow-scroll="true">
     <div>
       <ion-grid padding class="srcpt">
         <ion-row class="addr_row">
@@ -73,8 +73,8 @@
       </ion-grid>
   
       <div class="paymentMethodDiv">
-        <img src={{vehicle_img}} />
-        <!--<ion-grid>
+         <!--<img src={{vehicle_img}} />-->
+        <ion-grid>
           <ion-row>
             <ion-col col-4>
               <div class="innerDiv" [ngClass]="active === 'cash' ? 'active_payment' : ''" (click)="updateActive('cash')">
@@ -95,9 +95,12 @@
               </div>
             </ion-col>
           </ion-row>
-        </ion-grid>-->
+        </ion-grid>
       </div>
     </div>
     <button (click)='confirmPayment()' class="login-btn" ion-button color="primary" block  [disabled]="!isnowenabled">Confirm Ride Request</button>
   </ion-content>
+  <ion-footer>
+    
+  </ion-footer>
  

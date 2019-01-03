@@ -33,6 +33,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="io.ionic.transportApp.permission.RECEIVE_ADM_MESSAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -47,8 +48,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="io.ionic.transportApp.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /> <!-- Required, makes sure notifications are delivered on time. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <!--
  Use to restore notifications the user hasn't interacted with.
          They could be missed notifications if the user reboots their device if this isn't in place.
@@ -82,7 +82,7 @@
             android:name="io.ionic.transportApp.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/activity_name"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter android:label="@string/launcher_name" >
@@ -115,6 +115,8 @@
                 <category android:name="io.ionic.transportApp" />
             </intent-filter>
         </receiver>
+
+        <service android:name="de.appplant.cordova.plugin.background.ForegroundService" />
 
         <activity
             android:name="io.card.payment.CardIOActivity"

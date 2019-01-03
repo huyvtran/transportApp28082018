@@ -29,6 +29,32 @@
             margin-top: 9px;
             padding: 10px;   
         }
+
+        .social_icons ion-item{	   
+            padding: 0;
+            padding-bottom: 12px;
+            color: #5f5656;
+            margin-left: 11%;
+            border-bottom: 1px solid #b4aeae !important;
+            width: 78%;
+        }
+            
+        .social_icons span.add_social_link {
+            font-size: 16px;
+            margin-left: 10px;
+            top: 25px;
+            position: absolute;
+            letter-spacing: 0.5px;
+        }
+
+        .submit_btn_item ion-label {
+            margin: 0;
+        }
+        ion-item.social_icons {
+            border-bottom: 1px solid #dcd9d9;
+            box-shadow: 0 0 2px #d4d2d2;
+            margin-top: 15px;
+        }
     }
     
 }

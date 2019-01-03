@@ -44,7 +44,7 @@
             Please fill out this field
         </div>
         <div class="error" *ngIf="profile.get('phone').hasError('maxlength') && profile.get('phone').touched">
-            Maximum Length of Phone No. must be 11
+            Maximum Length of Phone No. must be 11    
         </div>
 
       <ion-item>
@@ -52,8 +52,15 @@
           <ion-input type="text" [(ngModel)]="user_details.address" formControlName="address" [class.invalid]="!profile.valid && (profile.controls.address.dirty || submitAttempt)"  ></ion-input>
           </ion-item>
           <div class="error" *ngIf="profile.get('address').hasError('required')  && profile.get('address').touched">
-        z      Please fill out this field
+               Please fill out this field
           </div>
+
+        <ion-list>
+            <ion-item ion-item class="social_icons" no-lines (click)="addSocialLink()" > 
+                <span class="add_social_link">Add Social Media Account Links</span>
+            </ion-item>
+        </ion-list>
+
       <ion-item class="submit_btn_item">
           <button class="profile-btn" ion-button color="primary" block [disabled]="!this.profile.valid">Update</button>
       </ion-item>
@@ -118,11 +125,19 @@
             Please fill out this field
         </div>
 
+        <ion-list>
+            <ion-item ion-item class="social_icons" no-lines (click)="addSocialLink()" > 
+                <span class="add_social_link">Add Social Media Account Links</span>
+            </ion-item>
+        </ion-list>
+
       <ion-item class="submit_btn_item">
           <button class="profile-btn" ion-button color="primary" block [disabled]="!this.Dprofile.valid">Update</button>
       </ion-item>
 
     </ion-list>
-  </form>
 
+    
+  </form>
+  
 </ion-content>

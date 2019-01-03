@@ -381,6 +381,24 @@ module.exports = [
     "clobbers": [
       "window.StatusBar"
     ]
+  },
+  {
+    "id": "cordova-plugin-inappbrowser.inappbrowser",
+    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+    "pluginId": "cordova-plugin-inappbrowser",
+    "clobbers": [
+      "cordova.InAppBrowser.open",
+      "window.open"
+    ]
+  },
+  {
+    "id": "cordova-plugin-background-mode.BackgroundMode",
+    "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+    "pluginId": "cordova-plugin-background-mode",
+    "clobbers": [
+      "cordova.plugins.backgroundMode",
+      "plugin.backgroundMode"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -406,7 +424,9 @@ module.exports.metadata =
   "card.io.cordova.mobilesdk": "2.1.0",
   "com.paypal.cordova.mobilesdk": "3.5.0",
   "com.telerik.plugins.nativepagetransitions": "0.6.5",
-  "cordova-plugin-statusbar": "2.4.2"
+  "cordova-plugin-statusbar": "2.4.2",
+  "cordova-plugin-inappbrowser": "3.0.0",
+  "cordova-plugin-background-mode": "0.7.2"
 };
 // BOTTOM OF METADATA
 });

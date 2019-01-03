@@ -33,7 +33,7 @@
               </ion-row>
             </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.deliveryPage)">
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.packageBooking)">
             <!--<ion-icon class="sideMenuIcons" name="home"></ion-icon>-->
             <ion-grid>
               <ion-row>
@@ -80,7 +80,7 @@
                       <img class="list_item_icon" src="assets/imgs/wallet1.png"/>
                     </ion-col>
                     <ion-col col-9>
-                        <div class="list_item_title">Payments</div>
+                        <div class="list_item_title">My Wallet</div>
                     </ion-col>
                   </ion-row>
                 </ion-grid> 
@@ -98,8 +98,8 @@
                   </ion-row>
                 </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.feedbackPage)">  
-              <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
+          <!--<button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.feedbackPage)">  
+              <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>--
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
@@ -112,7 +112,7 @@
                 </ion-grid>
           </button>
           <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.homePage)">  
-              <!--<ion-icon ios="logo-usd" md="logo-usd"></ion-icon>-->
+              <!--<ion-icon ios="logo-usd" md="logo-usd"></ion-icon>--
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
@@ -123,7 +123,7 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>   
-          </button>
+          </button>-->
           <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.helpPage)">  
               <!--<ion-icon ios="ios-help-circle" md="md-help-circle"></ion-icon>-->
               <ion-grid>
@@ -132,13 +132,26 @@
                       <img class="list_item_icon" src="assets/imgs/chat.png"/>
                     </ion-col>
                     <ion-col col-9>
-                        <div class="list_item_title">Help</div>
+                        <div class="list_item_title">Help</div>    
                     </ion-col>
                   </ion-row>
                 </ion-grid>    
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.paymentPage)">  
-              <!--<ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>-->
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="signOut()">  
+              <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
+              <ion-grid>
+                  <ion-row>
+                    <ion-col col-3>
+                      <img class="list_item_icon" src="assets/imgs/menu_logout.png"/>
+                    </ion-col>
+                    <ion-col col-9>
+                        <div class="list_item_title">Log Out</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+          </button>
+          <!--<button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.paymentPage)">  
+              <!--<ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>--
               <ion-grid>
                   <ion-row>
                     <ion-col col-3>
@@ -149,7 +162,7 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>   
-          </button>
+          </button>-->
       </ion-list>    
     </ion-content>
 
@@ -181,15 +194,15 @@
                   </ion-row>
                 </ion-grid>
             </button>
-            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.paymentwalletPage)">  
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.driverTransactionsPage)">  
                 <!--<ion-icon ios="ios-cog" md="md-cog"></ion-icon>-->
                 <ion-grid>
                     <ion-row>
                       <ion-col col-3>
-                        <img class="list_item_icon" src="assets/imgs/wallet1.png"/>
+                        <img class="list_item_icon" src="assets/imgs/transaction.png"/>
                       </ion-col>
                       <ion-col col-9>
-                          <div class="list_item_title">Payments</div>
+                          <div class="list_item_title">Transactions</div>
                       </ion-col>
                     </ion-row>
                   </ion-grid> 
@@ -207,7 +220,7 @@
                     </ion-row>
                   </ion-grid>
             </button>
-            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.bookingListPage)">  
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.bookingListPage)">  
               <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
               <ion-grid>
                   <ion-row>
@@ -215,11 +228,37 @@
                       <img class="list_item_icon" src="assets/imgs/calendar-page-with-circular-clock-symbol.png"/>
                     </ion-col>
                     <ion-col col-9>
-                        <div class="list_item_title">Your Bookings</div>
+                        <div class="list_item_title">History</div>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
           </button>
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.notificationsPage)">  
+            <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
+            <ion-grid>
+                <ion-row>
+                  <ion-col col-3>
+                    <img class="list_item_icon" src="assets/imgs/notification.png"/>
+                  </ion-col>
+                  <ion-col col-9>
+                      <div class="list_item_title">Notifications</div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </button>
+        <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="signOut()">  
+            <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
+            <ion-grid>
+                <ion-row>
+                  <ion-col col-3>
+                    <img class="list_item_icon" src="assets/imgs/menu_logout.png"/>
+                  </ion-col>
+                  <ion-col col-9>
+                      <div class="list_item_title">Log Out</div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </button>
         </ion-list>       
       </ion-content>
   </ion-menu>

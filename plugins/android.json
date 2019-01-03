@@ -67,6 +67,12 @@
     },
     "onesignal-cordova-plugin": {
       "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
     }
   },
   "dependent_plugins": {

@@ -17,8 +17,8 @@
 
   <div class="forgetPass-img" text-center>
     <img src="assets/imgs/website-rating-feedback-and-review.png" />
-    <ion-item> 
-        <button class="fav_driver" (click)="notify(isfav)">{{favDriver}}</button>
+    <ion-item *ngIf="role==2"> 
+        <button *ngIf="favDriver !=''" class="fav_driver" (click)="notify(isfav)">{{favDriver}}</button>
     </ion-item>
   </div>
   <form [formGroup]="feedback_form" text-center>      

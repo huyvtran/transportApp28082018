@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,LoadingController,ModalController} from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
 import { CustomerProfilePage } from '../customer-profile/customer-profile';
 import { HomePage } from '../home/home';
-
+import { ModalpagePage } from '../modalpage/modalpage';
 /**
  * Generated class for the EditProfilePage page.
  *
@@ -25,14 +25,18 @@ export class EditProfilePage {
   cust_id :any;
   role : Number;
   vehicle_types : any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public data : DataProvider, private storage: Storage,private loading: LoadingController) {
+  social_media : any = [];
+  prev_social_media : any = [];
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public data : DataProvider, private storage: Storage,private loading: LoadingController, private modalCtrl: ModalController) {
     
     this.profile = new FormGroup({    
       fname: new FormControl('', [Validators.required]),
       lname: new FormControl('', [Validators.required]),
       //email: new FormControl('', [Validators.required,Validators.email]),
       phone: new FormControl('', [Validators.required,Validators.maxLength(11)]),/*pattern("06([0-9]{8})")*/
-      address: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required])
       });
         
 
@@ -61,6 +65,10 @@ export class EditProfilePage {
                 this.user_details.phone = result.success.profile[0].phone;
                 this.user_details.address = result.success.profile[0].address;
                 //this.user_details.avatar = result.success.profile[0].profile;
+                this.prev_social_media['facebook'] = result.success.profile[0].facebook_profile;
+                this.prev_social_media['twitter'] = result.success.profile[0].twitter_profile;
+                this.prev_social_media['instagram'] = result.success.profile[0].instagram_profile;
+                this.prev_social_media['linkedin'] = result.success.profile[0].linkedin_profile;
               }
               else{
   
@@ -92,6 +100,10 @@ export class EditProfilePage {
                 this.user_details.address = result.success.profile[0].address;
                 this.user_details.vehicle_type = result.success.profile[0].vehicle_type;
                 this.user_details.vehicle_no = result.success.profile[0].vehicle_number;
+                this.prev_social_media['facebook'] = result.success.profile[0].facebook_profile;
+                this.prev_social_media['twitter'] = result.success.profile[0].twitter_profile;
+                this.prev_social_media['instagram'] = result.success.profile[0].instagram_profile;
+                this.prev_social_media['linkedin'] = result.success.profile[0].linkedin_profile;
               }
               else{
   
@@ -137,6 +149,15 @@ export class EditProfilePage {
     param.append("phone",profile.phone);  
     param.append("address",profile.address);   
     //param.append("profile",profile.avatar);
+
+    if(this.social_media['facebook'] || this.social_media['twitter'] || this.social_media['linkedin'] || this.social_media['instagram'])
+    {
+      alert(this.social_media['instagram']);
+      param.append("facebook_profile",this.social_media['facebook']);  
+      param.append("twitter_profile",this.social_media['twitter']);  
+      param.append("linkedin_profile",this.social_media['linkedin']);  
+      param.append("instagram_profile",this.social_media['instagram']);  
+    }
  
     let loader = this.loading.create({
  
@@ -190,5 +211,24 @@ export class EditProfilePage {
     }
 
   }    
+
+  addSocialLink(account)
+  {
+    let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'addSocialaccount',social_media:this.prev_social_media});
+    let me = this;
+               
+    modal.onDidDismiss(data => {   
+      console.log(data);
+      if(data)
+      {
+        this.social_media = data;
+      }          
+      else{
+        //this.selectdId = '';        
+      }     
+    });
+    modal.present();
+    //this.navCtrl.setRoot(SigninPage); 
+  }
 
 }

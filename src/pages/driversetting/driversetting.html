@@ -18,5 +18,10 @@
     <ion-label>Visible to customers</ion-label>
     <ion-toggle [(ngModel)]="isToggled" (ionChange)="notify()"></ion-toggle>
   </ion-item>
+
+  <ion-item>
+    <ion-label>Silent Notifications</ion-label>
+    <ion-toggle [(ngModel)]="isNotificationOff" (ionChange)="notificationOff()"></ion-toggle>
+  </ion-item>
 </ion-content> 
  

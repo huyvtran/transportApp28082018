@@ -146,6 +146,13 @@
     </div>
   </div>
 
+  <div class="notification" *ngIf="showNotifications == true">
+    <ion-item>
+      <ion-label>Silent Notifications</ion-label>
+      <ion-toggle [(ngModel)]="isNotificationOff" (ionChange)="notificationOff()"></ion-toggle>  
+    </ion-item>
+  </div>
+
 </ion-content>
 <div *ngIf="showmainpage != true" class="last_div" (click)="goBack()">  
     <div class="inner_last_div">

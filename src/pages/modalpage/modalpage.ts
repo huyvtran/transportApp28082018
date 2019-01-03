@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Events,LoadingController } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { SigninPage } from '../signin/signin';
@@ -32,19 +32,54 @@ export class ModalpagePage {
   lat : any;
   lng : any;
   social_account : any;
-  social_account_details =[];
+  social_account_details: any = {} ;
+  prev_social_accounts :any = [];
   rating : any;
   feedback : any;
-  minDate : any;    
+  minDate : any;
+  leave : boolean = true;
+  fromDate :any;
+  toDate : any;
+  display_bookingInfo : boolean = false;
+  showClose : boolean = false;
+  relativeId : any;
+  bookingInfo_name : any;
+  bookingInfo_phone : any;
+  display_relative : any = '';
+  loadingCtr : any;
 
-  constructor(public geolocation: Geolocation,private oneSignal: OneSignal, public data : DataProvider, public navCtrl: NavController, private storage: Storage, public navParams: NavParams,public viewCtrl: ViewController) {
+  constructor(public eve : Events, private loading: LoadingController, public geolocation: Geolocation,private oneSignal: OneSignal, public data : DataProvider, public navCtrl: NavController, private storage: Storage, public navParams: NavParams,public viewCtrl: ViewController) {
+    this.loadingCtr = this.loading.create({
+      content :"Please wait...",
+      spinner : 'crescent'
+    });
+    //this.loadingCtr.present();
+
     this.modalAct = navParams.get('modalAct');
     this.driverId = navParams.get('driverId');
     this.bookingId = navParams.get('bookingId');
+    this.relativeId = navParams.get('relativeId') != undefined ? navParams.get('relativeId') : '';
     this.feedback = navParams.get('feedback');
     this.rating = navParams.get('rating');
     this.minDate = new Date().toISOString();
-    //this.social_account = navParams.get('account');
+    this.prev_social_accounts = navParams.get('social_media');
+    //alert(this.prev_social_accounts['facebook']);
+
+    if(this.modalAct == 'addSocialaccount'){
+      if(this.prev_social_accounts['facebook'] != undefined && this.prev_social_accounts['facebook'] && this.prev_social_accounts['facebook'] != 'undefined'){
+        this.social_account_details.facebook =  this.prev_social_accounts['facebook'];
+      }
+      if(this.prev_social_accounts['twitter'] != undefined && this.prev_social_accounts['twitter'] && this.prev_social_accounts['twitter'] != 'undefined'){
+        this.social_account_details.twitter =  this.prev_social_accounts['twitter'];
+      }
+      if(this.prev_social_accounts['instagram'] != undefined && this.prev_social_accounts['instagram'] && this.prev_social_accounts['instagram'] != 'undefined'){
+        this.social_account_details.instagram =  this.prev_social_accounts['instagram'];
+      }
+      if(this.prev_social_accounts['linkedin'] != undefined && this.prev_social_accounts['linkedin'] && this.prev_social_accounts['linkedin'] != 'undefined'){
+        this.social_account_details.linkedin =  this.prev_social_accounts['linkedin'];
+      }
+    }
+    
 
     this.driver ={
       fname : 'fname',
@@ -77,7 +112,7 @@ export class ModalpagePage {
     }
 
     this.social_account = new FormGroup({    
-      google: new FormControl(''),
+      linkedin: new FormControl(''),
       facebook: new FormControl(''),
       twitter: new FormControl(''),
       instagram: new FormControl('')
@@ -85,6 +120,7 @@ export class ModalpagePage {
     
     if(this.driverId && this.driverId != '')
     {
+      this.loadingCtr.present();
       let param = new FormData();
       param.append("driver_id",this.driverId);
      
@@ -92,6 +128,8 @@ export class ModalpagePage {
         console.log(result);
         if(result.status == 'OK')
         {
+          this.display_bookingInfo = true;
+          this.loadingCtr.dismiss();
           console.log(result.success.driver.first_name);
           this.driver.fname = result.success.driver.first_name;
           this.driver.lname = result.success.driver.last_name;
@@ -124,59 +162,156 @@ export class ModalpagePage {
 
     if(this.bookingId && this.bookingId != '')
     {
-      let param = new FormData();
-      param.append("booking_id",this.bookingId);
-     
-      this.data.getBookingInfo(param).subscribe(result=>{
-        console.log(result);
-        if(result.status == 'OK')
+      this.loadingCtr.present();
+      if(this.modalAct == 'showBooking')
+      {
+        this.leave = true;
+      }
+      else{
+        this.leave = false;
+      }
+      this.storage.get('user').then(data=>{   
+        let id = data[0].id;
+        let role = data[0].role;
+        if(role == 3)
         {
-          this.booking_info.source = result.success.booking.source,
-          this.booking_info.destination =  result.success.booking.destination,
-          this.booking_info.distance = result.success.booking.distance,
-          this.booking_info.cost = result.success.booking.cost,
-          this.booking_info.customer_id = result.success.booking.customer_id,
-          this.booking_info.source_lat = result.success.booking.source_lat,
-          this.booking_info.source_lng = result.success.booking.source_long,
-          this.booking_info.destination_lat = result.success.booking.destination_lat,
-          this.booking_info.destination_lng = result.success.booking  .destination_long,
-          this.booking_info.booking_id = result.success.booking.id,
-          this.booking_info.driver_id = result.success.booking.driver_id,
-          this.booking_info.pickup_date = result.success.booking.pickup_date,
-          this.booking_info.schedule_time = result.success.booking.schedule_time
-
-          this.geolocation.getCurrentPosition().then((position) => {
-            this.lat = position.coords.latitude;
-            this.lng =  position.coords.longitude;
-          });   
-
           let param = new FormData();
-          param.append("origin",this.lat+','+this.lng);
-          param.append("destination",this.booking_info.source_lat+','+this.booking_info.source_lng);
-
-          this.data.customerBookingDistance(param).subscribe(result=>{   
+          param.append("booking_id",this.bookingId);
+        
+          this.data.getBookingInfo(param).subscribe(result=>{
+            console.log(result);
             if(result.status == 'OK')
-            {     
-              //console.log(result);    
-              this.booking_info.duration = result.success.duration;
-              console.log(this.booking_info.duration);
+            {
+              this.booking_info.source = result.success.booking.source,
+              this.booking_info.destination =  result.success.booking.destination,
+              this.booking_info.distance = result.success.booking.distance,
+              this.booking_info.cost = result.success.booking.cost,
+              this.booking_info.customer_id = result.success.booking.customer_id,
+              this.booking_info.source_lat = result.success.booking.source_lat,
+              this.booking_info.source_lng = result.success.booking.source_long,
+              this.booking_info.destination_lat = result.success.booking.destination_lat,
+              this.booking_info.destination_lng = result.success.booking  .destination_long,
+              this.booking_info.booking_id = result.success.booking.id,
+              this.booking_info.driver_id = result.success.booking.driver_id,
+              this.booking_info.pickup_date = result.success.booking.pickup_date,
+              this.booking_info.schedule_time = result.success.booking.schedule_time
+              if(this.relativeId !=''){
+                this.display_relative = 'Customer';
+                let param = new FormData();
+                param.append("customer_id",this.relativeId);
+                this.data.getCustInfo(param).subscribe(result=>{
+                  console.log(result);
+                  if(result.status == 'OK')
+                  {
+                    this.display_bookingInfo = true;
+                    this.loadingCtr.dismiss();
+                    this.bookingInfo_name = result.success.customer[0].first_name+' '+result.success.customer[0].last_name;
+                    this.bookingInfo_phone = result.success.customer[0].phone;
+                  }
+                });
+              }
+              else
+              {
+                this.display_bookingInfo = true;
+                this.loadingCtr.dismiss();
+              }
+            }
+            else{
+              this.data.presentToast('Something went Wrong!');
             }
           });
         }
-        else{
+        else if(role == 2)
+        {
+          let param = new FormData();
+          param.append("booking_id",this.bookingId);
 
-        }
+            this.data.getcurrentBooking(param).subscribe(result=>{  
+              if(result.status == 'OK')
+              {
+                this.booking_info.source = result.success.booking.source,
+                this.booking_info.destination =  result.success.booking.destination,
+                this.booking_info.distance = result.success.booking.distance,
+                this.booking_info.cost = result.success.booking.cost,
+                this.booking_info.customer_id = result.success.booking.customer_id,
+                this.booking_info.source_lat = result.success.booking.source_lat,
+                this.booking_info.source_lng = result.success.booking.source_long,
+                this.booking_info.destination_lat = result.success.booking.destination_lat,
+                this.booking_info.destination_lng = result.success.booking  .destination_long,
+                this.booking_info.booking_id = result.success.booking.id,
+                this.booking_info.driver_id = result.success.booking.driver_id,
+                this.booking_info.pickup_date = result.success.booking.pickup_date,
+                this.booking_info.schedule_time = result.success.booking.schedule_time
+                if(this.relativeId !=''){
+                  this.display_relative = 'Driver';
+                  let param = new FormData();
+                  param.append("driver_id",this.relativeId);
+                  this.data.getSelectedDriverInfo(param).subscribe(result=>{
+                    console.log(result);
+                    if(result.status == 'OK')
+                    {
+                      this.display_bookingInfo = true;
+                      this.loadingCtr.dismiss();
+                      this.bookingInfo_name = result.success.driver.first_name+' '+result.success.driver.last_name;
+                      this.bookingInfo_phone = result.success.driver.phone;
+                    }
+                  });
+                }
+                else{
+                  this.display_bookingInfo = true;
+                  this.loadingCtr.dismiss();
+                }
+              }
+            else{
+              this.data.presentToast('Something went Wrong!');
+            }
+            }); 
+       }
       });
+      
     }
+   // this.loadingCtr.dismiss();
   }
 
   ionViewDidLoad() {     
     console.log('ionViewDidLoad ModalpagePage');
-  }         
+  }   
+  
+  ionViewDidEnter()
+  {
+    this.showClose = true;
+  }
 
-  close(){       
-    this.viewCtrl.dismiss();
+  ionViewCanLeave()
+  {
+    return new Promise((resolve: Function, reject: Function) => {
+      if(this.leave == false)
+      {
+        this.data.presentToast('You can not leave this page untill you receive payment.');
+        reject();
+      }
+      else
+      {
+        resolve();
+      }      
+    });
+  }
+
+  close(){ 
+    if(this.modalAct == 'this.modalAct')
+    {
+      
+    }      
+    else{
+      this.viewCtrl.dismiss();
+    }
+    
   } 
+
+  leavePage(decision)
+  {
+    this.viewCtrl.dismiss(decision);
+  }
 
   /*selectDriver(Did)
   { 
@@ -239,7 +374,16 @@ export class ModalpagePage {
     }
   }
 
-  accept_req()
+  /*gotoTransactions()
+  {
+    if(this.fromDate && this.toDate)              
+    { 
+      var data = [this.fromDate,this.toDate];
+      this.viewCtrl.dismiss(data);
+    }
+  }*/
+
+  /*accept_req()
   {
       let param = new FormData();
       param.append("driver_id",this.booking_info.driver_id);
@@ -301,16 +445,28 @@ export class ModalpagePage {
         }                         
       });        
   }
+*/
+
+cashPaymentReceived(isPaid)
+{
+  this.leave = true;
+  if(isPaid=='yes')
+  {
+    this.viewCtrl.dismiss('yes');
+  }
+}
+
 
   add_social_account()
   {
     //alert(this.social_account_details['google']);
-    let param = new FormData();
+    /*let param = new FormData();
     param.append("google",this.social_account_details['google']);
     param.append("facebook",this.social_account_details['facebook']);
     param.append("twitter",this.social_account_details['twitter']);
-    param.append("instagram",this.social_account_details['instagram']);
-
+    param.append("instagram",this.social_account_details['instagram']);*/
+   // alert(this.social_account_details['facebook']);
+    this.viewCtrl.dismiss(this.social_account_details);
   
      /*this.data.userSignUp(param).subscribe(result=>{
               console.log(result);    

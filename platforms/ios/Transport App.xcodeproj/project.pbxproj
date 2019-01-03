@@ -107,6 +107,10 @@
 		35E2526B5F204DF5ABD1B2A6 /* NativePageTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA393E72FD478FB82DE99E /* NativePageTransitions.m */; };
 		AA94CA1F1F6945E0BD0DB315 /* AppDelegate+nativepagetransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C26ECF69BB4071A2919A4E /* AppDelegate+nativepagetransitions.m */; };
 		B9B8D2B8E6504A7BA194AA4A /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 317D653D200E4B98812AF072 /* CDVStatusBar.m */; };
+		E58E5F694A10478BA4E9C507 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CF8C52EA2A4FC9B1775808 /* CDVInAppBrowser.m */; };
+		88E06F61D117482C92171DD2 /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D863A8D0584EB18A819999 /* APPBackgroundMode.m */; };
+		BCF312EE9E95453DA398A8AD /* APPMethodMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C8FBC2C674A6EAE749601 /* APPMethodMagic.m */; };
+		388B610860CB4090AC696AF9 /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = BC903FAFFBF94ABFB9ECC643 /* appbeep.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +310,13 @@
 		DD6F7F14842A4199B4DE6988 /* AppDelegate+nativepagetransitions.h */ = {isa = PBXFileReference; name = "AppDelegate+nativepagetransitions.h"; path = "com.telerik.plugins.nativepagetransitions/AppDelegate+nativepagetransitions.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		317D653D200E4B98812AF072 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		92E49E90CE114AE6A98B2FE6 /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		06CF8C52EA2A4FC9B1775808 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; name = "CDVInAppBrowser.m"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		7CD083421920461D8B2F675E /* CDVInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D7D863A8D0584EB18A819999 /* APPBackgroundMode.m */ = {isa = PBXFileReference; name = "APPBackgroundMode.m"; path = "cordova-plugin-background-mode/APPBackgroundMode.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		696C8FBC2C674A6EAE749601 /* APPMethodMagic.m */ = {isa = PBXFileReference; name = "APPMethodMagic.m"; path = "cordova-plugin-background-mode/APPMethodMagic.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		D68F8E40C70E4950847CAFFC /* APPBackgroundMode.h */ = {isa = PBXFileReference; name = "APPBackgroundMode.h"; path = "cordova-plugin-background-mode/APPBackgroundMode.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		B2A962B61A8944A0825AA829 /* APPMethodMagic.h */ = {isa = PBXFileReference; name = "APPMethodMagic.h"; path = "cordova-plugin-background-mode/APPMethodMagic.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		BC903FAFFBF94ABFB9ECC643 /* appbeep.wav */ = {isa = PBXFileReference; name = "appbeep.wav"; path = "appbeep.wav"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +428,7 @@
 				CA77A7E0DCCA405DA0421437 /* pt.lproj */,
 				EE63C0973B424C6784850702 /* pl.lproj */,
 				3FB531E55A3044EAAD83D5CB /* zh-Hans.lproj */,
+				BC903FAFFBF94ABFB9ECC643 /* appbeep.wav */,
 			);
 			name = Resources;
 			path = "Transport App/Resources";
@@ -594,6 +606,12 @@
 				DD6F7F14842A4199B4DE6988 /* AppDelegate+nativepagetransitions.h */,
 				317D653D200E4B98812AF072 /* CDVStatusBar.m */,
 				92E49E90CE114AE6A98B2FE6 /* CDVStatusBar.h */,
+				06CF8C52EA2A4FC9B1775808 /* CDVInAppBrowser.m */,
+				7CD083421920461D8B2F675E /* CDVInAppBrowser.h */,
+				D7D863A8D0584EB18A819999 /* APPBackgroundMode.m */,
+				696C8FBC2C674A6EAE749601 /* APPMethodMagic.m */,
+				D68F8E40C70E4950847CAFFC /* APPBackgroundMode.h */,
+				B2A962B61A8944A0825AA829 /* APPMethodMagic.h */,
 			);
 			name = Plugins;
 			path = "Transport App/Plugins";
@@ -690,6 +708,7 @@
 				A3F90D9A886C4A51B5685C25 /* pt.lproj in Resources */,
 				478203298DA6414F9AF542A6 /* pl.lproj in Resources */,
 				476C6586E885448BA3E21D8C /* zh-Hans.lproj in Resources */,
+				388B610860CB4090AC696AF9 /* appbeep.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +790,9 @@
 				35E2526B5F204DF5ABD1B2A6 /* NativePageTransitions.m in Sources */,
 				AA94CA1F1F6945E0BD0DB315 /* AppDelegate+nativepagetransitions.m in Sources */,
 				B9B8D2B8E6504A7BA194AA4A /* CDVStatusBar.m in Sources */,
+				E58E5F694A10478BA4E9C507 /* CDVInAppBrowser.m in Sources */,
+				88E06F61D117482C92171DD2 /* APPBackgroundMode.m in Sources */,
+				BCF312EE9E95453DA398A8AD /* APPMethodMagic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

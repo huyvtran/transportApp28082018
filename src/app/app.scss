@@ -127,7 +127,7 @@
         display: block;
         width: 15%;
     }
-    ion-loading {
+    /*ion-loading {
         .loading-wrapper {
           background: transparent;
           //box-shadow: none;
@@ -145,7 +145,7 @@
               font-weight: 700;
               font-size: 18px;
           }
-      }
+      }*/
 
       .picker-prefix, .picker-suffix, .picker-opt.picker-opt-selected {
         color: #fbfbfb;
@@ -178,5 +178,74 @@
     }
     .picker-columns {
         background: #040c5d;
+    }
+    .b_r_request .alert-message .c_name {
+        font-size: 20px;
+        text-transform: capitalize;
+        color: #131185;
+    }
+
+    .b_r_request .alert-message .title{
+        width: 50%;
+        //display: inline;
+        float: left;
+        word-wrap: break-word;
+        padding: 10px 0;
+        color: #adb5c0;
+    }
+    .b_r_request .alert-message .desc{
+        width: 50%;
+        //display: inline;
+        float: left;
+        word-wrap: break-word;
+        padding: 10px 0;
+        color: #848c97;
+    }
+    .b_r_request .alert-head,.b_r_request .alert-button-group,.b_r_request .alert-button {
+        background: #1A237E;
+        color: #fff !important;
+    }
+    .b_r_request .alert-message {
+        padding-top: 24px !important;
+    }
+
+    
+    .cancel_booking_alert .alert-message .c_name {
+        font-size: 20px;
+        text-transform: capitalize;
+        color: #131185;
+    }
+    .cancel_booking_alert .alert-head, .alert-button-group, .alert-button {
+        background: #1A237E;
+        color: #fff !important;
+    }
+    .cancel_booking_alert .alert-message {
+        padding-top: 24px !important;
+    }
+
+    .cancel_booking_alert .info {
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        padding: 0 0 15px 0;
+        color: #1a237e;
+    }
+    .cancel_booking_alert .min {
+        width: 50%;
+        float: left;
+        padding: 5px;
+        color: #575961;
+    }
+    .cancel_booking_alert .charge {
+        width: 50%;
+        float: left;
+        padding: 5px;
+        color: #575961;
+    }
+    .cancel_booking_alert .que {
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        display: inline-block;
+        padding: 15px 0 0px 0;
+        color: #1a237e;
     }
 } 

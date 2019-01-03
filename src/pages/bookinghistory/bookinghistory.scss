@@ -9,7 +9,10 @@
             overflow: visible !important;
             margin: 30px 12px !important;
         }
-    
+        .cancelled{
+            color: #ef1f1f;
+            letter-spacing: 0.5px;
+        }
         ion-card .price{
                 float: right;
                 padding: 10px 15px;
@@ -19,7 +22,7 @@
             ion-card .abs_div{
                 height: 50px;
                 width: 120px;
-                background-color: #08138085;//coral;  
+                background-color: #1a237e;
                 margin-left: 20px;
                 position: absolute;
                 top: -19px;
@@ -27,6 +30,7 @@
                 border-radius: 10px;
                 text-align: center;
                 padding: 10px;
+                opacity: 0.6;
             }
             ion-card .abs_div span{
                     color: white;
@@ -44,7 +48,8 @@
     
                 ion-item span{
                     font-size: 16px;    
-                    padding-left: 10px;            
+                    padding-left: 10px;        
+                    display: table-cell;    
                 }
     
                 ion-item .src_pin{
@@ -128,6 +133,20 @@
                 letter-spacing: 0.5px;
                 word-spacing: 1px;
             }
+            .emptyDiv {
+                text-align: center;
+                margin: 50px 0;
+                padding: 40px 0;
+                font-size: 18px;
+                letter-spacing: 0.5px;
+                color: #aebcc9;
+                img {
+                  display: block;
+                  margin: 40px auto;
+                  padding: 10px;
+                  box-shadow: 0 0 5px #aebcc9;
+              }
+            }
 
             .r_star{
                 color: #ead704;
@@ -159,6 +178,8 @@
             .not_rated_item{
                 padding : 0 !important;
             }
- 
+            .container_div ion-label{
+                display: table;
+            }
         }
 }

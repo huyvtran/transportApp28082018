@@ -22,8 +22,8 @@
         <ion-list>
           <ion-item>
               <button class="questions" text-wrap ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
-                <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
-                <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+                <ion-icon name="arrow-forward" *ngIf="!item.open"></ion-icon>
+                <ion-icon name="arrow-down" *ngIf="item.open"></ion-icon>
                     {{ item.question }}
               </button>
           </ion-item>
@@ -40,8 +40,8 @@
         <ion-list>
           <ion-item>
               <button class="questions" text-wrap ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
-                <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
-                <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+                <ion-icon name="arrow-forward" *ngIf="!item.open"></ion-icon>
+                <ion-icon name="arrow-down" *ngIf="item.open"></ion-icon>
                     {{ item.question }}
               </button>
           </ion-item>

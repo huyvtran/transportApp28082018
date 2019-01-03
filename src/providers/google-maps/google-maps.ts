@@ -182,7 +182,7 @@ export class GoogleMapsProvider {
         fillOpacity: 0.35,
         map: this.map,
         center: this.map.getCenter(),
-        radius: 300
+        radius: 200
       });/*.then((circle)=>{
         this.marker.bindTo('position',circle,'center');
       });*/

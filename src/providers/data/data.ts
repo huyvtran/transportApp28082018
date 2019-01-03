@@ -303,6 +303,22 @@ export class DataProvider {
     return this.ht.post(this.baseURL+"driver/toggle", '',{headers: headers}).map(res=> res.json());
   }
 
+  getAvailableToggle()     
+  {
+    this.storage.get('token').then(data=>{
+
+      this.token = data;
+      //console.log("Token here"+this.token);
+    });
+    let headers = new Headers({
+
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"driver/get/toggle", '',{headers: headers}).map(res=> res.json());
+  }
+
   getCloseCustomers(param)
   {
     this.storage.get('token').then(data=>{
@@ -435,7 +451,7 @@ export class DataProvider {
     return this.ht.post(this.baseURL+"customer/booking/request",param,{headers: headers}).map(res=> res.json());
   }
 
-  getBookingList(param)
+  getBookingList(param,page)
   {          
     this.storage.get('token').then(data=>{       
       this.token = data;          
@@ -444,10 +460,10 @@ export class DataProvider {
 
     let headers = new Headers({
       'Accept' : 'application/json',
-      'Authorization' : 'Bearer '+this.token
+      'Authorization' : 'Bearer '+this.token           
     });
 
-    return this.ht.post(this.baseURL+"driver/booking/list",param,{headers: headers}).map(res=> res.json());
+    return this.ht.post(this.baseURL+"driver/booking/list?page="+page,param,{headers: headers}).map(res=> res.json());
   }
 
   getPendingBookingList(param)
@@ -658,7 +674,7 @@ export class DataProvider {
     return this.ht.post(this.baseURL+"driver/ride/finish",param,{headers: headers}).map(res=> res.json());
   }
 
-  getCustomerBookingList(param)
+  getCustomerBookingList(param,page)
   {          
     this.storage.get('token').then(data=>{       
       this.token = data;          
@@ -670,10 +686,10 @@ export class DataProvider {
       'Authorization' : 'Bearer '+this.token
     });
 
-    return this.ht.post(this.baseURL+"customer/booking/history",param,{headers: headers}).map(res=> res.json());
+    return this.ht.post(this.baseURL+"customer/booking/history?page="+page,param,{headers: headers}).map(res=> res.json());
   }
 
-  addFavDriver(param)
+  addFavDriver(param)    
   {          
     this.storage.get('token').then(data=>{       
       this.token = data;          
@@ -686,7 +702,7 @@ export class DataProvider {
     });
 
     return this.ht.post(this.baseURL+"customer/add/favdriver",param,{headers: headers}).map(res=> res.json());
-  }
+  }          
 
   removeFavDriver(param)
   {          
@@ -716,6 +732,20 @@ export class DataProvider {
     });
 
     return this.ht.post(this.baseURL+"driver/booking/details",param,{headers: headers}).map(res=> res.json());
+  }
+  getParcelPackage(param){
+    this.storage.get('token').then(data=>{       
+      this.token = data;          
+      // console.log("Token here"+this.token);            
+    });    
+
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"customer/parcel/request",param,{headers: headers}).map(res=> res.json());
+
   }
 
   addCustomerFavLocation(param)
@@ -853,4 +883,139 @@ export class DataProvider {
     return this.ht.post(this.baseURL+"customer/pay/wallet",param,{headers: headers}).map(res=> res.json());
   }
 
+  paymentByCash(param)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;          
+      // console.log("Token here"+this.token);            
+    });    
+
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"driver/payment/by/cash",param,{headers: headers}).map(res=> res.json());
+  }
+
+  CashMethodNotification(param)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;          
+      // console.log("Token here"+this.token);            
+    });    
+
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"customer/cashpayment/notification",param,{headers: headers}).map(res=> res.json());
+  }
+
+  feedbacktoCustomer(param)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"driver/ride/feedback",param,{headers: headers}).map(res=> res.json());
+  }
+
+  driverNotifications(param,page)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"driver/notification?page="+page,param,{headers: headers}).map(res=> res.json());
+  }
+
+  driverReadNotifications(param)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;   
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token
+    });
+
+    return this.ht.post(this.baseURL+"driver/read/notification",param,{headers: headers}).map(res=> res.json());
+  }
+
+  getTransactions(param,page)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;   
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token        
+    });
+
+    return this.ht.post(this.baseURL+"customer/transaction?page="+page,param,{headers: headers}).map(res=> res.json());
+  }
+
+  getDriverTransactions(param,page)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;   
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token        
+    });
+
+    return this.ht.post(this.baseURL+"driver/transaction?page="+page,param,{headers: headers}).map(res=> res.json());
+  }
+
+  driverNotificationSetting(param)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;   
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token        
+    });
+
+    return this.ht.post(this.baseURL+"driver/setting/notification",param,{headers: headers}).map(res=> res.json());
+  }
+
+  customerNotificationSetting(param)
+  {
+    this.storage.get('token').then(data=>{       
+      this.token = data;   
+      // console.log("Token here"+this.token);
+    });
+    
+    let headers = new Headers({
+      'Accept' : 'application/json',
+      'Authorization' : 'Bearer '+this.token        
+    });
+
+    return this.ht.post(this.baseURL+"customer/setting/notification",param,{headers: headers}).map(res=> res.json());
+  }
 }
+ 

@@ -11,6 +11,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { Device } from '@ionic-native/device';
 import { NativePageTransitions  } from '@ionic-native/native-page-transitions';
 import { PayPal } from '@ionic-native/paypal';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';   
@@ -52,6 +54,8 @@ import { DeliveryPage } from '../pages/delivery/delivery';
 import { FeedbackPage } from '../pages/feedback/feedback';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { PaymentPage } from '../pages/payment/payment';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import { DriverTransactionsPage } from '../pages/driver-transactions/driver-transactions';
       
 import { IntroPageModule  }  from '../pages/intro/intro.module';     
 import { ForgotpasswoedPageModule } from '../pages/forgotpasswoed/forgotpasswoed.module';
@@ -76,6 +80,12 @@ import { BookingListPageModule } from '../pages/booking-list/booking-list.module
 import { DeliveryPageModule } from '../pages/delivery/delivery.module';
 import { FeedbackPageModule } from '../pages/feedback/feedback.module';
 import { PaymentPageModule } from '../pages/payment/payment.module';
+import { PackageBookingPageModule } from '../pages/package-booking/package-booking.module';
+import { PackageBookingPage } from '../pages/package-booking/package-booking';
+import { NotificationsPageModule} from '../pages/notifications/notifications.module';
+import { ServiceProvider } from '../providers/service/service';
+import { DriverTransactionsPageModule } from '../pages/driver-transactions/driver-transactions.module';
+
                     
 @NgModule({                   
   declarations: [               
@@ -119,11 +129,14 @@ import { PaymentPageModule } from '../pages/payment/payment.module';
     BookinghistoryPageModule,  
     ModalpagePageModule,
     ConfirmPaymentPageModule,
+    PackageBookingPageModule,
     BookingListPageModule,
     DeliveryPageModule,
     FeedbackPageModule,
     Ionic2RatingModule,
     PaymentPageModule,
+    NotificationsPageModule,
+    DriverTransactionsPageModule,
     IonicModule.forRoot(MyApp,{
       preloadModules: true,    
       pageTransition: 'fade' 
@@ -157,7 +170,10 @@ import { PaymentPageModule } from '../pages/payment/payment.module';
     BookingListPage,
     DeliveryPage,
     FeedbackPage,
-    PaymentPage
+    PaymentPage,
+    PackageBookingPage,
+    NotificationsPage,
+    DriverTransactionsPage
   ],      
   providers: [
     StatusBar,            
@@ -180,7 +196,10 @@ import { PaymentPageModule } from '../pages/payment/payment.module';
     NativeGeocoder ,
     Device,
     NativePageTransitions,
-    PayPal
+    PayPal,
+    ServiceProvider,
+    InAppBrowser,
+    BackgroundMode
   ]       
 })  
 //export class AppModule {} 

@@ -83,6 +83,19 @@
             padding: 10px;
             padding-bottom: 0;
         }    
+
+        .list-ios > .item-block:last-child {
+            border-bottom: none !important;
+         }
+         .list-ios > .item-block:first-child {
+            border-top: none !important;
+        }
     }
 }
-
+.ios {
+page-autocomplete {
+    .scroll-content {
+        margin-top: 100px !important;
+        }
+    }
+}

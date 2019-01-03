@@ -41,13 +41,13 @@
           <span>{{item.booking_details.created_at}}</span>
         </div>
         <span class="price">${{item.booking_details.cost}}</span> 
-        <ion-item>
+        <ion-item (click)='showBooking("history",i)' class="container_div">
           <ion-icon class="src_pin" name="pin"></ion-icon>
-          <span>{{item.booking_details.source}}</span>
+          <span text-wrap>{{item.booking_details.source}}</span>
         </ion-item> 
-        <ion-item>
+        <ion-item (click)='showBooking("history",i)' class="container_div">
           <ion-icon class="dest_pin" name="pin"></ion-icon>
-          <span>{{item.booking_details.destination}}</span>
+          <span text-wrap>{{item.booking_details.destination}}</span>
         </ion-item>
         <ion-item *ngIf="item?.feedback?.rating > 0">
           <ion-icon name="star" [ngClass]="item.feedback.rating > 0 ? 'r_star' : 'n_start'"></ion-icon>
@@ -56,13 +56,20 @@
           <ion-icon name="star" [ngClass]="item.feedback.rating > 3 ? 'r_star' : 'n_start'"></ion-icon>
           <ion-icon name="star" [ngClass]="item.feedback.rating > 4 ? 'r_star' : 'n_start'"></ion-icon>
         </ion-item>
-        <ion-item class="not_rated_item" *ngIf="item?.feedback == null">
+        <ion-item class="not_rated_item" *ngIf="item?.feedback == null && item?.booking_details.is_cancelled == 0">
           Not Rated 
           <span (click)="giveFeedback(i)">Rate</span>
         </ion-item>
+        <ion-item class="not_rated_item" *ngIf="item?.booking_details.is_cancelled == 1">
+          <p class="cancelled">Cancelled</p>
+        </ion-item>
       </ion-card>
+      <ion-infinite-scroll (ionInfinite)="loadMoreHistory($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
-    <div class="nulldiv" *ngIf='history == ""'>
+    <div class="nulldiv emptyDiv" *ngIf='history == ""'>
+        <img src="assets/imgs/empty_booking.png"/>
         You haven't taken a ride yet.
     </div>
   </div>
@@ -74,17 +81,21 @@
           <span>{{item.schedule_time}}</span>
         </div>
         <span class="price">${{item.cost}}</span> 
-        <ion-item>
+        <ion-item  (click)='showBooking("upcoming",i)' class="container_div">
           <ion-icon class="src_pin" name="pin"></ion-icon>
-          <span>{{item.source}}</span>
+          <span text-wrap>{{item.source}}</span>
         </ion-item> 
-        <ion-item>
+        <ion-item  (click)='showBooking("upcoming",i)' class="container_div">
           <ion-icon class="dest_pin" name="pin"></ion-icon>
-          <span>{{item.destination}}</span>
+          <span text-wrap>{{item.destination}}</span>
         </ion-item>
       </ion-card>
+      <ion-infinite-scroll (ionInfinite)="loadMoreUpcoming($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </div>
-    <div class="nulldiv" *ngIf='upcoming == ""'>
+    <div class="nulldiv emptyDiv" *ngIf='upcoming == ""'>
+        <img src="assets/imgs/empty_booking.png"/>
         You have no upcoming Rides.
     </div>
   </div>
@@ -132,17 +143,18 @@
               <span>{{item.booking_details.created_at}}</span>
             </div>
             <span class="price">${{item.booking_details.cost}}</span> 
-            <ion-item>
+            <ion-item class="container_div">
               <ion-icon class="src_pin" name="pin"></ion-icon>
-              <span>{{item.booking_details.source}}</span>
+              <span text-wrap>{{item.booking_details.source}}</span>
             </ion-item> 
-            <ion-item>
+            <ion-item class="container_div">
               <ion-icon class="dest_pin" name="pin"></ion-icon>
-              <span>{{item.booking_details.destination}}</span>
+              <span text-wrap>{{item.booking_details.destination}}</span>
             </ion-item>
           </ion-card>
         </div>
-        <div class="nulldiv" *ngIf='delivery_history == ""'>
+        <div class="nulldiv emptyDiv" *ngIf='delivery_history == ""'>
+            <img src="assets/imgs/empty_booking.png"/>
             You haven't taken a delivery yet.
         </div>
     </div>
@@ -154,17 +166,18 @@
                 <span>{{item.schedule_time}}</span>
               </div>
               <span class="price">${{item.cost}}</span> 
-              <ion-item>
+              <ion-item class="container_div">
                 <ion-icon class="src_pin" name="pin"></ion-icon>
-                <span>{{item.source}}</span>
+                <span text-wrap>{{item.source}}</span>
               </ion-item> 
-              <ion-item>
+              <ion-item class="container_div">
                 <ion-icon class="dest_pin" name="pin"></ion-icon>
-                <span>{{item.destination}}</span>
+                <span text-wrap>{{item.destination}}</span>
               </ion-item>
             </ion-card>
           </div>
-          <div class="nulldiv" *ngIf='upcoming_deliveries == ""'>
+          <div class="nulldiv emptyDiv" *ngIf='upcoming_deliveries == ""'>
+              <img src="assets/imgs/empty_booking.png"/>
               You have no upcoming delivery.
           </div>
     </div>

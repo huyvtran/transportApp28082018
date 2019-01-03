@@ -52,7 +52,7 @@ export class RideLaterPage {
     this.cost =this.data1.cost;
     this.date =this.data1.date;
     this.time =this.data1.time;
-    this.Did = this.data1.Did
+    this.Did = this.data1.Did;
 
     this.active = '';
 
@@ -131,68 +131,82 @@ export class RideLaterPage {
     this.active = name;       
   }
 
-  confirmPayment(){      
-    this.isnowenabled = false;
-    let param = new FormData();
-    
-    //alert(this.date + '--' + this.time);
-    var dateObj = new Date(this.date + ' ' + this.time);
-    //var date1  =  new Date(dateObj.getUTCFullYear(), dateObj.getUTCMonth(), dateObj.getUTCDate(),  dateObj.getUTCHours(), dateObj.getUTCMinutes(), dateObj.getUTCSeconds());
-    var date = new Date(dateObj).toISOString();
-    //var date = dateObj.toUTCString();
-    //var date = dateObj;
-    //alert(date);
-    //console.log(id);
-    param.append("customer_id",this.customer_id);
-    param.append("schedule","0");
-    param.append("pickup_date",this.date);
-    param.append("schedule_time",date);
-    param.append("distance",this.distance);
-    param.append("vehicle_type",this.vehicle_type);
-    param.append("source",this.pick_up);
-    param.append("source_lat",this.pick_up_lt);
-    param.append("source_long",this.pick_up_lg);
-    param.append("destination_lat",this.drop_lt);  
-    param.append("destination_long",this.drop_lg);  
-    param.append("destination",this.drop);  
-    param.append("total",null);
-    param.append("is_cancelled","0");
-    param.append("is_completed","0");
-    param.append("is_paid","0");
-    param.append("status","0");
-    param.append("cost",this.cost);   
-    param.append("driver_id",'');
+  confirmPayment(){    
+    if(this.active != '')
+    {
+      let param1 = new FormData();
+      param1.append("customer_id",this.customer_id);
+      this.data.getWalletAmount(param1).subscribe(result=>{
+        if(result.status == 'OK')
+        {
+          if(parseFloat(result.success.balance) < 0 )
+          {
+            this.data.presentToast("Your wallet balance is in minus, So you can't book Ride");
+          }
+          else{
+            this.isnowenabled = false;
+            let param = new FormData();
+            
+            var dateObj = new Date(this.date + ' ' + this.time);
+            var date = new Date(dateObj).toISOString();
+            param.append("customer_id",this.customer_id);
+            param.append("schedule","0");
+            param.append("pickup_date",this.date);
+            param.append("schedule_time",date);
+            param.append("distance",this.distance);
+            param.append("vehicle_type",this.vehicle_type);
+            param.append("source",this.pick_up);
+            param.append("source_lat",this.pick_up_lt);
+            param.append("source_long",this.pick_up_lg);
+            param.append("destination_lat",this.drop_lt);  
+            param.append("destination_long",this.drop_lg);  
+            param.append("destination",this.drop);  
+            param.append("total",null);
+            param.append("is_cancelled","0");
+            param.append("is_completed","0");
+            param.append("is_paid","0");
+            param.append("status","0");
+            param.append("cost",this.cost);   
+            param.append("driver_id",'');
 
-      this.data.rideLaterbookingRequest(param).subscribe(result=>{
-              console.log(result);    
-              //this.userData = result; 
-              if(result.status == "ERROR")
-              {
-                  this.data.presentToast('Error');        
-                  return false;
-              }
-              else
-              {
+            this.data.rideLaterbookingRequest(param).subscribe(result=>{
+                console.log(result);    
+                //this.userData = result; 
+                if(result.status == "ERROR")
+                {
+                    this.data.presentToast('Error');        
+                    return false;
+                }
+                else
+                {
 
-                /*let param1 = new FormData();
-                param1.append("driver_Id",this.Did);
-                param1.append("customer_id",this.customer_id);
-                param1.append("booking_id",result.success.booking_request.id);
-                param1.append("ride_type",'later');
+                  /*let param1 = new FormData();
+                  param1.append("driver_Id",this.Did);
+                  param1.append("customer_id",this.customer_id);
+                  param1.append("booking_id",result.success.booking_request.id);
+                  param1.append("ride_type",'later');
 
-                this.data.postNotification(param1).subscribe(result=>{   
-                  if(result.status == "ERROR")
-                  {     
-                    
-                  }
-                });
-                //this.storage.set("customer_data",data.msg[0]);*/
-                this.data.presentToast('Booking Request Successfull!');
-                this.navCtrl.setRoot(HomePage);
-                //this.navCtrl.setRoot(ConfirmPaymentPage,{'booking_id':result.success.booking_request.id,rideType:'later'});
-              }                                   
+                  this.data.postNotification(param1).subscribe(result=>{   
+                    if(result.status == "ERROR")
+                    {     
+                      
+                    }
+                  });
+                  //this.storage.set("customer_data",data.msg[0]);*/
+                  this.data.presentToast('Booking Request Successfull!');
+                  this.navCtrl.setRoot(HomePage);
+                  //this.navCtrl.setRoot(ConfirmPaymentPage,{'booking_id':result.success.booking_request.id,rideType:'later'});
+                }                                   
+        });
+          }
+        }
       });
-
+      }
+      else{
+        this.data.presentToast('Please select Payment method');
+        return false;
+      }
+    
     }
 
 }

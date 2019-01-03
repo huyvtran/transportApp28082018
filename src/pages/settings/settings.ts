@@ -29,8 +29,11 @@ export class SettingsPage {
   showlocation : boolean = false;
   showdrivers : boolean = false;
   showNotifications : boolean = false;
+  public isNotificationOff: boolean;
   fav_drivers : any;
   hideBackButton : any;
+  id : any;
+  role : any;
 
   constructor(public alertCtrl: AlertController, private loading: LoadingController, private eve: Events,public navCtrl: NavController, private modalCtrl: ModalController, private storage : Storage, public data : DataProvider, public geolocation: Geolocation, public navParams: NavParams, public zone: NgZone, public maps: GoogleMapsProvider, public platform: Platform, public viewCtrl: ViewController) {
     //this.searchDisabled = true;
@@ -38,6 +41,31 @@ export class SettingsPage {
 
     //let param = new FormData();
      // param.append("location_type",act); 
+     this.storage.get('user').then(data => {
+      this.id = data[0].id;
+      this.role = data[0].role;
+
+      let param = new FormData();
+      param.append("customer_id",data[0].id);
+      param.append("status",'get');
+      this.data.customerNotificationSetting(param).subscribe(result=>{
+        console.log(result);
+        if(result.status == 'OK')
+        {
+          if(result.success.Get_notification_setting == "0")
+          {       
+            this.isNotificationOff = false;
+          }
+          else{
+            this.isNotificationOff = true;
+          }
+        }
+        else{
+          this.data.presentToast('Error');
+        }
+      });
+    });
+
     this.hideBackButton = false;
      let loader = this.loading.create({
       content :"Please wait...",
@@ -292,5 +320,24 @@ export class SettingsPage {
     prompt.present();
   });
   }
+
+  notificationOff()
+  {
+    let param = new FormData();
+    param.append("customer_id",this.id);
+    param.append("status",'change');
+    this.data.customerNotificationSetting(param).subscribe(result=>{
+      console.log(result);
+      if(result.status == 'OK')
+      {
+        
+      }
+      else{
+        this.data.presentToast('Error');
+      }
+    });
+  }
+
+
 
 }

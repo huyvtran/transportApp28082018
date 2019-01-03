@@ -1,7 +1,9 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DataProvider } from '../../providers/data/data';
 import { Geolocation } from '@ionic-native/geolocation';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { IonicPage,ActionSheetController, Events, NavController, NavParams, Platform, ViewController, ModalController, LoadingController } from 'ionic-angular';
 import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,10 +16,9 @@ import { AsyncPipe } from '../../../node_modules/@angular/common';
 import { filter, delay } from 'rxjs/operators';
 import * as firebase from 'Firebase';
 import { Device } from '@ionic-native/device';
-//import { isCordovaAvailable } from '../common/is-cordova-available';
-//import { oneSignalAppId, sender_id } from '../config';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions'; 
 import { ConfirmPaymentPage } from '../confirm-payment/confirm-payment'
+import { FeedbackPage } from '../feedback/feedback';
 
 declare var google;          
 
@@ -83,10 +84,25 @@ export class HomePage {
   watch2 : Subscription;
   watch : any;
   displaydistance : boolean = false;
+  sub : Subscription;
+  eve_unsub : any = 'true';
+  leave : boolean = true;
+  loadingCtr : any;
+  isAvailable:boolean=true;
+  facebook_link : any;
+  twitter_link : any;
+  instagram_link : any;
+  linkedin_link : any;
 
+  constructor(private backgroundMode: BackgroundMode, private inAppBrowser: InAppBrowser, private nativePageTransitions: NativePageTransitions, private oneSignal: OneSignal, private loading: LoadingController,private device: Device, public actionSheetCtrl: ActionSheetController, public eve: Events,public navCtrl: NavController, private modalCtrl: ModalController, private storage : Storage, public data : DataProvider, public geolocation: Geolocation, public navParams: NavParams, public zone: NgZone, public maps: GoogleMapsProvider, public platform: Platform, public viewCtrl: ViewController) {
+   //alert('Hello1');
+   this.backgroundMode.enable();
+    this.storage.get('user').then(data=>{   
+      this.id = data[0].id
+      this.yourId = this.id;
+      this.role = data[0].role;
+    }); 
 
-  constructor( private nativePageTransitions: NativePageTransitions, private oneSignal: OneSignal, private loading: LoadingController,private device: Device, public actionSheetCtrl: ActionSheetController, private eve: Events,public navCtrl: NavController, private modalCtrl: ModalController, private storage : Storage, public data : DataProvider, public geolocation: Geolocation, public navParams: NavParams, public zone: NgZone, public maps: GoogleMapsProvider, public platform: Platform, public viewCtrl: ViewController) {
-   
     let loader = this.loading.create({
       content :"Please wait...",
       spinner : 'crescent'
@@ -109,217 +125,113 @@ export class HomePage {
       business_cost : 0
     }
 
-    //this.startTracking();
-
     this.address = {
       place:'',
       drop_place:''
     };
-
+    
       
-
-    /*setTimeout(() => {   
-      if(this.role == 2)
-      {
-		
-        var addressFull = [];
-        var address = '';
-        var geocoder = new google.maps.Geocoder();
-        console.log(this.lat+'--'+this.long);
-        if(this.lat && this.long)
-        {
-          var latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.long)};
-          geocoder.geocode({'location': latlng}, function(results, status) {
-            if (status === 'OK') {
-              var address = results[0].formatted_address;
-              addressFull.push(address);
-              console.log(address);
-            }        
-          });
-          setTimeout(() => {   
-            this.address.place = addressFull[0];
-            console.log(this.address.place);
-          }, 100); 
-        }
-      }
-    },2500);*/
-     
-    /*setTimeout(() => {   
-      if(this.role == 2)
-      {
-        this.data.getvehicletypesforCustomers().subscribe(result=>{
-        
-          if(result.status == 'OK')        
-          {
-            this.vehicle_types = result.success.vehicletypes;
-          }
-          else{
-            this.data.presentToast(result.status);
-          }     
-        });  
-
-        /*if(this.lat == undefined || this.long == undefined)
-        {
-          this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        }*
-        
-        let param = new FormData();
-        param.append("latitude",this.lat);
-        param.append("longitude",this.long);
-          this.data.storeCustomerLocation(param).subscribe(result=>{
-            if(result.status == "ERROR")
-            {
-                this.data.presentToast('Not Able to get your current location');
-            }
-            else   
-            {
-            }                           
-          });
-        //this.navCtrl.setRoot(HomePage); 
-      }else if(this.role == 3){
-        let param = new FormData();
-        param.append("latitude",this.lat);
-        param.append("longitude",this.long); 
-        console.log(this.lat+'==='+this.long);
-          this.data.storeDriverLocation(param).subscribe(result=>{
-            if(result.status == "ERROR")
-            {
-                this.data.presentToast('Not Able to get your current location');
-            }
-            else   
-            {
-
-            }                           
-          });
-        
-       // this.navCtrl.setRoot(HomePage);     
-      }  
-
-    }, 2500); */
-
-    eve.subscribe('distance:created', (distance, time) => {
-      // user and time are the same arguments passed in `events.publish(user, time)`
-      this.calculated_distance = distance;
-      this.displaydistance = true;
-      let param = new FormData();
-        let x = this.calculated_distance.split("km");
-        x = x[0].split("m");
-        param.append("distance",x);
-        if(this.role == 2)
-        {
-          this.data.getCost(param).subscribe(result=>{                          
-            if(result.status == "ERROR")
-            {
-                //this.data.presentToast('eRROR');
-                return false;
-            }
-            else
-            {     
-              this.cost = {
-                economy_cost : Number((result.success.trip_costs[0].cost).toFixed(2)), //result.success.trip_costs[0].cost,
-                comfort_cost : Number((result.success.trip_costs[1].cost).toFixed(2)),//result.success.trip_costs[1].cost,
-                business_cost : Number((result.success.trip_costs[2].cost).toFixed(2))//result.success.trip_costs[2].cost
-              } 
-            }
-          });
-        }
-       
-    });
-      
-    eve.subscribe('live_tracking:created', (live_tracking_data, time) => {
+    this.eve.subscribe('live_tracking:created', (live_tracking_data, time) => {
+      //alert('live_tracking');
+      this.leave = false;
       this.isnowenabled = true;
       this.watchMethod(live_tracking_data);
       this.liveRide_bookingId = live_tracking_data.booking_id;
       this.liveRide_customerId = live_tracking_data.customer_id;
       //alert(this.liveRide_customerId);
-     
+      firebase.database().ref('driver/'+this.id).set({ 'status': 'live_tracking','booking_id':live_tracking_data.booking_id});
+
       let param = new FormData();
       param.append("booking_id",this.liveRide_bookingId);
         this.data.getBookingDetails(param).subscribe(result=>{                          
           if(result.status == "OK")
           {
-            //this.maps.startNavigating([new google.maps.LatLng(this.latitude,this.longitude)], result.success.booking.source,this.directionsPanel.nativeElement);
             this.maps.startNavigating(result.success.booking.source,result.success.booking.destination,this.directionsPanel.nativeElement);
           }
-
         }); 
+
+        this.data.AvailableToggle().subscribe(result=>{
+          console.log(result);
+          if(result.status == 'OK')
+          {
+            console.log(result.success.available);
+            if(result.success.available == 'Driver set to On')
+            {
+              //this.data.presentToast('You are visible to nearby customers');
+            }   
+            else{
+              //this.data.presentToast('You are invisible to nearby customers');
+            }
+            
+          }
+          else{
+            this.data.presentToast('Error');
+          }
+        });
+
     });
 
 
-    eve.subscribe('cancelled_request:created', (cancelled_request, time) => {
-      //this.positionSubscription.unsubscribe();
-      this.watch.unsubscribe();
+    this.eve.subscribe('cancelled_request:created', (cancelled_request, time) => {
+      //alert('cancelled_request');
+      
       if(this.watch2){
         this.watch2.unsubscribe();
       }
+      firebase.database().ref('driver/'+this.id).remove();
       firebase.database().ref(this.liveRide_bookingId).remove();
       this.data.presentToast('Request cancelled by customer');
+      this.eve.unsubscribe('cancelled_request:created');
       this.navCtrl.setRoot(this.navCtrl.getActive().component);
-    });
 
-
-    eve.subscribe('ride_later_alert:created', (ride_later_alert, time) => {
-     // alert(ride_later_alert.booking_id);
-     
-    this.gotoRideLater(ride_later_alert.booking_id);
-    });
-    
-    
-   /* setTimeout(() => {    
-      if(this.role == 3)
-      {
-        let param = new FormData();
-        param.append("latitude",this.lat);
-        param.append("longitude",this.long); 
-        this.data.getCloseCustomers(param).subscribe(result=>{
-                            
-          if(result.status == "ERROR")
+      this.data.AvailableToggle().subscribe(result=>{
+        console.log(result);
+        if(result.status == 'OK')
+        {
+          console.log(result.success.available);
+          if(result.success.available == 'Driver set to On')
           {
-              //this.data.presentToast('eRROR');
-              return false;
+            //this.data.presentToast('You are visible to nearby customers');
+          }   
+          else{
+            //this.data.presentToast('You are invisible to nearby customers');
           }
-          else
-          {   
-            if(result.success.customers)
-            {
-              this.data.presentToast('Closer Customers!');
-              var addressFull = [];
-              var address=[];
-            
-              for(var i = 0; i<result.success.customers.length;i++)
-              {
-                var geocoder = new google.maps.Geocoder();
-                address[i]=[];
-                address[i]['lat'] = result.success.customers[0].latitude;
-                address[i]['lng'] = result.success.customers[0].longitude;
-                this.marker[i] = new google.maps.Marker({
-                  map: this.maps.map,         
-                  //animation: google.maps.Animation.DROP,
-                  position: new google.maps.LatLng(address[i]['lat'],address[i]['lng']),
-                  icon: { url : 'assets/imgs/standing-up-man-.png',
-                          size: {
-                            width: 50,
-                            height: 55
-                          } 
-                        },
-                  animation: google.maps.Animation.BOUNCE
-                });         
-              }
-            }
-            else{
-              this.data.presentToast('No Nearby Customers!');
-            }
-          }                        
+          
+        }
+        else{
+          this.data.presentToast('Error');
+        }
+      });
+
+    });
+
+
+    
+
+        this.eve.subscribe('selected_Cash_Payment:created', (selected_Cash_Payment, time) => {
+         // alert('selected_Cash_Payment');
+         firebase.database().ref('driver/'+this.id).set({ 'status': 'cashPayment','booking_id':selected_Cash_Payment.booking_id});
+         this.leave = true; 
+         this.cashPaymentReceived(selected_Cash_Payment);     
         });
-      }      
-     }, 2500); */
-    // setTimeout(() => {   
+
+        this.eve.subscribe('selected_Other_Payment:created', (selected_Other_Payment, time) => {
+          firebase.database().ref('driver/'+this.id).remove();
+          firebase.database().ref(this.liveRide_bookingId).remove();
+          
+          let currentIndex = this.navCtrl.getActive().index;
+            this.navCtrl.push(FeedbackPage,{booking_id:selected_Other_Payment.booking_id,customer_id:selected_Other_Payment.customer_id}).then(() => {
+              this.eve.unsubscribe('selected_Other_Payment:created');
+              this.navCtrl.remove(currentIndex);
+            });
+        });   
+           
       loader.dismiss();
-    //}, 500); 
+
+      
   }
 
   async ionViewDidLoad() {
-    //this.watch2.unsubscribe();
       console.log("First log");
       google.maps.event.trigger( this.maps.map, 'resize' );
       await this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement).then(() => {
@@ -328,57 +240,175 @@ export class HomePage {
         console.log("Middle log");
       });        
       console.log("Last log");
+   
+      this.eve.subscribe('ride_later_alert:created', (ride_later_alert, time) => {
+        //alert('ride_later_alert');
+        firebase.database().ref('customer/'+this.id).set({ 'status': 'live_tracking','booking_id':ride_later_alert.booking_id});
+         this.leave = false;
+         this.eve.unsubscribe('ride_later_alert');
+         var pick_up;
+             var drop;
+             let param = new FormData();
+             param.append("booking_id",ride_later_alert.booking_id);
+             this.data.getcurrentBooking(param).subscribe(result=>{   
+                     console.log(result);    
+                     //this.userData = result; 
+                     if(result.status == "OK")
+                     {
+                       pick_up = result.success.booking.source;
+                       drop = result.success.booking.destination;
+                       
+                       this.goToConfirmPage(ride_later_alert.booking_id,pick_up,drop);
+                     }
+                     else
+                     {
+                       this.data.presentToast('Error');    
+                     }                                     
+             });
+         });
 
-
-      this.storage.get('user').then(data=>{   
-        this.id = data[0].id
-        this.yourId = this.id;
-        this.role = data[0].role;
-  
-        
-      });
-      
-      //this.maps.map.clear();
+         
+           this.eve.subscribe('distance:created', (distance, time) => {
+            //alert('distance');
+            // user and time are the same arguments passed in `events.publish(user, time)`
+            this.calculated_distance = distance;
+            this.displaydistance = true;
+            let param = new FormData();
+              let x = this.calculated_distance.split("km");
+              x = x[0].split("m");
+              param.append("distance",x);
+              if(this.role == 2)
+              {
+                this.data.getCost(param).subscribe(result=>{                          
+                  if(result.status == "ERROR")
+                  {
+                      return false;
+                  }
+                  else
+                  {     
+                    this.cost = {
+                      economy_cost : Number((result.success.trip_costs[0].cost).toFixed(2)), //result.success.trip_costs[0].cost,
+                      comfort_cost : Number((result.success.trip_costs[1].cost).toFixed(2)),//result.success.trip_costs[1].cost,
+                      business_cost : Number((result.success.trip_costs[2].cost).toFixed(2))//result.success.trip_costs[2].cost
+                    } 
+                  }
+                });
+              }
+             //this.eve.unsubscribe('distance:created');
+          });
   }
-
-  
 
   ionViewWillLeave()
   {
-    //alert('will');
-    /*if(this.watch2){
-      this.watch2.unsubscribe();
-    }
+   
+  }
 
-    if(this.watch)
-    {
-      this.watch.unsubscribe();
-    }*/
+  ngOnDestroy()
+  {
     
-    
-    //this.geolocation.clearWatch(watch2);
-    /*let options: NativeTransitionOptions = {
-      direction: 'up',
-      duration: 1000,
-      slowdownfactor: 3,
-      slidePixels: 20,
-      iosdelay: 100,
-      androiddelay: 500,
-      fixedPixelsTop: 0,
-      fixedPixelsBottom: 60
-     };    
-  
-     this.nativePageTransitions.slide(options);*/
-     
+    return new Promise((resolve: Function, reject: Function) => {
+      if(this.role == 2)
+      {
+        if(this.eve_unsub) {
+          this.eve.unsubscribe('ride_later_alert:created');
+          this.eve_unsub = undefined;
+        }     
+         
+         if(this.sub){
+          this.sub.unsubscribe();
+         }
+        this.backgroundMode.disable();
+        resolve();
+      }
+      else if(this.role == 3){
+        
+        if(this.leave == false){
+            this.data.presentToast('You can not leave this page until Ride Complete');
+            reject(); 
+        }
+        else{
+          //this.backgroundMode.disable();
+          this.eve.unsubscribe('distance:created');
+          resolve();
+          }
+        } 
+      });
+      
   }
 
   ionViewWillEnter() {
-    
+    this.storage.get('user').then(data=>{   
+      this.id = data[0].id
+      this.yourId = this.id;
+      this.role = data[0].role;
+    }); 
+
+    /*let loader = this.loading.create({
+      content :"Please wait...",
+      spinner : 'crescent'
+    });
+
+    loader.present();*/
+
     this.getLatLng().then(points=>{
       this.lat = points[0];
       this.long = points[1];
       if(this.role == 2)
       {
+        this.getStatusDataforCustomer().then(data_val=>{
+           //alert(data_val.booking_id);
+           //console.log(data_val);
+
+          this.loadingCtr = this.loading.create({
+            content :"Please wait...",  
+            spinner : 'crescent'
+          });
+      
+          this.loadingCtr.present();
+
+           let param = new FormData();   
+           param.append("booking_id",data_val['booking_id']);
+
+           this.data.getcurrentBooking(param).subscribe(result=>{   
+             console.log(result);    
+             if(result.status == "OK")
+             {
+                 //this.cost = result.success.booking.cost;
+                 if(data_val['status'] == 'waiting')
+                 {
+                   //let currentIndex = this.navCtrl.getActive().index;
+                   this.navCtrl.push(ConfirmPaymentPage,{'booking_id':result.success.booking.id,rideType:'now',source:result.success.booking.source,destination:result.success.booking.destination,status : data_val['status']}).then(() => {
+                     //this.navCtrl.remove(currentIndex);
+                     this.loadingCtr.dismiss();
+                   });
+                 }
+                 else if(data_val['status'] == 'ongoing')
+                 {
+                   //let currentIndex = this.navCtrl.getActive().index;
+                   this.navCtrl.push(ConfirmPaymentPage,{'booking_id':result.success.booking.id,rideType:'now',source:result.success.booking.source,destination:result.success.booking.destination,status : data_val['status'],driver_id:result.success.booking.booking_details[0].driver_id}).then(() => {
+                     //this.navCtrl.remove(currentIndex);
+                     this.loadingCtr.dismiss();
+                   });
+                 }
+                 else if(data_val['status'] == 'payment')
+                 {
+                   //let currentIndex = this.navCtrl.getActive().index;
+                   this.navCtrl.push(ConfirmPaymentPage,{'booking_id':result.success.booking.id,rideType:'now',source:result.success.booking.source,destination:result.success.booking.destination,status : data_val['status'],driver_id:result.success.booking.booking_details[0].driver_id}).then(() => {
+                     //this.navCtrl.remove(currentIndex);
+                     this.loadingCtr.dismiss();
+                   });
+                 }
+             }
+             else
+             {
+               this.data.presentToast('Error');    
+               this.loadingCtr.dismiss();    
+             }                            
+           }); 
+        });
+        
+           
+          
         this.getPickup().then(data=>{
           this.address.place = data;
         });
@@ -394,14 +424,9 @@ export class HomePage {
           }     
         });  
 
-        /*if(this.lat == undefined || this.long == undefined)
-        {
-          this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        }*/
-        
         let param = new FormData();
-        param.append("latitude",this.lat);
-        param.append("longitude",this.long);
+        param.append("latitude",points[0]);
+        param.append("longitude",points[1]);
           this.data.storeCustomerLocation(param).subscribe(result=>{
             if(result.status == "ERROR")
             {
@@ -411,14 +436,80 @@ export class HomePage {
             {
             }                           
           });
-        
+
+          let param1 = this.id;
+          this.data.getCustomerProfile(param1).subscribe(result=>{
+            if(result.status == 'OK')
+            {
+              if(result.success.profile[0].facebook_profile != undefined && result.success.profile[0].facebook_profile && result.success.profile[0].facebook_profile != 'undefined'){
+                this.facebook_link = result.success.profile[0].facebook_profile;
+              }
+              else{
+                this.facebook_link = '';
+              }
+              if(result.success.profile[0].twitter_profile != undefined && result.success.profile[0].twitter_profile && result.success.profile[0].twitter_profile != 'undefined'){
+                this.twitter_link = result.success.profile[0].twitter_profile;
+              }else{
+                this.twitter_link = '';
+              }
+              if(result.success.profile[0].instagram_profile != undefined && result.success.profile[0].instagram_profile && result.success.profile[0].instagram_profile != 'undefined'){
+                this.instagram_link = result.success.profile[0].instagram_profile;
+              }else{
+                this.instagram_link = '';
+              }
+              if(result.success.profile[0].linkedin_profile != undefined && result.success.profile[0].linkedin_profile && result.success.profile[0].linkedin_profile != 'undefined'){
+                this.linkedin_link =  result.success.profile[0].linkedin_profile;
+              }else{
+                this.linkedin_link = '';
+              }
+            }
+            else{}    
+           });
       }
 
       if(this.role == 3)
       {
+          this.getStatusDataforDriver().then(data_val=>{
+           // alert(data_val['booking_id']);
+           this.loadingCtr = this.loading.create({
+            content :"Please wait...",
+            spinner : 'crescent'
+          });
+      
+           
+            let param = new FormData();
+            param.append("booking_id",data_val['booking_id']);
+
+            this.data.getBookingInfo(param).subscribe(result=>{   
+              console.log(result);    
+              if(result.status == "OK")
+              {
+                if(data_val['status'] == 'live_tracking')
+                {
+                  var payload = {'booking_id':data_val['booking_id'],'customer_id':result.success.booking.customer_id};
+                  this.eve.publish('live_tracking:created',payload, Date.now());
+                  this.loadingCtr.dismiss();
+                }
+                else if(data_val['status'] == 'cashPayment')
+                {
+                  var payload1 = {'booking_id':data_val['booking_id'],'customer_id':result.success.booking.customer_id,'driver_id':result.success.booking.booking_details[0].driver_id,'amount':result.success.booking.cost};
+                  this.eve.publish('selected_Cash_Payment:created', payload1, Date.now());
+                  this.loadingCtr.dismiss();
+                }
+                else if(data_val['status'] == 'ongoing')
+                {
+                  var payload = {'booking_id':data_val['booking_id'],'customer_id':result.success.booking.customer_id};
+                  this.eve.publish('live_tracking:created',payload, Date.now());
+                  this.startRide();
+                  this.loadingCtr.dismiss();
+                }
+              }
+            });
+          });
+
         let param = new FormData();
-        param.append("latitude",this.lat);
-        param.append("longitude",this.long); 
+        param.append("latitude",points[0]);
+        param.append("longitude",points[1]);
         console.log(this.lat+'==='+this.long);
           this.data.storeDriverLocation(param).subscribe(result=>{
             if(result.status == "ERROR")
@@ -433,20 +524,19 @@ export class HomePage {
 
 
           let param1 = new FormData();
-          param1.append("latitude",this.lat);
-          param1.append("longitude",this.long); 
+          param1.append("latitude",points[0]);
+          param1.append("longitude",points[1]); 
           this.data.getCloseCustomers(param1).subscribe(result=>{
                               
             if(result.status == "ERROR")
             {
-                //this.data.presentToast('eRROR');
                 return false;
             }
             else
             {   
               if(result.success.customers)
               {
-                this.data.presentToast('Closer Customers!');
+                //this.data.presentToast('Closer Customers!');
                 var addressFull = [];
                 var address=[];
               
@@ -466,7 +556,7 @@ export class HomePage {
                               height: 55
                             } 
                           },
-                    animation: google.maps.Animation.BOUNCE
+                    animation: google.maps.Animation.DROP
                   });         
                 }
               }
@@ -475,30 +565,45 @@ export class HomePage {
               }
             }                        
           });
+
+          let param2 = this.id;
+          this.data.getDriverProfile(param2).subscribe(result=>{
+            if(result.status == 'OK')
+            {
+              if(result.success.profile[0].facebook_profile != undefined && result.success.profile[0].facebook_profile && result.success.profile[0].facebook_profile != 'undefined'){
+                this.facebook_link = result.success.profile[0].facebook_profile;
+              }
+              else{
+                this.facebook_link = null;
+              }
+              if(result.success.profile[0].twitter_profile != undefined && result.success.profile[0].twitter_profile && result.success.profile[0].twitter_profile != 'undefined'){
+                this.twitter_link = result.success.profile[0].twitter_profile;
+              }else{
+                this.twitter_link = null;
+              }
+              if(result.success.profile[0].instagram_profile != undefined && result.success.profile[0].instagram_profile && result.success.profile[0].instagram_profile != 'undefined'){
+                this.instagram_link = result.success.profile[0].instagram_profile;
+              }else{
+                this.instagram_link = null;
+              }
+              if(result.success.profile[0].linkedin_profile != undefined && result.success.profile[0].linkedin_profile && result.success.profile[0].linkedin_profile != 'undefined'){
+                this.linkedin_link =  result.success.profile[0].linkedin_profile;
+              }else{
+                this.linkedin_link = null;
+              }
+            }
+            else{}
+           });
       }
-    })
-    //alert('ionViewWillEnter');
+    });
+    //loader.dismiss();
    }
 
    ionViewDidEnter()
    {
-    /*this.storage.get('user').then(data=>{   
-      this.id = data[0].id
-      this.yourId = this.id;
-      this.role = data[0].role;
-
-      this.getLatLng().then(points=>{
-        this.lat = points[0];
-        this.long = points[1];*/
-       /* if(this.lat != undefined || this.long !=!undefined){
-
-        }*/
-        setTimeout(() => {
+      setTimeout(() => {
         if(this.role == 2)
         {
-          /*this.getPickup().then(data=>{
-            this.address.place = data;
-          });*/
 
           this.data.getvehicletypesforCustomers().subscribe(result=>{
         
@@ -510,13 +615,8 @@ export class HomePage {
               this.data.presentToast(result.status);
             }     
           });  
-  
-          /*if(this.lat == undefined || this.long == undefined)
-          {
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
-          }*/
           
-          let param = new FormData();
+          /*let param = new FormData();
           param.append("latitude",this.lat);
           param.append("longitude",this.long);
             this.data.storeCustomerLocation(param).subscribe(result=>{
@@ -527,13 +627,32 @@ export class HomePage {
               else   
               {
               }                           
-            });
-          
+            });*/
         }
 
         if(this.role == 3)
         {
-          let param = new FormData();
+          this.data.getAvailableToggle().subscribe(result=>{
+            console.log(result);
+            if(result.status == 'OK')
+            {
+              console.log(result.success.available);
+              if(result.success.available == 'on')
+              {
+                //this.isToggled = true;
+                this.isAvailable = true;
+              }
+              else{
+                //this.isToggled = false;
+                this.isAvailable = false;
+              }
+            }
+            else{
+              this.data.presentToast('Error');
+            }
+          });
+
+          /*let param = new FormData();
           param.append("latitude",this.lat);
           param.append("longitude",this.long); 
           console.log(this.lat+'==='+this.long);
@@ -548,7 +667,6 @@ export class HomePage {
               }                           
             });
 
-
             let param1 = new FormData();
             param1.append("latitude",this.lat);
             param1.append("longitude",this.long); 
@@ -556,14 +674,13 @@ export class HomePage {
                                 
               if(result.status == "ERROR")
               {
-                  //this.data.presentToast('eRROR');
                   return false;
               }
               else
               {   
                 if(result.success.customers)
                 {
-                  this.data.presentToast('Closer Customers!');
+                  //this.data.presentToast('Closer Customers!');
                   var addressFull = [];
                   var address=[];
                 
@@ -591,14 +708,10 @@ export class HomePage {
                   this.data.presentToast('No Nearby Customers!');
                 }
               }                        
-            });
+            });*/
         }
         }, 1500);
         
-      //});
-      
-    //});
-
     this.storage.get('token')
     .then(data=>{
         this.data.token = data;
@@ -606,66 +719,52 @@ export class HomePage {
    }
 
 
-gotoRideLater(booking_id)
+getStatusDataforCustomer()
 {
-  if(this.watch2){
-    this.watch2.unsubscribe();
-  }
-  this.eve.unsubscribe('distance:created');
-  this.eve.unsubscribe('ride_later_alert:created');
-  var pick_up;
-      var drop;
-      let param = new FormData();
-      param.append("booking_id",booking_id);
-      this.data.getcurrentBooking(param).subscribe(result=>{   
-              console.log(result);    
-              //this.userData = result; 
-              if(result.status == "OK")
-              {
-                pick_up = result.success.booking.source;
-                drop = result.success.booking.destination;
-                //alert(pick_up);
-                /*if(this.watch2){
-                  this.watch2.unsubscribe();
-                }
-                eve.unsubscribe('ride_later_alert:created');*/
-                
-                this.navCtrl.push(ConfirmPaymentPage,{'booking_id':booking_id,rideType:'now',source:pick_up,destination:drop});
-                
-              }
-              else
-              {
-                this.data.presentToast('Error');        ;
-              }                                
-      });
+  return new Promise((resolve,reject)=>{
+    firebase.database().ref('customer/'+this.id).once('value', function(snapshot) {
+      snapshotToArray(snapshot).forEach(data => {
+        let info = {'status':data.status,'booking_id':data.booking_id};
+        resolve(info);
+      })
+    });
+  }); 
 }
 
+getStatusDataforDriver()
+{
+  return new Promise((resolve,reject)=>{
+    firebase.database().ref('driver/'+this.id).once('value', function(snapshot) {
+      snapshotToArray(snapshot).forEach(data => {
+        let info = {'status':data.status,'booking_id':data.booking_id};
+        resolve(info);
+      })
+    });
+  }); 
+}
 
 getLatLng()
 {
   return new Promise((resolve,reject)=>{
     var points = [];
-    this.watch2 = this.geolocation.watchPosition().subscribe((position) => {
-      //alert('hello - '+this.lat);
-    // this.geolocation.getCurrentPosition().then((position) => {
-        //this.lat = position.coords.latitude;
-        //this.long =  position.coords.longitude;
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 0,
+      distanceFilter: 1
+    };
+    this.watch2 = this.geolocation.watchPosition(options).subscribe((position) => {   
+      setTimeout(() => {
         points.push(position.coords.latitude);
         points.push(position.coords.longitude);
         resolve(points); 
+      },0);
       if(points.length > 0)
       {
         this.watch2.unsubscribe();
         
       }
-      
     });
-    
-   // setTimeout(() => {   
-      
-      
-    //},1500);
-    
   });
 }
 
@@ -683,19 +782,17 @@ getPickup()
             if (status === 'OK') {
               var address = results[0].formatted_address;
               addressFull.push(address);
-              //console.log(address);
               resolve(address);
             }        
           });
-          /*setTimeout(() => {   
-            this.address.place = addressFull[0];
-            console.log(this.address.place);
-          },500); */
         }
       });
 }
 
-  
+goToConfirmPage(booking_id,pick_up,drop){
+  this.navCtrl.push(ConfirmPaymentPage,{'booking_id':booking_id,rideType:'now',source:pick_up,destination:drop}); 
+}
+
 updateActive(name)
 {
   this.active = name;
@@ -719,7 +816,6 @@ showAddressModal(act) {
         {
           this.address.place = data;
         }  
-      // this.getgeocodeAddress(this.address.place);
       }
       else{
         if(data)
@@ -750,26 +846,22 @@ selectVehicle(selected_vehicle_type,selected_cost)
   this.data.getCloseVehicles(param).subscribe(result=>{                              
   if(result.status == "ERROR")
   {
-    //this.data.presentToast('eRROR');
     return false;
   }
   else
   {   
     if(result.success.drivers[0])
     {
-      //this.data.presentToast('Closer Drivers!');
-      //var addressFull = [];
       this.isnowenabled = true;
       this.islaterenabled = true;
       var address=[];
       for(var i = 0; i<result.success.drivers.length;i++)
       {
-        //var geocoder = new google.maps.Geocoder();
-        address[i]=[];
-        address[i]['lat'] = result.success.drivers[i].latitude;
-        address[i]['lng'] = result.success.drivers[i].longitude;
-        this.drivers[i] = result.success.drivers[i].id;
-        this.addMarker(address[i]['lat'],address[i]['lng'],result.success.drivers[i]);    
+          address[i]=[];
+          address[i]['lat'] = result.success.drivers[i].latitude;
+          address[i]['lng'] = result.success.drivers[i].longitude;
+          this.drivers[i] = result.success.drivers[i].id;
+          this.addMarker(address[i]['lat'],address[i]['lng'],result.success.drivers[i]);    
       }               
     }
     else{
@@ -779,24 +871,6 @@ selectVehicle(selected_vehicle_type,selected_cost)
     }
   }                           
 });
-
-/*
-  let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'rideDecision'},{showBackdrop: false});
-               
-  modal.onDidDismiss(data => {   
-      if(data && data == 'now')
-      {
-        
-      }
-      else{
-        console.log(data);
-        this.isnowenabled = false;
-        this.islaterenabled = true;
-        this.ride_date = data[0];
-        this.ride_time = data[1];
-      }
-    });
-    modal.present();*/
 }
 
 addMarker(lt,lg,driver) {
@@ -812,46 +886,13 @@ addMarker(lt,lg,driver) {
     animation: google.maps.Animation.DROP
   });
   this.markers.push(this.marker);
-  /*let param = new FormData();
-  param.append("origin",'19.7514798','75.7138884');
-  param.append("destination",'19.0760','72.8777');
-
-  this.data.customerBookingDistance(param).subscribe(result=>{   
-    if(result.status == 'OK')
-    {     
-      this.duration = result.success.duration;
-      console.log(this.duration);
-    }
-  });
-  console.log(this.duration);
-  let content = "<ion-item id='info_action'><div style='float:left'><img class='info_avtar' src='assets/imgs/img1.png'></div><div class='info_info'><h6>"+driver.first_name+' '+driver.last_name+"</h6><p class='rating_p'>Rating : 4.5</p><p class='arrival_p'>Arrives In : "+this.duration+"</p></div></ion-item>";
-  this.addInfoWindow(this.marker, content, driver.id);
-    //});*/
-
 }
-     
-/*addInfoWindow(marker, content, did){
-let infoWindow = new google.maps.InfoWindow({
-  content: content
-});
-
-google.maps.event.addListener(marker, 'click', () => {
-  infoWindow.open(this.map, marker);
-  document.getElementById('info_action').addEventListener('click', () => {
-    this.showSelectDriverModal(did);
-  });
-});
-
-}*/
 
 rideNow(dist,selected_vehicle_type)
 {
   if( this.address.place != '' && this.address.drop_place != '' && this.vehicle_type != '' && this.selected_cost > 0 )
   {       
     let param ;
-
-    //this.getLoc(this.address.place);
-
     param = {
       'distance':dist,
       'vehicle_type':this.vehicle_type,
@@ -900,34 +941,22 @@ rideLater(dist,selected_vehicle_type)
     modal.present();
 }  
 
-/*showSelectDriverModal(did){
-  let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'driverInfo',driverId:did});
-  let me = this;
-               
-    modal.onDidDismiss(data => {   
-      if(data)
-      {
-        //this.selectdId = data;
-      }  
-      else{
-        //this.selectdId = '';
-      }     
-    });
-    modal.present();    
-}*/
-
 startTracking() {
   this.isTracking = true;
   this.trackedRoute = [];
-
-  this.positionSubscription = this.geolocation.watchPosition().subscribe(data => {
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 0,
+    distanceFilter: 1
+  };
+  this.positionSubscription = this.geolocation.watchPosition(options).subscribe(data => {
       console.log(data);
       setTimeout(() => {
         this.trackedRoute.push({ lat: data.coords.latitude, lng: data.coords.longitude });
-        //this.redrawPath(this.trackedRoute);
+        this.redrawPath(this.trackedRoute);
       }, 0);
     });
-
 }
 
 redrawPath(path) {
@@ -948,75 +977,37 @@ redrawPath(path) {
 }
 
 stopTracking() {
-  let newRoute = { finished: new Date().getTime(), path: this.trackedRoute };
-  this.previousTracks.push(newRoute);
-  this.storage.set('routes', this.previousTracks);   
+  //let newRoute = { finished: new Date().getTime(), path: this.trackedRoute };
+  //this.previousTracks.push(newRoute);
+  //this.storage.set('routes', this.previousTracks);   
  
   this.isTracking = false;
   this.positionSubscription.unsubscribe();
-  this.currentMapTrack.setMap(null);
+  if (this.currentMapTrack) {
+    this.currentMapTrack.setMap(null);
+  }
 }
 
 watchMethod(live_tracking_data)
 {
- // var customer_id = live_tracking_data.customer_id;
 
-  /*let param = new FormData();
-  param.append("customer_id",customer_id); 
-
-  this.data.getCustInfo(param).subscribe(result=>{   
-    if(result.status == "OK")
-    {     
-      console.log(result);
-      if( this.lat == result.success.customer[0].latitude && this.long == result.success.customer[0].longitude && this.chkPickup ==0)
-      {
-        this.chkPickup =1;
-      }
-    }
-    else{
-      console.log('Err');
-    }    
-  });
-*/
-  this.watch = this.geolocation.watchPosition().subscribe((data) => {
-      //this.deleteMarkers();
-      
-      this.updateGeolocation(this.liveRide_customerId,this.liveRide_bookingId, data.coords.latitude,data.coords.longitude);
-      /*-let updatelocation = new google.maps.LatLng(data.coords.latitude,data.coords.longitude);
-      let image = 'assets/imgs/blue-bike.png';
-      this.addMarker1(updatelocation,image);
-      this.setMapOnAll(this.map);*/
+  this.eve.unsubscribe('live_tracking:created');
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 0,
+    distanceFilter: 1
+  };
+  this.watch = this.geolocation.watchPosition(options).subscribe((data) => {
+    setTimeout(() => {
+        this.updateGeolocation(this.liveRide_customerId,this.liveRide_bookingId, data.coords.latitude,data.coords.longitude);
+      }, 0);
     });
   }
 
 updateGeolocation(customer_id,booking_id, lat, lng) {
   firebase.database().ref(booking_id+'/'+this.id).set({ 'latitude': lat, 'longitude' : lng});
-  //firebase.database().ref('100/201').set({ 'latitude': '17.1243', 'longitude' : '75.1463'});
 } 
-
-/*addMarker1(location, image) {
-  let marker = new google.maps.Marker({
-    position: location,
-    map: this.map,
-    icon: image
-  });
-  this.markers.push(marker);
-}
-
-setMapOnAll(map) {
-  for (var i = 0; i < this.markers.length; i++) {
-    this.markers[i].setMap(map);
-  }
-}
-
-clearMarkers() {
-  this.setMapOnAll(null);
-}
-
-deleteMarkers() {
-  this.clearMarkers();
-  this.markers = [];
-}*/
 
 setMapOnAll(map) {
   for (var i = 0; i < this.markers.length; i++) {
@@ -1035,49 +1026,115 @@ deleteMarkers() {
 
 startRide()
 {
-  this.isnowenabled = false;
-  this.endRide = true;
+  
   let param = new FormData();
   param.append("customer_id",this.liveRide_customerId); 
   param.append("booking_id",this.liveRide_bookingId); 
   param.append("driver_id",this.yourId); 
 
   this.data.rideStart(param).subscribe(result=>{   
-    if(result.status == "OK")
+    if(result.status === "OK")
     {     
+      firebase.database().ref('driver/'+this.yourId).set({ 'status': 'ongoing','booking_id':this.liveRide_bookingId});
       console.log(result);
-     
+      this.islaterenabled = true;
+      this.isnowenabled = false;
+      this.endRide = true;
       this.startTracking();
     }
     else{
-      console.log('Err');
+      console.log('Error');
+      this.data.presentToast('You should be near by customer');
+      return false;
     }    
   });
 }
 
 finishRide()
 {
+  this.islaterenabled = false;
+  this.loadingCtr = this.loading.create({
+    content :"Please wait...",
+    spinner : 'crescent'
+  });
 
   let param = new FormData();
   param.append("customer_id",this.liveRide_customerId); 
   param.append("booking_id",this.liveRide_bookingId); 
   param.append("driver_id",this.yourId);    
 
+  this.eve.unsubscribe('live_tracking:created');
+  this.eve.unsubscribe('distance:created');
+
   this.data.rideEnd(param).subscribe(result=>{   
     if(result.status == "OK")
-    {     
+    {    
       console.log(result); 
-      firebase.database().ref(this.liveRide_bookingId).remove();
-     
-
+      this.stopTracking();
+      
       if(this.watch && this.watch !== undefined)
       {
         this.watch.unsubscribe();
       }
-      if(this.watch2){
+      if(this.watch2 && this.watch2 !== undefined){
         this.watch2.unsubscribe();
       }
-      this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      if(this.positionSubscription && this.positionSubscription !== undefined)
+      {
+        this.positionSubscription.unsubscribe();
+      }
+
+      this.data.getAvailableToggle().subscribe(result=>{
+        console.log(result);
+        if(result.status == 'OK')
+        {
+          this.loadingCtr.dismiss();
+          firebase.database().ref(this.liveRide_bookingId).remove();
+          firebase.database().ref('driver/'+this.id).remove();
+
+          console.log(result.success.available);
+          if(result.success.available == 'on')
+          {
+            //this.isToggled = true;
+            
+            //this.data.presentToast('You are visible to nearby customers');
+            this.leave = true;
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          }
+          else{
+            this.loadingCtr.dismiss();
+            this.data.AvailableToggle().subscribe(result=>{
+              console.log(result);
+              if(result.status == 'OK')
+              {
+                console.log(result.success.available);
+                if(result.success.available == 'Driver set to On')
+                {
+                  //firebase.database().ref(this.liveRide_bookingId).remove();
+                  //firebase.database().ref('driver/'+this.id).remove();
+                  //this.data.presentToast('You are visible to nearby customers');
+                  this.leave = true;
+                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                }   
+                else{
+                  
+                  //this.data.presentToast('You are invisible to nearby customers');
+                }
+                
+              }
+              else{
+                this.data.presentToast('Error');
+              }
+            });
+          }
+        }
+        else{
+          this.data.presentToast('Error');
+        }
+      });
+      
+      
+      
     }
     else{
       console.log('Err');      
@@ -1085,4 +1142,69 @@ finishRide()
   });
 }
 
+cashPaymentReceived(info)
+{ 
+  
+  this.eve.unsubscribe('selected_Cash_Payment:created');
+  //this.leave = true;
+  let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'cashPayment',bookingId:info.booking_id},{enableBackdropDismiss:false,showBackdrop:false});         
+    modal.onDidDismiss(data => {   
+      
+      if(data == 'yes')
+      {
+        let param = new FormData();
+        param.append('customer_id', info.customer_id);
+        param.append('booking_id',info.booking_id);
+        param.append('driver_id',info.driver_id);
+        param.append('amount',info.amount);
+
+        this.data.paymentByCash(param).subscribe(result=>{
+        console.log(result);
+          if(result.status == 'OK')
+          {
+            if(this.watch && this.watch !== undefined)
+            {
+              this.watch.unsubscribe();
+            }
+            if(this.watch2 && this.watch2 !== undefined){
+              this.watch2.unsubscribe();
+            }
+            if(this.positionSubscription && this.positionSubscription !== undefined)
+            {
+              this.positionSubscription.unsubscribe();
+            }
+            firebase.database().ref(info.booking_id).remove();
+            firebase.database().ref('driver/'+this.id).remove();
+            firebase.database().ref('customer/'+info.customer_id).remove();
+            let currentIndex = this.navCtrl.getActive().index;
+            //this.leave = false;
+            this.navCtrl.push(FeedbackPage,{booking_id:info.booking_id,customer_id:info.customer_id}).then(() => {
+              this.navCtrl.remove(currentIndex);
+            });
+          }
+        });
+      }  
+      else{
+        this.data.presentToast('Something went Wrong!');    
+      }     
+    });
+    modal.present();  
+}
+
+redirect(link) {
+  this.inAppBrowser.create('http://'+link);
+}
+
 }       
+
+export const snapshotToArray = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(function() {
+      var item = snapshot.val();
+      item.key = snapshot.key;
+      returnArr.push(item);
+  });
+
+  return returnArr;
+};

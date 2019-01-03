@@ -42,10 +42,10 @@ export class SigninPage {
 
   signIn(uname,pass)
   {  
-    if(this.isRemember == true)
-    {
+   //if(this.isRemember == true)
+    //{
       this.storage.set('isRemember', true); 
-    }
+   // }
     
     let param = new FormData();
     param.append("email",uname);    

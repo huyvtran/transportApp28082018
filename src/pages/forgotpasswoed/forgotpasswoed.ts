@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../../providers/data/data';
 import { HomePage } from '../home/home';
+import { SigninPage } from '../signin/signin';
 
 /**
  * Generated class for the ForgotpasswoedPage page.
@@ -53,7 +54,7 @@ export class ForgotpasswoedPage {
             else   
             {
               this.data.presentToast('Password reset instructions are sent to your email');
-              this.navCtrl.setRoot(HomePage); 
+              this.navCtrl.setRoot(SigninPage); 
             }                      
  
      });

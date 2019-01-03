@@ -12,12 +12,12 @@
         "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
     },
     {
-        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
-        "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-xxxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
-    },
-    {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-mdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
+        "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-xxxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_search_url_text.xml.flat",
@@ -240,6 +240,10 @@
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\ed6167db65faea88469c9f6b09468987\\res\\drawable\\common_google_signin_btn_icon_light_focused.xml"
     },
     {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_next_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_next_item.png"
+    },
+    {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
@@ -314,6 +318,14 @@
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_secondary_text_material_light.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_next_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\ic_action_next_item.png"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_previous_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_previous_item.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light.xml.flat",
@@ -432,6 +444,10 @@
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
     },
     {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_remove.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_remove.png"
+    },
+    {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_screen_simple_overlay_action_mode.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
@@ -442,6 +458,10 @@
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-hdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_next_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_action_next_item.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",
@@ -478,6 +498,10 @@
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_primary_text_material_light.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_previous_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_previous_item.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_item_background_holo_dark.xml.flat",
@@ -792,12 +816,20 @@
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png"
     },
     {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_next_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_next_item.png"
+    },
+    {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_media_action.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\d6475d100ab2290ff063b2fc68c791b4\\res\\layout\\notification_media_action.xml"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_seek_thumb.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_previous_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\ic_action_previous_item.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_star_half_black_16dp.png.flat",
@@ -1056,6 +1088,10 @@
         "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxhdpi\\screen.png"
     },
     {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_previous_item.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_action_previous_item.png"
+    },
+    {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
@@ -1254,6 +1290,10 @@
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_abc_edit_text_material.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_remove.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\ic_action_remove.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_ic_os_notification_fallback_white_24dp.png.flat",
@@ -1520,6 +1560,10 @@
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\b23660d5f73f672b982c8b55ac1e129c\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
     },
     {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_remove.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_action_remove.png"
+    },
+    {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media_narrow_custom.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\d6475d100ab2290ff063b2fc68c791b4\\res\\layout\\notification_template_big_media_narrow_custom.xml"
     },
@@ -1634,6 +1678,10 @@
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_vector_test.xml.flat",
         "source": "C:\\Users\\WT-Silkesha\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7082e551946e9574ad0ecdec2185c2e1\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_remove.png.flat",
+        "source": "E:\\transportApp28082018\\platforms\\android\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_remove.png"
     },
     {
         "merged": "E:\\transportApp28082018\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",

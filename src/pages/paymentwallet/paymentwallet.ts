@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
-
+import { ModalpagePage } from '../modalpage/modalpage';
 /**
  * Generated class for the PaymentwalletPage page.
  *
@@ -21,8 +21,19 @@ export class PaymentwalletPage {
   walletAmount : any = 0;
   id : any;
   role : any;
+  fromDate : any;
+  toDate : any;
+  page = 1;
+  maximumPages: any;
+  viewTransactions : boolean = false;
+  hideBackButton : any;
+  paymentType : any = 'all';
+  offset : any = 0;
+  transactions : any =[];
+  no_transactions : boolean =false;
 
-  constructor(private alertCtrl: AlertController, private loading: LoadingController,private payPal: PayPal,public navCtrl: NavController, public navParams: NavParams, public data: DataProvider, private storage: Storage) {
+  constructor(private alertCtrl: AlertController, private modalCtrl: ModalController, private loading: LoadingController,private payPal: PayPal,public navCtrl: NavController, public navParams: NavParams, public data: DataProvider, private storage: Storage) {
+    this.hideBackButton = false;
     let loader = this.loading.create({
       content :"Please wait...",
       spinner : 'crescent'
@@ -101,6 +112,7 @@ export class PaymentwalletPage {
                 loader.dismiss();
                 this.walletAmount = result.success.balance; 
                 //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                this.loadTransactions();
               }
               else{
                 loader.dismiss();
@@ -182,6 +194,88 @@ export class PaymentwalletPage {
       });
       prompt.present();
     });
+  }
+
+  goBackbtn()          
+  {
+    this.viewTransactions =false;
+  }
+
+  getToFrom()
+  {
+    let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'getToFromDate'},{showBackdrop: false});             
+    modal.onDidDismiss(data => {   
+        if(data)
+        {
+          this.viewTransactions =true;
+          this.hideBackButton = true;
+          this.fromDate = data[0];
+          this.toDate = data[1];
+          this.loadTransactions();
+        }
+      });
+      modal.present();
+  }
+
+  gotoWallet()
+  {
+    this.viewTransactions = false;
+  }
+
+  loadTransactions(infiniteScroll?)
+  {
+    let loader = this.loading.create({
+      content :"Please wait...",
+      spinner : 'crescent'
+    });
+
+    loader.present();
+
+    if(this.viewTransactions === false)
+    {
+      this.viewTransactions = true; 
+    }
+      
+      let param = new FormData();
+      param.append("customer_id",this.id);
+      param.append("offset",this.offset);
+      this.data.getTransactions(param,this.page).subscribe(result=>{                          
+        if(result.status == "OK")  
+        {   
+          if(result.success.Transaction == null)
+          {
+            loader.dismiss();
+            if(this.transactions == '')
+            {
+              this.no_transactions = true;
+            }
+            this.data.presentToast('There is no more data available');
+            return false;
+          }
+          else{
+            loader.dismiss();
+            this.transactions = this.transactions.concat(result.success.Transaction);
+            this.offset = result.offset;
+            if(infiniteScroll) {
+              infiniteScroll.complete();
+            }
+          }
+        }
+      });
+  }
+
+  loadMore(infiniteScroll){
+    this.page++;
+    this.loadTransactions(infiniteScroll);
+    if (this.page === this.maximumPages){
+      infiniteScroll.enable(false);
+    }
+  }
+
+  getByType(type)
+  {
+    this.paymentType = type;
+    this.loadTransactions();
   }
 
 }

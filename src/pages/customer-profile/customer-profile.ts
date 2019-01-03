@@ -33,8 +33,18 @@ export class CustomerProfilePage {
   role : any;
   vehicle_types : any;
   avtarPath : any;
+  display_data : boolean = false;
   
   constructor(public navCtrl: NavController, private loading: LoadingController, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public data : DataProvider, private storage: Storage,private DomSanitizer: DomSanitizer, private camera: Camera, public http : HttpClient,private alertCtrl: AlertController, private modalCtrl: ModalController) {
+    
+  }
+    
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CustomerProfilePage');
+  }
+
+  ionViewWillEnter()
+  {
     let loader = this.loading.create({
       content :"Please wait...",
       spinner : 'crescent'
@@ -49,6 +59,8 @@ export class CustomerProfilePage {
             if(result.status == 'OK')
             {
               //console.log(result.success.profile[0].first_name);
+              loader.dismiss();
+              this.display_data = true;
               this.user_details.fname = result.success.profile[0].first_name;
               this.user_details.lname = result.success.profile[0].last_name;
               this.user_details.email = result.success.profile[0].email;
@@ -66,7 +78,7 @@ export class CustomerProfilePage {
               
             }
             else{
-
+              loader.dismiss();
             }
          });
         }else if(data[0].role==3){    
@@ -80,6 +92,8 @@ export class CustomerProfilePage {
               this.data.getDriverProfile(param).subscribe(result=>{
                 if(result.status == 'OK')    
                 {
+                  loader.dismiss();
+                  this.display_data = true;
                   //console.log(result.success.profile[0].first_name);
                   this.user_details.fname = result.success.profile[0].first_name;
                   this.user_details.lname = result.success.profile[0].last_name;
@@ -91,7 +105,7 @@ export class CustomerProfilePage {
                     this.user_details.avatar = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
                   }
                   else{
-                    this.user_details.avatar = 'http://transport.walstarmedia.com/public/storage/images/customer/profile_image/'+result.success.profile[0].profile;
+                    this.user_details.avatar = 'http://transport.walstarmedia.com/public/storage/images/driver/profile_image/'+result.success.profile[0].profile;
                   }
                   //this.user_details.avatar = 'http://transport.walstarmedia.com/public/storage/images/driver/profile_image/'+result.success.profile[0].profile;
                   this.user_details.vehicle_type = this.vehicle_types[result.success.profile[0].vehicle_type-1].type;
@@ -101,13 +115,14 @@ export class CustomerProfilePage {
                   
                 }   
                 else{
-    
+                  loader.dismiss();
                 }
              });
               
             }
             else{
               this.data.presentToast(result.status);
+              loader.dismiss();
             }
             
           });
@@ -115,11 +130,7 @@ export class CustomerProfilePage {
         }
           
       });
-      loader.dismiss();
-  }
-    
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CustomerProfilePage');
+      
   }
 
   gotoChangePass()
@@ -182,24 +193,7 @@ export class CustomerProfilePage {
     //this.navCtrl.setRoot(SigninPage); 
   }   
   
-  addSocialLink(account)
-  {
-    let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'addSocialaccount'});
-    let me = this;
-               
-    modal.onDidDismiss(data => {   
-      console.log(data);
-      if(data)
-      {
-        //this.selectdId = data;
-      }          
-      else{
-        //this.selectdId = '';        
-      }     
-    });
-    modal.present();
-    //this.navCtrl.setRoot(SigninPage); 
-  }
+  
 
   async captureImage(useAlbum: boolean) {
     var srcType;

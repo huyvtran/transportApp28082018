@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Nav,Platform,Events, AlertController, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { DataProvider } from '../providers/data/data';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
@@ -27,8 +28,11 @@ import { PaymentPage } from '../pages/payment/payment';
 import * as firebase from 'firebase';
 import { delay } from 'rxjs/operators';
 import { ModalpagePage } from '../pages/modalpage/modalpage';
+import { PackageBookingPage } from '../pages/package-booking/package-booking';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import { DriverTransactionsPage } from '../pages/driver-transactions/driver-transactions';
 
-const config = {
+const config = {         
   apiKey: 'AIzaSyD_mkig8BYCj7PJlCj4-yN4w6QPmJjxFbg',
   authDomain: 'localhost',
   databaseURL: 'https://transportapp-b1681.firebaseio.com/',
@@ -53,8 +57,10 @@ export class MyApp {
   id :any;
   avatar : any = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
 
-  constructor( private modalCtrl: ModalController, private oneSignal: OneSignal,  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public data : DataProvider, private storage: Storage,public events: Events,private alertCtrl: AlertController) {
+  constructor(private backgroundMode: BackgroundMode, private modalCtrl: ModalController, private oneSignal: OneSignal,  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public data : DataProvider, private storage: Storage,public events: Events,private alertCtrl: AlertController) {
     firebase.initializeApp(config);
+    this.backgroundMode.enable();
+    this.backgroundMode.setDefaults({'hidden':false});
     this.storage.get('showSlide').then(data=>{
       if(data == null || data == undefined)
       {
@@ -91,9 +97,36 @@ export class MyApp {
               this.lname = user[0].last_name;
               this.email = user[0].email;
               console.log('this.role==>'+this.role);
-              let param = user[0].id;
+
+              if(user[0].role==2)
+              {
+                let param = user[0].id;
                 
-                  this.data.getCustomerProfile(param).subscribe(result=>{
+                this.data.getCustomerProfile(param).subscribe(result=>{
+                  if(result.status == 'OK')
+                  {
+                    //console.log(result.success.profile[0].first_name);
+                    
+
+                    if(result.success.profile[0].profile == null)
+                    {
+                      this.avatar = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
+                    }
+                    else{
+                      this.avatar = 'http://transport.walstarmedia.com/public/storage/images/customer/profile_image/'+result.success.profile[0].profile;
+                    }
+                    
+                  }
+                  else{
+
+                  }
+                });  
+              }
+              else if(user[0].role==3)
+              {
+                let param = user[0].id;
+                
+                  this.data.getDriverProfile(param).subscribe(result=>{
                     if(result.status == 'OK')
                     {
                       //console.log(result.success.profile[0].first_name);
@@ -104,7 +137,7 @@ export class MyApp {
                         this.avatar = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
                       }
                       else{
-                        this.avatar = 'http://transport.walstarmedia.com/public/storage/images/customer/profile_image/'+result.success.profile[0].profile;
+                        this.avatar = 'http://transport.walstarmedia.com/public/storage/images/driver/profile_image/'+result.success.profile[0].profile;
                       }
                       
                     }
@@ -112,15 +145,19 @@ export class MyApp {
 
                     }
                 });  
+              }
+              
             });
 
             setTimeout(() => {
               //alert(this.role);
             if(this.role == 2){
+              this.oneSignal.sendTag('customer_id',this.id);
               this.rootPage = HomePage;
             }
             
             if(this.role == 3){
+              this.oneSignal.sendTag('driver_id',this.id);
               let param = this.id; 
             this.data.getDriverProfile(param).subscribe(result=>{
               if(result.status == 'OK')    
@@ -171,27 +208,54 @@ export class MyApp {
       this.role = user[0].role;
       this.id = user[0].id;
       console.log('this.role==>'+this.role);
-      let param = user[0].id;
-         
-          this.data.getCustomerProfile(param).subscribe(result=>{
-            if(result.status == 'OK')
-            {
-              //console.log(result.success.profile[0].first_name);
-              
-
-              if(result.success.profile[0].profile == null)
+      if(user[0].role==2)
               {
-                this.avatar = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
-              }
-              else{
-                this.avatar = 'http://transport.walstarmedia.com/public/storage/images/customer/profile_image/'+result.success.profile[0].profile;
-              }
-              
-            }
-            else{
+                let param = user[0].id;
+                
+                this.data.getCustomerProfile(param).subscribe(result=>{
+                  if(result.status == 'OK')
+                  {
+                    //console.log(result.success.profile[0].first_name);
+                    
 
-            }
-         });
+                    if(result.success.profile[0].profile == null)
+                    {
+                      this.avatar = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
+                    }
+                    else{
+                      this.avatar = 'http://transport.walstarmedia.com/public/storage/images/customer/profile_image/'+result.success.profile[0].profile;
+                    }
+                    
+                  }
+                  else{
+
+                  }
+                });  
+              }
+              else if(user[0].role==3)
+              {
+                let param = user[0].id;
+                
+                  this.data.getDriverProfile(param).subscribe(result=>{
+                    if(result.status == 'OK')
+                    {
+                      //console.log(result.success.profile[0].first_name);
+                      
+
+                      if(result.success.profile[0].profile == null)
+                      {
+                        this.avatar = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
+                      }
+                      else{
+                        this.avatar = 'http://transport.walstarmedia.com/public/storage/images/driver/profile_image/'+result.success.profile[0].profile;
+                      }
+                      
+                    }
+                    else{
+
+                    }
+                });  
+              }
     });
     
     platform.ready().then(() => {   
@@ -202,11 +266,19 @@ export class MyApp {
       if (isCordovaAvailable()){
         this.oneSignal.startInit(oneSignalAppId, sender_id);
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+        //this.oneSignal.enableSound(this.oneSignal.enableSound());
         //this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
         this.oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
         this.oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
         this.oneSignal.endInit();
 
+
+        /*window["plugins"].OneSignal
+      .startInit(oneSignalAppId, sender_id)  
+      .inFocusDisplaying(window["plugins"].OneSignal.OSInFocusDisplayOption.Notification)
+      .handleNotificationOpened(data => this.onPushOpened(data.notification.payload))
+      .handleNotificationReceived(data => this.onPushReceived(data.payload))
+      .endInit();*/
 
         /*var notificationReceivedCallback = function(data) {};    
         var notificationOpenedCallback = jsonData => {};
@@ -233,9 +305,30 @@ export class MyApp {
       bookingListPage : BookingListPage,
       deliveryPage : DeliveryPage,   
       feedbackPage : FeedbackPage,
-      paymentPage : PaymentPage                   
-    }  
+      paymentPage : PaymentPage,
+      packageBooking:PackageBookingPage,
+      notificationsPage : NotificationsPage,
+      driverTransactionsPage : DriverTransactionsPage             
+    }            
 }
+
+private signOut(){
+  let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'signout'});
+  let me = this;
+             
+  modal.onDidDismiss(data => {   
+    console.log(data);
+    if(data)
+    {
+      //this.selectdId = data;
+    }  
+    else{
+      //this.selectdId = '';            
+    }     
+  });
+  modal.present();
+  //this.navCtrl.setRoot(SigninPage); 
+}  
 
 private onPushReceived(payload: OSNotificationPayload) {
   /*alert('Push recevied:' + payload.body);
@@ -243,7 +336,7 @@ private onPushReceived(payload: OSNotificationPayload) {
   alert( payload.additionalData.customer_id);
   alert( payload.additionalData.booking_id);*/
   //presentConfirm() {
-    
+                    
  // }
 
   if(payload.additionalData.action == 'booking_response'){
@@ -271,10 +364,10 @@ private onPushReceived(payload: OSNotificationPayload) {
   }
 
   if(payload.additionalData.action == 'booking_request' || payload.additionalData.action == 'ride_alert'){
-    alert('booking_id==>'+payload.additionalData.booking_id);
     let alert1 = this.alertCtrl.create({
       title: 'Customer Request',
-      message: payload.body,
+      cssClass:'b_r_request',
+      message: '<div class="c_name">'+payload.additionalData.customer+'</div><div class="title">Location</div><div class="desc">'+payload.additionalData.source+'</div><div class="title">Time</div><div class="desc">'+payload.additionalData.pick_up+'</div>',
       buttons: [
         {
           text: 'Accept',
@@ -288,7 +381,7 @@ private onPushReceived(payload: OSNotificationPayload) {
               if(result.status == "OK")
               {
                 this.data.presentToast('Booking Confirmation Successfull!');
-               // if(payload.additionalData.ride_type != 'later')
+                //if(payload.additionalData.ride_type != 'later')
                 //{
                   
                   let param1 = new FormData();
@@ -299,16 +392,19 @@ private onPushReceived(payload: OSNotificationPayload) {
                   this.data.DriverpostNotification(param1).subscribe(result=>{   
                     if(result.status == "ERROR")
                     {     
-                      this.data.presentToast('postNotification fail');
+                      this.data.presentToast('Post Notification fail');
                     }
                     else{
-                      this.data.presentToast('postNotification success');
+                      this.data.presentToast('Post Notification Success');
                       this.events.publish('live_tracking:created',payload.additionalData, Date.now());
                     }    
                   });
                   this.data.presentToast('Request accepted successfully!'); 
                 //}
-              }                         
+              }        
+              else{
+                this.data.presentToast('May be Customer Cancelled Booking!');
+              }                 
             });          
           }
         },      
@@ -339,12 +435,15 @@ private onPushReceived(payload: OSNotificationPayload) {
                     }
                   });*/
                 this.data.presentToast('Request Rejected successfully!');
-              }                         
+              }    
+              else{
+                this.data.presentToast('May be Customer Cancelled Booking!');
+              }                      
             });
           }
         }
       ]
-    });
+    });      
     alert1.present();
   }
 
@@ -355,16 +454,27 @@ private onPushReceived(payload: OSNotificationPayload) {
   if(payload.additionalData.action == 'ride_alert'){
 
   }
+
+  if(payload.additionalData.action == 'cashpayment'){
+    this.events.publish('selected_Cash_Payment:created', payload.additionalData, Date.now());
+  }
+
+  if(payload.additionalData.action == 'otherpayment'){
+    this.events.publish('selected_Other_Payment:created', payload.additionalData, Date.now());
+  }
+
+  if(payload.additionalData.action == 'cashpaymentReceived'){
+    this.events.publish('cashpaymentReceived:created', payload.additionalData, Date.now());
+  }
   
 }
 
 private onPushOpened(payload: OSNotificationPayload) {
-  //alert('Push opened: ' + payload.body);
     if(payload.additionalData.action == 'booking_request' || payload.additionalData.action == 'ride_alert'){
-      alert('booking_id==>'+payload.additionalData.booking_id);
         let alert1 = this.alertCtrl.create({
           title: 'Customer Request',
-          message: payload.body,
+          cssClass:'b_r_request',
+          message: '<div class="c_name">'+payload.additionalData.customer+'</div><div class="title">Location</div><div class="desc">'+payload.additionalData.source+'</div><div class="title">Time</div><div class="desc">'+payload.additionalData.pick_up+'</div>',
           buttons: [
             {
               text: 'Accept',
@@ -389,10 +499,10 @@ private onPushOpened(payload: OSNotificationPayload) {
                       this.data.DriverpostNotification(param1).subscribe(result=>{   
                         if(result.status == "ERROR")
                         {     
-                          this.data.presentToast('postNotification fail');
+                          this.data.presentToast('Post Notification Fail');
                         }
                         else{
-                          this.data.presentToast('postNotification success');
+                          this.data.presentToast('Post Notification Success');
                           this.events.publish('live_tracking:created',payload.additionalData, Date.now());
                         }    
                       });

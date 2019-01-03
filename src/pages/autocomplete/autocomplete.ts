@@ -78,30 +78,19 @@ export class AutocompletePage {
     }
     
     let me = this;
-
-    /*this.positionSubscription = this.geolocation.watchPosition()
-    .pipe(
-      filter((p) => p.coords !== undefined) //Filter Out Errors       
-    )
-    .subscribe(data => {
-      console.log(data);
-      setTimeout(() => {
-        let latLng = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
-         console.log('coords===>'+this.latlng);
-        //this.lng = data.coords.longitude;
-        //this.redrawPath(this.trackedRoute);        
-      }, 0);    
-    });  */      
-
-    this.service.getPlacePredictions({input:this.autocomplete.query,location:this.latlng}, function (predictions, status) {
-      me.autocompleteItems = []; 
-      me.zone.run(function () {
-        if (status != google.maps.places.PlacesServiceStatus.OK) {
-            console.log(status);
-            return;
-        }
-        predictions.forEach(function (prediction) {
-          me.autocompleteItems.push(prediction.description);
+    
+    this.geolocation.getCurrentPosition().then((position) => {
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      this.service.getPlacePredictions({input:this.autocomplete.query,location:latLng,radius:1000}, function (predictions, status) {
+        me.autocompleteItems = []; 
+        me.zone.run(function () {
+          if (status != google.maps.places.PlacesServiceStatus.OK) {
+              console.log(status);
+              return;
+          }
+          predictions.forEach(function (prediction) {
+            me.autocompleteItems.push(prediction.description);
+          });
         });
       });
     });

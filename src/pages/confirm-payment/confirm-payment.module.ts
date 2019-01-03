@@ -8,6 +8,7 @@ import { ConfirmPaymentPage } from './confirm-payment';
   ],
   imports: [
     IonicPageModule.forChild(ConfirmPaymentPage),
+    
   ],
 })
 export class ConfirmPaymentPageModule {}
