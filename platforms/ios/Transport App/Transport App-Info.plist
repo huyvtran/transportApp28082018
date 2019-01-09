@@ -68,12 +68,18 @@
     <key>UILaunchStoryboardName</key>
     <string>CDVLaunchScreen</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>your usage message</string>
+    <string>YOUR-PERMISSION-REQUEST</string>
     <key>UIBackgroundModes</key>
     <array>
       <string>remote-notification</string>
       <string>audio</string>
     </array>
+    <key>NSCameraUsageDescription</key>
+    <string>YOUR-PERMISSION-REQUEST</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>This app needs microphone access</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>This app needs write-access to photo library</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>This App wants to track your location</string>
   </dict>

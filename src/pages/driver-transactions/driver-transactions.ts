@@ -49,8 +49,9 @@ export class DriverTransactionsPage {
 
   loadTransactions(infiniteScroll?)
   {
+    this.storage.get('user').then(data => {
       let param = new FormData();
-      param.append("driver_id",this.id);
+      param.append("driver_id",data[0].id);
       param.append("offset",this.offset);
       this.data.getDriverTransactions(param,this.page).subscribe(result=>{                          
         if(result.status == "OK")  
@@ -58,7 +59,7 @@ export class DriverTransactionsPage {
           if(result.success.Transaction == null)
           {
             this.loadinCtrl.dismiss();
-            if(this.transactions == ''){
+            if(this.transactions == null){
               this.noTransaction = true;
             }
             this.data.presentToast('There is no more data available');
@@ -74,6 +75,7 @@ export class DriverTransactionsPage {
           }
         }
       });
+    });
   }
 
   loadMore(infiniteScroll){

@@ -13,6 +13,8 @@ import { NativePageTransitions  } from '@ionic-native/native-page-transitions';
 import { PayPal } from '@ionic-native/paypal';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { CallNumber } from '@ionic-native/call-number';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';   
@@ -199,17 +201,19 @@ import { DriverTransactionsPageModule } from '../pages/driver-transactions/drive
     PayPal,
     ServiceProvider,
     InAppBrowser,
-    BackgroundMode
+    BackgroundMode,
+    AndroidPermissions,
+    CallNumber
   ]       
 })  
 //export class AppModule {} 
 export class AppModule {
   constructor(config: Config) {
-    config.setTransition('fade', FadeTansition);
+    //config.setTransition('fade', FadeTansition);
   }
 } 
     
-const SHOW_BACK_BTN_CSS = 'show-back-button';
+/*const SHOW_BACK_BTN_CSS = 'show-back-button';
 export class FadeTansition extends PageTransition {
   init() {
     super.init();
@@ -259,4 +263,4 @@ export class FadeTansition extends PageTransition {
       this.add(leavingPage.fromTo('opacity', 1, 0));
     }
   }
-}
+}*/

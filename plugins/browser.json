@@ -72,6 +72,15 @@
     },
     "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-ios-camera-permissions": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
     }
   },
   "dependent_plugins": {}

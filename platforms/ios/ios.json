@@ -19,6 +19,10 @@
             {
               "xml": "<string>your usage message</string>",
               "count": 1
+            },
+            {
+              "xml": "<string>YOUR-PERMISSION-REQUEST</string>",
+              "count": 1
             }
           ],
           "UIBackgroundModes": [
@@ -28,6 +32,24 @@
             },
             {
               "xml": "<array><string>audio</string></array>",
+              "count": 1
+            }
+          ],
+          "NSCameraUsageDescription": [
+            {
+              "xml": "<string>YOUR-PERMISSION-REQUEST</string>",
+              "count": 1
+            }
+          ],
+          "NSMicrophoneUsageDescription": [
+            {
+              "xml": "<string>This app needs microphone access</string>",
+              "count": 1
+            }
+          ],
+          "NSPhotoLibraryAddUsageDescription": [
+            {
+              "xml": "<string>This app needs write-access to photo library</string>",
               "count": 1
             }
           ]
@@ -135,6 +157,10 @@
             {
               "xml": "<feature name=\"BackgroundMode\"><param name=\"ios-package\" value=\"APPBackgroundMode\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"CallNumber\"><param name=\"ios-package\" value=\"CFCallNumber\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -231,6 +257,19 @@
       "PACKAGE_NAME": "io.ionic.transportApp"
     },
     "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-ios-camera-permissions": {
+      "CAMERA_USAGE_DESCRIPTION": "YOUR-PERMISSION-REQUEST",
+      "MICROPHONE_USAGE_DESCRIPTION": "This app needs microphone access",
+      "PHOTOLIBRARY_ADD_USAGE_DESCRIPTION": "This app needs write-access to photo library",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": "YOUR-PERMISSION-REQUEST",
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "io.ionic.transportApp"
     }
   },
@@ -635,6 +674,22 @@
         "cordova.plugins.backgroundMode",
         "plugin.backgroundMode"
       ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
+    },
+    {
+      "id": "mx.ferreyra.callnumber.CallNumber",
+      "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+      "pluginId": "mx.ferreyra.callnumber",
+      "clobbers": [
+        "call"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -660,6 +715,9 @@
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-inappbrowser": "3.0.0",
-    "cordova-plugin-background-mode": "0.7.2"
+    "cordova-plugin-background-mode": "0.7.2",
+    "cordova-plugin-ios-camera-permissions": "1.2.0",
+    "cordova-plugin-android-permissions": "1.0.0",
+    "mx.ferreyra.callnumber": "0.0.2"
   }
 }

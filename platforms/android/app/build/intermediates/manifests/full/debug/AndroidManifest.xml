@@ -18,6 +18,7 @@
         android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -33,7 +34,12 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="io.ionic.transportApp.permission.RECEIVE_ADM_MESSAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -82,7 +88,7 @@
             android:name="io.ionic.transportApp.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/activity_name"
-            android:launchMode="singleInstance"
+            android:launchMode="standard"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter android:label="@string/launcher_name" >
@@ -91,6 +97,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="de.appplant.cordova.plugin.background.ForegroundService" />
+
         <activity
             android:name="com.synconset.MultiImageChooserActivity"
             android:label="@string/multi_app_name"
@@ -115,8 +124,6 @@
                 <category android:name="io.ionic.transportApp" />
             </intent-filter>
         </receiver>
-
-        <service android:name="de.appplant.cordova.plugin.background.ForegroundService" />
 
         <activity
             android:name="io.card.payment.CardIOActivity"

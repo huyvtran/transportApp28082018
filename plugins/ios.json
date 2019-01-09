@@ -74,6 +74,19 @@
     },
     "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-ios-camera-permissions": {
+      "CAMERA_USAGE_DESCRIPTION": "YOUR-PERMISSION-REQUEST",
+      "MICROPHONE_USAGE_DESCRIPTION": "This app needs microphone access",
+      "PHOTOLIBRARY_ADD_USAGE_DESCRIPTION": "This app needs write-access to photo library",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": "YOUR-PERMISSION-REQUEST",
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "io.ionic.transportApp"
     }
   },
   "dependent_plugins": {

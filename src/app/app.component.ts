@@ -3,6 +3,7 @@ import { IonicPage, Nav,Platform,Events, AlertController, ModalController } from
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { DataProvider } from '../providers/data/data';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
@@ -57,10 +58,11 @@ export class MyApp {
   id :any;
   avatar : any = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
 
-  constructor(private backgroundMode: BackgroundMode, private modalCtrl: ModalController, private oneSignal: OneSignal,  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public data : DataProvider, private storage: Storage,public events: Events,private alertCtrl: AlertController) {
+  constructor(private backgroundMode: BackgroundMode,private androidPermissions: AndroidPermissions, private modalCtrl: ModalController, private oneSignal: OneSignal,  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public data : DataProvider, private storage: Storage,public events: Events,private alertCtrl: AlertController) {
     firebase.initializeApp(config);
     this.backgroundMode.enable();
-    this.backgroundMode.setDefaults({'hidden':false});
+    this.backgroundMode.setDefaults({'hidden':false}); 
+
     this.storage.get('showSlide').then(data=>{
       if(data == null || data == undefined)
       {
@@ -90,6 +92,11 @@ export class MyApp {
               }
             });*/
             this.storage.get('user').then(user=>{   
+              if(user == null || user == undefined || user == false)
+              {
+                this.rootPage = SigninPage;
+                return false;
+              }
               this.id = user[0].id;
               this.role = user[0].role;
 
@@ -318,9 +325,37 @@ private signOut(){
              
   modal.onDidDismiss(data => {   
     console.log(data);
-    if(data)
+    if(data == true)
     {
-      //this.selectdId = data;
+      this.oneSignal.deleteTag('user_id');
+      this.storage.set('isRemember', false); 
+      this.storage.get('user').then(data=>{   
+        let param = data[0].id;
+        let role = data[0].role;
+        console.log(role);    
+        if(role == 3)
+        {
+          this.data.getDriverToggle(param).subscribe(result=>{
+            if(result.status == 'OK')
+            {
+              if(result.success.available == 'on')
+              {
+                this.data.AvailableToggle().subscribe(result=>{
+                  console.log(result);
+                  if(result.status == 'OK')
+                  {
+                    console.log(result.success.available);
+                  }
+                  else{
+                    this.data.presentToast('Error');
+                  }
+                });
+              }
+            }
+          });
+        }
+      });
+      this.rootPage = SigninPage;
     }  
     else{
       //this.selectdId = '';            
@@ -343,7 +378,9 @@ private onPushReceived(payload: OSNotificationPayload) {
     this.events.publish('live_tracking_Driver_id:created', payload.additionalData.driver_id, Date.now());
     //alert(JSON.stringify(payload.additionalData));
   } 
-
+  if(payload.additionalData.action == 'start_ride'){
+    this.events.publish('start_ride:created', payload.additionalData, Date.now());
+  }
   if(payload.additionalData.action == 'finish_ride'){
     this.events.publish('finished_ride:created', payload.additionalData, Date.now());
   }

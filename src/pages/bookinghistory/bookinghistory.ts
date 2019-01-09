@@ -81,16 +81,17 @@ export class BookinghistoryPage {
     this.showSubDiv = TabNo;      
   }
 
-  giveFeedback(i)
+  /*giveFeedback(i)
   {
     //let record = this.history[i];
     this.navCtrl.setRoot(FeedbackPage,{booking_id : this.history[i].booking_id, driver_id : this.history[i].driver_id});
-  }
+  }*/
 
   loadHistory(infiniteScroll?)
   {
+    this.storage.get('user').then(data=>{        
     let param = new FormData();
-      param.append("customer_id",this.id);
+      param.append("customer_id",data[0].id);
       this.data.getCustomerBookingList(param,this.page).subscribe(result=>{                          
         if(result.status == "OK")  
         {   
@@ -118,6 +119,7 @@ export class BookinghistoryPage {
           }
         }
       });
+    });
   }
 
   loadUpcomings(infiniteScroll?)

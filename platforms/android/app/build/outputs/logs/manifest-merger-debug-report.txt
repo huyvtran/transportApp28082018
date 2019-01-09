@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
 MERGED from [io.card:android-sdk:5.4.0] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\android-sdk-5.4.0.aar\1ce653aaab4bbb67095dbf0a9eacc454\AndroidManifest.xml:2:1-28:12
 MERGED from [com.paypal.sdk:paypal-android-sdk:2.15.3] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\paypal-android-sdk-2.15.3.aar\222e4346af9bd009ecbe69eb045f24af\AndroidManifest.xml:2:1-28:12
 MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:2:1-108:12
@@ -36,9 +36,9 @@ MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\WT-Silkes
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\666f00dd670dc68a576a6bbea503b6cf\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\6a20ff56346a89d2f6687647e3147977\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\6d07c28d3a037e8150d68bf0ead065b8\AndroidManifest.xml:17:1-24:12
-INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:1-37:12
 	package
 		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:2:98-129
 		INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml
@@ -128,15 +128,15 @@ ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifes
 	android:label
 		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:97-134
 	android:launchMode
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:135-170
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:135-164
 	android:windowSoftInputMode
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:262-304
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:256-298
 	android:configChanges
 		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:19-96
 	android:theme
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:199-261
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:193-255
 	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:171-198
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:6:165-192
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:7:13-10:29
 	android:label
@@ -149,54 +149,55 @@ category#android.intent.category.LAUNCHER
 ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:9:17-77
 	android:name
 		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:9:27-74
-activity#com.synconset.MultiImageChooserActivity
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:12:9-160
-	android:label
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:12:19-57
-	android:theme
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:12:113-157
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:12:58-112
-amazon:enable-feature
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:9-159
-	xmlns:amazon
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:100-156
-	android:required
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:75-99
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:32-74
-service#com.onesignal.ADMMessageHandler
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:9-92
-	android:exported
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:18-42
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:43-89
-receiver#com.onesignal.ADMMessageHandler$Receiver
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:15:9-21:20
-	android:permission
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:15:75-139
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:15:19-74
-intent-filter#com.amazon.device.messaging.intent.RECEIVE+com.amazon.device.messaging.intent.REGISTRATION+io.ionic.transportApp
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:16:13-20:29
-action#com.amazon.device.messaging.intent.REGISTRATION
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:17:17-90
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:17:25-87
-action#com.amazon.device.messaging.intent.RECEIVE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:18:17-85
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:18:25-82
-category#io.ionic.transportApp
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:19:17-66
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:19:27-63
 service#de.appplant.cordova.plugin.background.ForegroundService
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:22:9-91
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:12:9-91
 	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:22:18-88
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:12:18-88
+activity#com.synconset.MultiImageChooserActivity
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:9-160
+	android:label
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:19-57
+	android:theme
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:113-157
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:13:58-112
+amazon:enable-feature
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:9-159
+	xmlns:amazon
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:100-156
+	android:required
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:75-99
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:14:32-74
+service#com.onesignal.ADMMessageHandler
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:15:9-92
+	android:exported
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:15:18-42
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:15:43-89
+receiver#com.onesignal.ADMMessageHandler$Receiver
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:16:9-22:20
+	android:permission
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:16:75-139
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:16:19-74
+intent-filter#com.amazon.device.messaging.intent.RECEIVE+com.amazon.device.messaging.intent.REGISTRATION+io.ionic.transportApp
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:17:13-21:29
+action#com.amazon.device.messaging.intent.REGISTRATION
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:18:17-90
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:18:25-87
+action#com.amazon.device.messaging.intent.RECEIVE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:19:17-85
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:19:25-82
+category#io.ionic.transportApp
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:20:17-66
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:20:27-63
 uses-sdk
 ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:24:5-74
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:24:5-74
 MERGED from [io.card:android-sdk:5.4.0] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\android-sdk-5.4.0.aar\1ce653aaab4bbb67095dbf0a9eacc454\AndroidManifest.xml:7:5-9:41
 MERGED from [io.card:android-sdk:5.4.0] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\android-sdk-5.4.0.aar\1ce653aaab4bbb67095dbf0a9eacc454\AndroidManifest.xml:7:5-9:41
 MERGED from [com.paypal.sdk:paypal-android-sdk:2.15.3] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\paypal-android-sdk-2.15.3.aar\222e4346af9bd009ecbe69eb045f24af\AndroidManifest.xml:5:5-7:41
@@ -261,62 +262,75 @@ MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\WT-Sil
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\6a20ff56346a89d2f6687647e3147977\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\6d07c28d3a037e8150d68bf0ead065b8\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\6d07c28d3a037e8150d68bf0ead065b8\AndroidManifest.xml:20:5-44
+INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:24:5-74
 	android:targetSdkVersion
 		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:24:42-71
 	android:minSdkVersion
 		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:24:15-41
-uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:25:5-81
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:25:22-78
-uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:26:5-80
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:26:22-77
-uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:27:5-81
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:27:22-78
-uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:28:5-79
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:28:22-76
-uses-feature#android.hardware.location.gps
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:29:5-66
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:29:19-63
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:30:5-79
-MERGED from [com.paypal.sdk:paypal-android-sdk:2.15.3] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\paypal-android-sdk-2.15.3.aar\222e4346af9bd009ecbe69eb045f24af\AndroidManifest.xml:9:5-79
-MERGED from [com.paypal.sdk:paypal-android-sdk:2.15.3] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\paypal-android-sdk-2.15.3.aar\222e4346af9bd009ecbe69eb045f24af\AndroidManifest.xml:9:5-79
-MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:25:5-79
-MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:25:5-79
-MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\266d6e3aab37e523507878149dacc1b8\AndroidManifest.xml:22:5-79
-MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\266d6e3aab37e523507878149dacc1b8\AndroidManifest.xml:22:5-79
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:30:22-76
-uses-permission#com.amazon.device.messaging.permission.RECEIVE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:31:5-86
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:31:22-83
-permission#io.ionic.transportApp.permission.RECEIVE_ADM_MESSAGE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:32:5-123
-	android:protectionLevel
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:32:85-120
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:32:17-84
-uses-permission#io.ionic.transportApp.permission.RECEIVE_ADM_MESSAGE
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:33:5-92
-	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:33:22-89
+		INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.WAKE_LOCK
-ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:34:5-68
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:25:5-68
 MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:19:5-68
 MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:19:5-68
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\266d6e3aab37e523507878149dacc1b8\AndroidManifest.xml:24:5-68
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\266d6e3aab37e523507878149dacc1b8\AndroidManifest.xml:24:5-68
 	android:name
-		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:34:22-65
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:25:22-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:26:5-81
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:26:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:27:5-80
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:27:22-77
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:28:5-81
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:28:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:29:5-79
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:29:22-76
+uses-feature#android.hardware.location.gps
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:30:5-66
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:30:19-63
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:31:5-79
+MERGED from [com.paypal.sdk:paypal-android-sdk:2.15.3] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\paypal-android-sdk-2.15.3.aar\222e4346af9bd009ecbe69eb045f24af\AndroidManifest.xml:9:5-79
+MERGED from [com.paypal.sdk:paypal-android-sdk:2.15.3] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\paypal-android-sdk-2.15.3.aar\222e4346af9bd009ecbe69eb045f24af\AndroidManifest.xml:9:5-79
+MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:25:5-79
+MERGED from [com.onesignal:OneSignal:3.10.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\OneSignal-3.10.1.aar\8b6cc847f47455a22f48590901146811\AndroidManifest.xml:25:5-79
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\266d6e3aab37e523507878149dacc1b8\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\266d6e3aab37e523507878149dacc1b8\AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:31:22-76
+uses-permission#com.amazon.device.messaging.permission.RECEIVE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:32:5-86
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:32:22-83
+permission#io.ionic.transportApp.permission.RECEIVE_ADM_MESSAGE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:33:5-123
+	android:protectionLevel
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:33:85-120
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:33:17-84
+uses-permission#io.ionic.transportApp.permission.RECEIVE_ADM_MESSAGE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:34:5-92
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:34:22-89
+uses-permission#android.permission.CALL_PHONE
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:35:5-69
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:35:22-66
+uses-feature#android.hardware.telephony
+ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:36:5-88
+	android:required
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:36:61-85
+	android:name
+		ADDED from E:\transportApp28082018\platforms\android\app\src\main\AndroidManifest.xml:36:19-60
 uses-permission#android.permission.CAMERA
 ADDED from [io.card:android-sdk:5.4.0] C:\Users\WT-Silkesha\.gradle\caches\transforms-1\files-1.1\android-sdk-5.4.0.aar\1ce653aaab4bbb67095dbf0a9eacc454\AndroidManifest.xml:11:5-65
 	android:name

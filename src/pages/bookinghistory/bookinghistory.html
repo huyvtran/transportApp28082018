@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+      <button ion-button menuToggle >
+          <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
+      </button>
     <ion-title>Your Bookings</ion-title>
   </ion-navbar>
 
@@ -38,7 +41,7 @@
     <div *ngIf='history != ""'>
       <ion-card *ngFor="let item of history; let i = index">
         <div class="abs_div">
-          <span>{{item.booking_details.created_at}}</span>
+          <span>{{item.booking_details.created_at | date : 'dd MMM, yyyy hh:mm:ss'}}</span>
         </div>
         <span class="price">${{item.booking_details.cost}}</span> 
         <ion-item (click)='showBooking("history",i)' class="container_div">
@@ -58,7 +61,7 @@
         </ion-item>
         <ion-item class="not_rated_item" *ngIf="item?.feedback == null && item?.booking_details.is_cancelled == 0">
           Not Rated 
-          <span (click)="giveFeedback(i)">Rate</span>
+          <!--<span (click)="giveFeedback(i)">Rate</span>-->
         </ion-item>
         <ion-item class="not_rated_item" *ngIf="item?.booking_details.is_cancelled == 1">
           <p class="cancelled">Cancelled</p>

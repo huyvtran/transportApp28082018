@@ -232,7 +232,20 @@
         .r_color{
             color: #ca1305;
         }
-
+        .emptyDiv {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px 0;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            color: #aebcc9;
+            img {
+              display: block;
+              margin: 40px auto;
+              padding: 10px;
+              box-shadow: 0 0 5px #aebcc9;
+          }
+        }
         /*a.tab-item {
             color: #fff;
             letter-spacing: 0.7px;

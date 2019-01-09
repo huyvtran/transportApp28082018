@@ -25679,6 +25679,28 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+.ios, .md {
+  /*ion-loading {
+        .loading-wrapper {
+          background: transparent;
+          //box-shadow: none;
+      
+          .spinner-crescent circle {
+            stroke-width: 8px;
+            stroke: #1A237E;
+          } 
+          
+          
+        }
+        .loading-content
+          {
+              color:#1A237E;
+              font-weight: 700;
+              font-size: 18px;
+          }
+      }*/
+}
+
 @font-face {
   .ios, .md {
     font-family: 'Conv_Lato-Regular';
@@ -25809,21 +25831,6 @@ ion-navbar.toolbar {
   margin: 0 auto;
   display: block;
   width: 15%;
-}
-
-.ios ion-loading .loading-wrapper, .md ion-loading .loading-wrapper {
-  background: transparent;
-}
-
-.ios ion-loading .loading-wrapper .spinner-crescent circle, .md ion-loading .loading-wrapper .spinner-crescent circle {
-  stroke-width: 8px;
-  stroke: #1A237E;
-}
-
-.ios ion-loading .loading-content, .md ion-loading .loading-content {
-  color: #1A237E;
-  font-weight: 700;
-  font-size: 18px;
 }
 
 .ios .picker-prefix, .ios .picker-suffix, .ios .picker-opt.picker-opt-selected, .md .picker-prefix, .md .picker-suffix, .md .picker-opt.picker-opt-selected {
@@ -26057,6 +26064,23 @@ ion-navbar.toolbar {
         }*/
 }
 
+.ios page-booking-list .emptyDiv, .md page-booking-list .emptyDiv {
+  text-align: center;
+  margin: 50px 0;
+  padding: 40px 0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #aebcc9;
+}
+
+.ios page-booking-list .emptyDiv img, .md page-booking-list .emptyDiv img {
+  display: block;
+  margin: 40px auto;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 5px #aebcc9;
+  box-shadow: 0 0 5px #aebcc9;
+}
+
 .ios page-booking-list ion-content, .md page-booking-list ion-content {
   background-color: #f7f7f7 !important;
 }
@@ -26141,7 +26165,6 @@ ion-navbar.toolbar {
 
 .ios page-booking-list .nulldiv, .md page-booking-list .nulldiv {
   text-align: center;
-  margin-top: 150px;
   font-size: 21px;
   letter-spacing: 0.5px;
   word-spacing: 1px;
@@ -26190,6 +26213,11 @@ ion-navbar.toolbar {
   position: relative;
   overflow: visible !important;
   margin: 30px 12px !important;
+}
+
+.ios page-bookinghistory .cancelled, .md page-bookinghistory .cancelled {
+  color: #ef1f1f;
+  letter-spacing: 0.5px;
 }
 
 .ios page-bookinghistory ion-card .price, .md page-bookinghistory ion-card .price {
@@ -26310,6 +26338,23 @@ ion-navbar.toolbar {
   font-size: 21px;
   letter-spacing: 0.5px;
   word-spacing: 1px;
+}
+
+.ios page-bookinghistory .emptyDiv, .md page-bookinghistory .emptyDiv {
+  text-align: center;
+  margin: 50px 0;
+  padding: 40px 0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #aebcc9;
+}
+
+.ios page-bookinghistory .emptyDiv img, .md page-bookinghistory .emptyDiv img {
+  display: block;
+  margin: 40px auto;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 5px #aebcc9;
+  box-shadow: 0 0 5px #aebcc9;
 }
 
 .ios page-bookinghistory .r_star, .md page-bookinghistory .r_star {
@@ -26450,6 +26495,10 @@ ion-navbar.toolbar {
   letter-spacing: 1px;
 }
 
+.ios page-confirm-payment .callIcon, .md page-confirm-payment .callIcon {
+  color: #fff;
+}
+
 .ios page-customer-profile, .md page-customer-profile {
   /*.social_icons{
             width: 50%;
@@ -26544,8 +26593,8 @@ ion-navbar.toolbar {
 
 .ios page-customer-profile .lock-icon, .md page-customer-profile .lock-icon {
   background: #1A237E;
-  padding: 20px 25px;
-  font-size: 30px;
+  padding: 16px 25px;
+  font-size: 24px;
   color: #fff;
 }
 
@@ -26554,9 +26603,9 @@ ion-navbar.toolbar {
 }
 
 .ios page-customer-profile span.change_pass_text, .md page-customer-profile span.change_pass_text {
-  font-size: 18px;
+  font-size: 16px;
   margin-left: 10px;
-  top: 25px;
+  top: 18px;
   position: absolute;
   letter-spacing: 0.5px;
 }
@@ -26583,11 +26632,11 @@ ion-navbar.toolbar {
 }
 
 .ios page-customer-profile .Saved_places_card ion-card-content.card-content.card-content, .md page-customer-profile .Saved_places_card ion-card-content.card-content.card-content {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .ios page-customer-profile .Saved_places_card ion-card-header.card-header.card-header, .md page-customer-profile .Saved_places_card ion-card-header.card-header.card-header {
-  font-size: 20px;
+  font-size: 16px;
   padding-bottom: 10px;
 }
 
@@ -26633,14 +26682,14 @@ ion-navbar.toolbar {
 }
 
 .ios page-customer-profile .vehicle_details span, .md page-customer-profile .vehicle_details span {
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.5px;
   color: #685959;
   display: block;
 }
 
 .ios page-customer-profile .vehicle_details_header ion-card-header, .md page-customer-profile .vehicle_details_header ion-card-header {
-  font-size: 18px;
+  font-size: 16px;
   color: #695e5e;
   background: #eee;
 }
@@ -26943,6 +26992,23 @@ ion-navbar.toolbar {
   color: #ca1305;
 }
 
+.ios page-driver-transactions .emptyDiv, .md page-driver-transactions .emptyDiv {
+  text-align: center;
+  margin: 50px 0;
+  padding: 40px 0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #aebcc9;
+}
+
+.ios page-driver-transactions .emptyDiv img, .md page-driver-transactions .emptyDiv img {
+  display: block;
+  margin: 40px auto;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 5px #aebcc9;
+  box-shadow: 0 0 5px #aebcc9;
+}
+
 .ios page-driversetting ion-item, .md page-driversetting ion-item {
   padding: 18px !important;
   border-bottom: 1px solid #eee !important;
@@ -27032,6 +27098,10 @@ ion-navbar.toolbar {
         }*/
 }
 
+.ios page-emailverification .back-button, .md page-emailverification .back-button {
+  color: #000 !important;
+}
+
 .ios page-emailverification .emptydiv, .md page-emailverification .emptydiv {
   height: 150px;
 }
@@ -27054,16 +27124,16 @@ ion-navbar.toolbar {
 }
 
 .ios page-emailverification button.login-btn, .md page-emailverification button.login-btn {
-  background: #1A237E;
-  color: #000;
-  padding: 28px 28px !important;
+  color: #1A237E;
+  padding: 10px 10px !important;
   font-size: 20px !important;
   margin: 0 auto;
-  margin-top: 40px !important;
-  border-radius: 5px;
+  margin-top: 10px !important;
+  /* border-radius: 5px; */
   width: auto;
   font-weight: 400;
   letter-spacing: 0.5px;
+  border-bottom: 1px solid;
 }
 
 .ios page-emailverification .contentdiv, .md page-emailverification .contentdiv {
@@ -27074,6 +27144,10 @@ ion-navbar.toolbar {
 .ios page-emailverification .toolbar-background, .md page-emailverification .toolbar-background {
   background: transparent !important;
   border: none !important;
+}
+
+.ios page-emailverification ion-header:after, .md page-emailverification ion-header:after {
+  background: none;
 }
 
 .ios page-feedback input[type="email"], .md page-feedback input[type="email"] {
@@ -27228,6 +27302,19 @@ ion-navbar.toolbar {
   letter-spacing: 0.5px;
 }
 
+.ios page-forgotpasswoed .toolbar-background, .md page-forgotpasswoed .toolbar-background {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ios page-forgotpasswoed ion-header:after, .md page-forgotpasswoed ion-header:after {
+  background: none;
+}
+
+.ios page-forgotpasswoed .back-button, .md page-forgotpasswoed .back-button {
+  color: #000 !important;
+}
+
 .ios page-help, .md page-help {
   /*ion-content{
             background-color: #f5f5f5fa;
@@ -27293,14 +27380,14 @@ ion-navbar.toolbar {
 }
 
 .ios page-help button.questions ion-label, .md page-help button.questions ion-label {
-  font-size: 20px !important;
+  font-size: 16px !important;
   font-weight: 600;
   letter-spacing: 0.7px;
   color: #868581;
 }
 
 .ios page-help ion-item.answers ion-label, .md page-help ion-item.answers ion-label {
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 1px;
   color: #868581;
 }
@@ -27325,7 +27412,7 @@ ion-navbar.toolbar {
 .ios page-help a.tab-item, .md page-help a.tab-item {
   color: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.5px;
 }
 
@@ -27350,9 +27437,9 @@ ion-navbar.toolbar {
 
 .ios page-help button.suggestion-btn, .md page-help button.suggestion-btn {
   width: 100%;
-  padding: 25px 30px !important;
+  padding: 20px 0px !important;
   margin: 40px auto;
-  font-size: 20px !important;
+  font-size: 16px !important;
   background: #1A237E;
   color: #fff;
   font-weight: 500;
@@ -27749,6 +27836,12 @@ page-map #map {
   border-radius: 50%;
 }
 
+.ios page-modalpage .profile_imgDiv img, .md page-modalpage .profile_imgDiv img {
+  border-radius: 50% !important;
+  width: 100%;
+  height: 135px !important;
+}
+
 .ios page-modalpage .personalInfoDiv, .md page-modalpage .personalInfoDiv {
   padding: 20px 15px;
 }
@@ -28052,6 +28145,23 @@ page-map #map {
 
 .ios page-notifications ion-col.list_content, .md page-notifications ion-col.list_content {
   padding-left: 12px;
+}
+
+.ios page-notifications .emptyDiv, .md page-notifications .emptyDiv {
+  text-align: center;
+  margin: 50px 0;
+  padding: 40px 0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #aebcc9;
+}
+
+.ios page-notifications .emptyDiv img, .md page-notifications .emptyDiv img {
+  display: block;
+  margin: 40px auto;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 5px #aebcc9;
+  box-shadow: 0 0 5px #aebcc9;
 }
 
 .ios page-package-booking .alg1, .md page-package-booking .alg1 {
@@ -28478,6 +28588,23 @@ page-map #map {
 
 .ios page-paymentwallet .r_color, .md page-paymentwallet .r_color {
   color: #ca1305;
+}
+
+.ios page-paymentwallet .emptyDiv, .md page-paymentwallet .emptyDiv {
+  text-align: center;
+  margin: 50px 0;
+  padding: 40px 0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #aebcc9;
+}
+
+.ios page-paymentwallet .emptyDiv img, .md page-paymentwallet .emptyDiv img {
+  display: block;
+  margin: 40px auto;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 5px #aebcc9;
+  box-shadow: 0 0 5px #aebcc9;
 }
 
 .ios page-ride-later .scroll-content, .md page-ride-later .scroll-content {

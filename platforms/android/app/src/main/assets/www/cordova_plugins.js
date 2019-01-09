@@ -33,6 +33,31 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-android-permissions.Permissions",
+    "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+    "pluginId": "cordova-plugin-android-permissions",
+    "clobbers": [
+      "cordova.plugins.permissions"
+    ]
+  },
+  {
+    "id": "cordova-plugin-device.device",
+    "file": "plugins/cordova-plugin-device/www/device.js",
+    "pluginId": "cordova-plugin-device",
+    "clobbers": [
+      "device"
+    ]
+  },
+  {
+    "id": "cordova-plugin-background-mode.BackgroundMode",
+    "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+    "pluginId": "cordova-plugin-background-mode",
+    "clobbers": [
+      "cordova.plugins.backgroundMode",
+      "plugin.backgroundMode"
+    ]
+  },
+  {
     "id": "cordova-plugin-camera.Camera",
     "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
     "pluginId": "cordova-plugin-camera",
@@ -62,14 +87,6 @@ module.exports = [
     "pluginId": "cordova-plugin-camera",
     "clobbers": [
       "CameraPopoverHandle"
-    ]
-  },
-  {
-    "id": "cordova-plugin-device.device",
-    "file": "plugins/cordova-plugin-device/www/device.js",
-    "pluginId": "cordova-plugin-device",
-    "clobbers": [
-      "device"
     ]
   },
   {
@@ -284,6 +301,15 @@ module.exports = [
     "runs": true
   },
   {
+    "id": "cordova-plugin-inappbrowser.inappbrowser",
+    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+    "pluginId": "cordova-plugin-inappbrowser",
+    "clobbers": [
+      "cordova.InAppBrowser.open",
+      "window.open"
+    ]
+  },
+  {
     "id": "cordova-plugin-ionic-keyboard.keyboard",
     "file": "plugins/cordova-plugin-ionic-keyboard/www/android/keyboard.js",
     "pluginId": "cordova-plugin-ionic-keyboard",
@@ -365,21 +391,11 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-inappbrowser.inappbrowser",
-    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-    "pluginId": "cordova-plugin-inappbrowser",
+    "id": "mx.ferreyra.callnumber.CallNumber",
+    "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+    "pluginId": "mx.ferreyra.callnumber",
     "clobbers": [
-      "cordova.InAppBrowser.open",
-      "window.open"
-    ]
-  },
-  {
-    "id": "cordova-plugin-background-mode.BackgroundMode",
-    "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
-    "pluginId": "cordova-plugin-background-mode",
-    "clobbers": [
-      "cordova.plugins.backgroundMode",
-      "plugin.backgroundMode"
+      "call"
     ]
   }
 ];
@@ -391,14 +407,18 @@ module.exports.metadata =
   "com.paypal.cordova.mobilesdk": "3.5.0",
   "com.telerik.plugins.nativepagetransitions": "0.6.5",
   "cordova-plugin-add-swift-support": "1.7.1",
-  "cordova-plugin-camera": "2.0.0",
+  "cordova-plugin-android-permissions": "1.0.0",
   "cordova-plugin-device": "2.0.2",
+  "cordova-plugin-background-mode": "0.7.2",
+  "cordova-plugin-camera": "2.0.0",
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-file-transfer": "1.7.1",
   "cordova-plugin-filepath": "1.4.2",
   "cordova-plugin-geolocation": "4.0.1",
+  "cordova-plugin-inappbrowser": "3.0.0",
   "cordova-plugin-ionic-keyboard": "2.1.3",
   "cordova-plugin-ionic-webview": "2.2.0",
+  "cordova-plugin-ios-camera-permissions": "1.2.0",
   "cordova-plugin-nativegeocoder": "3.1.2",
   "cordova-plugin-network-information": "2.0.1",
   "cordova-plugin-splashscreen": "5.0.2",
@@ -407,8 +427,7 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.5.0",
   "onesignal-cordova-plugin": "2.4.3",
-  "cordova-plugin-inappbrowser": "3.0.0",
-  "cordova-plugin-background-mode": "0.7.2"
+  "mx.ferreyra.callnumber": "0.0.2"
 };
 // BOTTOM OF METADATA
 });

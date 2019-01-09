@@ -118,19 +118,16 @@ export class EditProfilePage {
     console.log('ionViewDidLoad EditProfilePage');
   }
 
-  isValidMobile(control: FormControl): any {
-
-    let regExp = /^[0-9]{10}$/;
-
-    if (!regExp.test(control.value)) {
-        return {"invalidMobile": true};
-    }
-    return null;
-  }
-
-
   ProfileForm(profile)
   {
+
+    var phoneno = /^\d{10}$/;
+    if(!profile.phone.match(phoneno))
+    {
+      this.data.presentToast('Please enter valid phone number.');
+      return false;
+    }
+    
     let param = new FormData();
     if(this.role==2)
     {

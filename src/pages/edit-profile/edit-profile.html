@@ -38,7 +38,7 @@
 
       <ion-item>
           <ion-label stacked>Phone No.</ion-label>
-          <ion-input type="text" [(ngModel)]="user_details.phone" maxlength="11" formControlName="phone" [class.invalid]="!profile.valid && (profile.controls.phone.dirty || submitAttempt)"  ></ion-input>
+          <ion-input type="tel" [(ngModel)]="user_details.phone" maxlength="10" formControlName="phone" [class.invalid]="!profile.valid && (profile.controls.phone.dirty || submitAttempt)"  ></ion-input>
         </ion-item>
         <div class="error" *ngIf="profile.get('phone').hasError('required')  && profile.get('phone').touched">
             Please fill out this field

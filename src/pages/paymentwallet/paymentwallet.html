@@ -6,6 +6,9 @@
 -->
 <ion-header>
   <ion-navbar>
+      <button ion-button menuToggle >
+          <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
+      </button>
     <ion-title>My Wallet</ion-title>
   </ion-navbar>
 </ion-header>
@@ -93,13 +96,14 @@
             </ion-grid>  
           </div>
         </ion-item>
+        <div class="nulldiv emptyDiv" *ngIf='no_transactions == true'>
+          <img src="assets/imgs/empty_booking.png"/>
+          There is not any transactions yet.
+      </div>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-    <div class="nulldiv" *ngIf='no_transactions == true'>
-      There is no any transaction yet.
-  </div>
   </div>
 </ion-content>
 <!--<h2 class="transactionHead">Transaction Details</h2>

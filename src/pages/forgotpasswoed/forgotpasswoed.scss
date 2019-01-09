@@ -46,6 +46,16 @@
             font-size: 15px;
             letter-spacing: 0.5px;
         }
+        .toolbar-background {
+            background: transparent !important;
+            border: none !important;
+        }
+        ion-header:after{
+            background: none;
+        }
+        .back-button {
+            color: #000 !important;
+        }
     }
 }
 

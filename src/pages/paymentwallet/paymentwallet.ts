@@ -44,9 +44,9 @@ export class PaymentwalletPage {
     this.storage.get('user').then(data => {
       this.id = data[0].id;
       this.role = data[0].role;
-
+      
       let param = new FormData();
-      param.append("customer_id",data[0].role);
+      param.append("customer_id",data[0].id);
       this.data.getWalletAmount(param).subscribe(result=>{
         console.log(result);
         if(result.status == 'OK')
@@ -242,10 +242,10 @@ export class PaymentwalletPage {
       this.data.getTransactions(param,this.page).subscribe(result=>{                          
         if(result.status == "OK")  
         {   
-          if(result.success.Transaction == null)
+          if(result.success.Transaction == null || result.success.Transaction.length == 0)
           {
             loader.dismiss();
-            if(this.transactions == '')
+            if(this.transactions == null || this.transactions.length == 0)
             {
               this.no_transactions = true;
             }

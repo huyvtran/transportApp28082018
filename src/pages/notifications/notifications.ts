@@ -24,6 +24,7 @@ export class NotificationsPage {
   maximumPages : any;
   last_index : any = 0;
   loadingCtr : any;
+  isNotification : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage : Storage, public data : DataProvider, private loading: LoadingController) {
     this.storage.get('user').then(data=>{   
@@ -63,6 +64,9 @@ export class NotificationsPage {
           if(result.success.data == null)
           {
             this.data.presentToast('There is no more data available');
+            if(this.users == null){
+              this.isNotification = true;
+            }
             return false;
           }
           else{

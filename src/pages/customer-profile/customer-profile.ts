@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams,AlertController, ModalController, A
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { PasswordResetPage } from '../password-reset/password-reset';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -13,7 +14,7 @@ import { SigninPage } from '../signin/signin';
 import { ModalpagePage } from '../modalpage/modalpage';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
-     
+import { OneSignal } from '@ionic-native/onesignal';
 /**
  * Generated class for the CustomerProfilePage page.
  *
@@ -35,7 +36,7 @@ export class CustomerProfilePage {
   avtarPath : any;
   display_data : boolean = false;
   
-  constructor(public navCtrl: NavController, private loading: LoadingController, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public data : DataProvider, private storage: Storage,private DomSanitizer: DomSanitizer, private camera: Camera, public http : HttpClient,private alertCtrl: AlertController, private modalCtrl: ModalController) {
+  constructor(private oneSignal: OneSignal,private androidPermissions: AndroidPermissions, public navCtrl: NavController, private loading: LoadingController, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public data : DataProvider, private storage: Storage,private DomSanitizer: DomSanitizer, private camera: Camera, public http : HttpClient,private alertCtrl: AlertController, private modalCtrl: ModalController) {
     
   }
     
@@ -155,14 +156,14 @@ export class CustomerProfilePage {
             text: 'Load from Library',
             handler: () => {
               //this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-              this.captureImage(false);
+              this.captureImage(this.camera.PictureSourceType.PHOTOLIBRARY);
             }
           },
           {
             text: 'Use Camera',
             handler: () => {
               //this.takePicture(this.camera.PictureSourceType.CAMERA);
-              this.captureImage(true);
+              this.captureImage(this.camera.PictureSourceType.CAMERA);
             }
           },
           {
@@ -181,9 +182,37 @@ export class CustomerProfilePage {
                
     modal.onDidDismiss(data => {   
       console.log(data);
-      if(data)
+      if(data == true)
       {
-        //this.selectdId = data;
+        this.oneSignal.deleteTag('user_id');
+        this.storage.set('isRemember', false); 
+        this.storage.get('user').then(data=>{   
+          let param = data[0].id;
+          let role = data[0].role;
+          console.log(role);    
+          if(role == 3)
+          {
+            this.data.getDriverToggle(param).subscribe(result=>{
+              if(result.status == 'OK')
+              {
+                if(result.success.available == 'on')
+                {
+                  this.data.AvailableToggle().subscribe(result=>{
+                    console.log(result);
+                    if(result.status == 'OK')
+                    {
+                      console.log(result.success.available);
+                    }
+                    else{
+                      this.data.presentToast('Error');
+                    }
+                  });
+                }
+              }
+            });
+          }
+        });
+        this.navCtrl.setRoot(SigninPage); 
       }  
       else{
         //this.selectdId = '';            
@@ -195,24 +224,40 @@ export class CustomerProfilePage {
   
   
 
-  async captureImage(useAlbum: boolean) {
-    var srcType;
-    if(useAlbum == true)
+  async captureImage(useAlbum) {
+
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      result => console.log('Has permission?',result.hasPermission),
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    );
+    
+    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
+    //var srcType;
+    /*if(useAlbum == true)
     {
       srcType= this.camera.PictureSourceType.CAMERA;
     }
     else{
       srcType = this.camera.PictureSourceType.SAVEDPHOTOALBUM;
-    }
+    }*/
     const options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: srcType
+      sourceType: useAlbum,
     }
 
     const imageData = await this.camera.getPicture(options);
+    //var imageData;
+    /*const imageData = await this.camera.getPicture(options).then((Data) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+     imageData = 'data:image/jpeg;base64,' + Data;
+     }, (err) => {
+      // Handle error
+     });*/
 
+     
     this.avtarPath = 'data:image/jpg;base64,'+imageData;
 
     let loader = this.loading.create({
@@ -226,7 +271,9 @@ export class CustomerProfilePage {
     param.append("image_file", this.avtarPath );
 
     //this.photos.unshift(this.base64Image);
-    if(this.role == 2)
+  this.storage.get('user').then(data=>{   
+    let role = data[0].role;
+    if(role == 2)
             {
               this.data.updateCustomerAvtar(param).subscribe(result=>{
             
@@ -239,7 +286,7 @@ export class CustomerProfilePage {
                 {   
                   this.data.presentToast('Profile Updated Successfully!');
                   loader.dismiss();   
-                  this.navCtrl.push(this.navCtrl.getActive().component);
+                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
                   //this.navCtrl.setRoot(CustomerProfilePage);
                 }                    
               }); 
@@ -257,12 +304,12 @@ export class CustomerProfilePage {
                 {   
                   this.data.presentToast('Profile Updated Successfully!');
                   loader.dismiss();   
-                  this.navCtrl.push(this.navCtrl.getActive().component);
+                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
                   //this.navCtrl.setRoot(CustomerProfilePage);
                 }                    
               }); 
             }
-
+          });
   }
 
 }    

@@ -5,11 +5,8 @@ import { HomePage } from '../home/home';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicPage,ActionSheetController,AlertController, Events, NavController, NavParams, Platform, ViewController, ModalController, LoadingController } from 'ionic-angular';
 import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
-import { Subscription } from 'rxjs/Subscription';
-import { AutocompletePage } from '../autocomplete/autocomplete';
 import { Device } from '@ionic-native/device';
 import * as firebase from 'Firebase';
-//import { FeedbackPage } from '../feedback/feedback';
 import { PaymentPage } from '../payment/payment';
 import { ModalpagePage } from '../modalpage/modalpage';
 
@@ -69,8 +66,11 @@ export class ConfirmPaymentPage {
   loadingCtr : any;
   Pre_lat : any = 0;
   Pre_lng : any = 0;
+  isStarted : boolean = false;
+  destination_lat : any = 0;
+  destination_lng : any = 0;
 
-  constructor( public geolocation: Geolocation, private modalCtrl: ModalController, private loading: LoadingController, private device: Device, public navParams: NavParams, public zone: NgZone, public platform: Platform, public viewCtrl: ViewController,public actionSheetCtrl: ActionSheetController, public eve: Events,public navCtrl: NavController,public data : DataProvider, private storage: Storage,private alertCtrl: AlertController, public maps: GoogleMapsProvider) {
+  constructor(public geolocation: Geolocation, private modalCtrl: ModalController, private loading: LoadingController, private device: Device, public navParams: NavParams, public zone: NgZone, public platform: Platform, public viewCtrl: ViewController,public actionSheetCtrl: ActionSheetController, public eve: Events,public navCtrl: NavController,public data : DataProvider, private storage: Storage,private alertCtrl: AlertController, public maps: GoogleMapsProvider) {
     this.booking_id = navParams.get('booking_id');
     this.rideType = navParams.get('rideType');
     this.source = navParams.get('source');
@@ -91,6 +91,11 @@ export class ConfirmPaymentPage {
         this.driver_id = live_tracking_Driver_id; 
         //alert(this.driver_id);
         this.subscribeAction();
+      });
+
+      this.eve.subscribe('start_ride:created', (finished_ride_data, time) => {
+        this.isStarted = true;
+        this.eve.unsubscribe('start_ride:created');
       });
   
       this.eve.subscribe('finished_ride:created', (finished_ride_data, time) => {
@@ -298,13 +303,28 @@ export class ConfirmPaymentPage {
                     rotation: 0}
         });
 
+        if(this.isStarted == false){
+          this.getDuration(data).then(data=>{
+            this.duration = data;
+          });
+        }
+        else{
+          let dest = new google.maps.LatLng(this.destination_lat,this.destination_lng);
+          this.getDuration(dest).then(data=>{
+            this.duration = data;
+          });
+        }
+
     });
    
     setInterval(() =>{ 
+      if(this.leave == false){
+        this.watchMethod();
       this.updateTrak().then(data=>{
         this.userData = data;
         console.log(data);
-        //marker.setRotation(this.bearing(this.Pre_lat,this.Pre_lng,this.userData.lat(),this.userData.lng()));
+        //marker.setRotation
+        (this.bearing(this.Pre_lat,this.Pre_lng,this.userData.lat(),this.userData.lng()));
         marker.setPosition({lat:this.userData.lat(),lng:this.userData.lng()});
         var bearing = this.bearing(this.Pre_lat,this.Pre_lng,this.userData.lat(),this.userData.lng());
         console.log(bearing);
@@ -316,24 +336,25 @@ export class ConfirmPaymentPage {
           this.redrawPath(this.trackedRoute);
           this.Pre_lat = this.userData.lat();
           this.Pre_lng = this.userData.lng();
-        //alert(this.userData.lat());
-        //this.addMarker1(data,'assets/imgs/car48x48.png');
-        
-        //this.abc(this.marker, data)
-        /*if (this.marker != null) {
-          this.marker.setPosition(this.userData);
-        } 
-        else{
-        
-         
-        }*/
-      
+
+          if(this.isStarted == false){
+            this.getDuration(data).then(data=>{
+              this.duration = data;
+            });
+          }
+          else{
+            let dest = new google.maps.LatLng(this.destination_lat,this.destination_lng);
+            this.getDuration(dest).then(data=>{
+              this.duration = data;
+            });
+          }
       });   
+      }
     }, 5000);
   }
 
- abc(marker,data) {
-  this.userData = data;
+  abc(marker,data) {
+    this.userData = data;
     marker.setPosition({lat:this.userData.lat(),lng:this.userData.lng()});
   }
    
@@ -355,7 +376,6 @@ export class ConfirmPaymentPage {
   }
 
   loadMap(){
- 
     //this.geolocation.watchPosition().subscribe((position) =>  {
       this.geolocation.getCurrentPosition().then((position) => {
       this.latitude = position.coords.latitude;
@@ -511,7 +531,6 @@ export class ConfirmPaymentPage {
   }
 
   addInfoWindow(marker, content){
- 
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
@@ -539,8 +558,10 @@ watchMethod()
   };
   this.watch = this.geolocation.watchPosition(options).subscribe((data) => {
       //this.deleteMarkers();
-      this.updateGeolocation(this.customer_id,this.booking_id, data.coords.latitude,data.coords.longitude);
-      
+      if(this.leave == false)
+      {
+        this.updateGeolocation(this.customer_id,this.booking_id, data.coords.latitude,data.coords.longitude);
+      }
     });
 }
 
@@ -603,6 +624,8 @@ updateTrak()
     this.getLatLng(drop).then(data=>{
       this.stopMarker = new google.maps.Marker({ position: new google.maps.LatLng(data['latitude'],data['longitude']), map: this.map, icon: 'assets/imgs/destination_pin.png' });
       this.markers.push(this.stopMarker);
+      this.destination_lat = data['latitude'];
+      this.destination_lng  = data['longitude'];
     });
 
     this.directionsService.route({

@@ -19,7 +19,7 @@
         <div *ngIf='booking_history != ""'>
           <ion-card *ngFor="let item of booking_history; let i = index">
             <div class="abs_div">
-              <span>{{item.booking_details.created_at}}</span>
+              <span>{{item.booking_details.created_at | date : 'dd MMM, yyyy hh:mm:ss'}}</span>
             </div>
             <span class="price">${{item.booking_details.cost}}</span> 
             <ion-item class="container_div" (click)='showBooking(i)'>

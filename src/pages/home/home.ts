@@ -93,6 +93,7 @@ export class HomePage {
   twitter_link : any;
   instagram_link : any;
   linkedin_link : any;
+  isNearby : any = [];
 
   constructor(private backgroundMode: BackgroundMode, private inAppBrowser: InAppBrowser, private nativePageTransitions: NativePageTransitions, private oneSignal: OneSignal, private loading: LoadingController,private device: Device, public actionSheetCtrl: ActionSheetController, public eve: Events,public navCtrl: NavController, private modalCtrl: ModalController, private storage : Storage, public data : DataProvider, public geolocation: Geolocation, public navParams: NavParams, public zone: NgZone, public maps: GoogleMapsProvider, public platform: Platform, public viewCtrl: ViewController) {
    //alert('Hello1');
@@ -205,9 +206,6 @@ export class HomePage {
 
     });
 
-
-    
-
         this.eve.subscribe('selected_Cash_Payment:created', (selected_Cash_Payment, time) => {
          // alert('selected_Cash_Payment');
          firebase.database().ref('driver/'+this.id).set({ 'status': 'cashPayment','booking_id':selected_Cash_Payment.booking_id});
@@ -226,19 +224,18 @@ export class HomePage {
             });
         });   
            
-      loader.dismiss();
-
-      
+      loader.dismiss(); 
   }
 
-  async ionViewDidLoad() {
+  ionViewDidLoad() {
       console.log("First log");
       google.maps.event.trigger( this.maps.map, 'resize' );
-      await this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement).then(() => {
+      this.maps.init(this.mapElement.nativeElement,this.pleaseConnect.nativeElement).then((data) => {
+        this.map = data;
         this.autocompleteService = new google.maps.places.AutocompleteService();
         this.searchDisabled = false;  
         console.log("Middle log");
-      });        
+      });
       console.log("Last log");
    
       this.eve.subscribe('ride_later_alert:created', (ride_later_alert, time) => {
@@ -305,12 +302,12 @@ export class HomePage {
 
   ngOnDestroy()
   {
-    
     return new Promise((resolve: Function, reject: Function) => {
       if(this.role == 2)
       {
         if(this.eve_unsub) {
           this.eve.unsubscribe('ride_later_alert:created');
+          this.eve.unsubscribe('selected_Other_Payment:created');
           this.eve_unsub = undefined;
         }     
          
@@ -328,7 +325,7 @@ export class HomePage {
         }
         else{
           //this.backgroundMode.disable();
-          this.eve.unsubscribe('distance:created');
+          //this.eve.unsubscribe('distance:created');
           resolve();
           }
         } 
@@ -336,7 +333,7 @@ export class HomePage {
       
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter() {    
     this.storage.get('user').then(data=>{   
       this.id = data[0].id
       this.yourId = this.id;
@@ -651,64 +648,6 @@ export class HomePage {
               this.data.presentToast('Error');
             }
           });
-
-          /*let param = new FormData();
-          param.append("latitude",this.lat);
-          param.append("longitude",this.long); 
-          console.log(this.lat+'==='+this.long);
-            this.data.storeDriverLocation(param).subscribe(result=>{
-              if(result.status == "ERROR")
-              {
-                  this.data.presentToast('Not Able to get your current location');
-              }
-              else   
-              {
-  
-              }                           
-            });
-
-            let param1 = new FormData();
-            param1.append("latitude",this.lat);
-            param1.append("longitude",this.long); 
-            this.data.getCloseCustomers(param1).subscribe(result=>{
-                                
-              if(result.status == "ERROR")
-              {
-                  return false;
-              }
-              else
-              {   
-                if(result.success.customers)
-                {
-                  //this.data.presentToast('Closer Customers!');
-                  var addressFull = [];
-                  var address=[];
-                
-                  for(var i = 0; i<result.success.customers.length;i++)
-                  {
-                    var geocoder = new google.maps.Geocoder();
-                    address[i]=[];
-                    address[i]['lat'] = result.success.customers[0].latitude;
-                    address[i]['lng'] = result.success.customers[0].longitude;
-                    this.marker[i] = new google.maps.Marker({
-                      map: this.maps.map,         
-                      //animation: google.maps.Animation.DROP,
-                      position: new google.maps.LatLng(address[i]['lat'],address[i]['lng']),
-                      icon: { url : 'assets/imgs/standing-up-man-.png',
-                              size: {
-                                width: 50,
-                                height: 55
-                              } 
-                            },
-                      animation: google.maps.Animation.BOUNCE
-                    });         
-                  }
-                }
-                else{
-                  this.data.presentToast('No Nearby Customers!');
-                }
-              }                        
-            });*/
         }
         }, 1500);
         
@@ -755,9 +694,14 @@ getLatLng()
     };
     this.watch2 = this.geolocation.watchPosition(options).subscribe((position) => {   
       setTimeout(() => {
-        points.push(position.coords.latitude);
-        points.push(position.coords.longitude);
-        resolve(points); 
+        if(position.coords !== undefined)
+        {
+          points.push(position.coords.latitude);
+          points.push(position.coords.longitude);
+          resolve(points); 
+        }
+        
+        
       },0);
       if(points.length > 0)
       {
@@ -825,12 +769,56 @@ showAddressModal(act) {
       }
       if(this.address.place && this.address.drop_place)
       {
-        this.maps.startNavigating(this.address.place,this.address.drop_place,this.directionsPanel.nativeElement);        
-        this.display_vehicleTypes = 1;
+        this.maps.startNavigating(this.address.place,this.address.drop_place,this.directionsPanel.nativeElement);    
+        this.checkNearby().then(()=>{
+          this.display_vehicleTypes = 1;
+          console.log('this.isNearby'+ this.isNearby);
+        });
       }
     });
     modal.present();
 } 
+
+checkNearby()
+{
+  return new Promise((resolve,reject)=>{
+    var k = 0;
+    for(k;k<this.vehicle_types.length;k++)
+    {
+      //alert(this.vehicle_types[k].type);
+      this.checkClosure(k,this.vehicle_types[k].type).then(()=>{
+        if(k == this.vehicle_types.length)
+        {
+          resolve(true);
+        }
+      });
+    }   
+  });
+}
+
+checkClosure(k,vehicle_type)
+{
+  return new Promise((resolve,reject)=>{
+    let param = new FormData();
+    param.append("latitude",this.lat);
+    param.append("longitude",this.long); 
+    param.append("vehicle_type",vehicle_type); 
+    this.data.getCloseVehicles(param).subscribe(result=>{                              
+      if(result.status == "OK")
+      { 
+        //debugger;
+        if(result.success.drivers.length > 0)
+        {
+          this.isNearby[k] = true;
+          resolve(this.isNearby[k]);
+        }else{
+          this.isNearby[k] = false;
+          resolve(this.isNearby[k]);
+        } 
+      }     
+    });
+  });
+}
 
 selectVehicle(selected_vehicle_type,selected_cost)
 {
@@ -984,6 +972,7 @@ stopTracking() {
   this.isTracking = false;
   this.positionSubscription.unsubscribe();
   if (this.currentMapTrack) {
+   //this.currentMapTrack = '';
     this.currentMapTrack.setMap(null);
   }
 }
@@ -1000,7 +989,10 @@ watchMethod(live_tracking_data)
   };
   this.watch = this.geolocation.watchPosition(options).subscribe((data) => {
     setTimeout(() => {
+      if(this.leave == false)
+      {
         this.updateGeolocation(this.liveRide_customerId,this.liveRide_bookingId, data.coords.latitude,data.coords.longitude);
+      }
       }, 0);
     });
   }
@@ -1052,6 +1044,8 @@ startRide()
 
 finishRide()
 {
+  this.leave = true;
+  this.stopTracking();
   this.islaterenabled = false;
   this.loadingCtr = this.loading.create({
     content :"Please wait...",
@@ -1064,41 +1058,36 @@ finishRide()
   param.append("driver_id",this.yourId);    
 
   this.eve.unsubscribe('live_tracking:created');
-  this.eve.unsubscribe('distance:created');
+  //this.eve.unsubscribe('distance:created');
 
   this.data.rideEnd(param).subscribe(result=>{   
     if(result.status == "OK")
     {    
       console.log(result); 
-      this.stopTracking();
-      
-      if(this.watch && this.watch !== undefined)
+
+      if(this.watch && this.watch != undefined)
       {
         this.watch.unsubscribe();
       }
-      if(this.watch2 && this.watch2 !== undefined){
+      if(this.watch2 && this.watch2 != undefined){
         this.watch2.unsubscribe();
       }
-      if(this.positionSubscription && this.positionSubscription !== undefined)
+      if(this.positionSubscription && this.positionSubscription != undefined)
       {
         this.positionSubscription.unsubscribe();
       }
-
+      firebase.database().ref(this.liveRide_bookingId).remove();
+      firebase.database().ref('driver/'+this.id).remove();
       this.data.getAvailableToggle().subscribe(result=>{
         console.log(result);
         if(result.status == 'OK')
         {
           this.loadingCtr.dismiss();
-          firebase.database().ref(this.liveRide_bookingId).remove();
-          firebase.database().ref('driver/'+this.id).remove();
-
           console.log(result.success.available);
           if(result.success.available == 'on')
           {
             //this.isToggled = true;
-            
             //this.data.presentToast('You are visible to nearby customers');
-            this.leave = true;
             this.navCtrl.setRoot(this.navCtrl.getActive().component);
           }
           else{
@@ -1113,7 +1102,6 @@ finishRide()
                   //firebase.database().ref(this.liveRide_bookingId).remove();
                   //firebase.database().ref('driver/'+this.id).remove();
                   //this.data.presentToast('You are visible to nearby customers');
-                  this.leave = true;
                   this.navCtrl.setRoot(this.navCtrl.getActive().component);
                 }   
                 else{
@@ -1143,8 +1131,7 @@ finishRide()
 }
 
 cashPaymentReceived(info)
-{ 
-  
+{  
   this.eve.unsubscribe('selected_Cash_Payment:created');
   //this.leave = true;
   let modal = this.modalCtrl.create(ModalpagePage,{modalAct : 'cashPayment',bookingId:info.booking_id},{enableBackdropDismiss:false,showBackdrop:false});         

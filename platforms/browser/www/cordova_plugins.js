@@ -399,6 +399,22 @@ module.exports = [
         "id": "cordova-plugin-background-mode.BackgroundMode.Proxy",
         "pluginId": "cordova-plugin-background-mode",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+        "id": "cordova-plugin-android-permissions.Permissions",
+        "pluginId": "cordova-plugin-android-permissions",
+        "clobbers": [
+            "cordova.plugins.permissions"
+        ]
+    },
+    {
+        "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+        "id": "mx.ferreyra.callnumber.CallNumber",
+        "pluginId": "mx.ferreyra.callnumber",
+        "clobbers": [
+            "call"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -425,7 +441,10 @@ module.exports.metadata =
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-inappbrowser": "3.0.0",
-    "cordova-plugin-background-mode": "0.7.2"
+    "cordova-plugin-background-mode": "0.7.2",
+    "cordova-plugin-ios-camera-permissions": "1.2.0",
+    "cordova-plugin-android-permissions": "1.0.0",
+    "mx.ferreyra.callnumber": "0.0.2"
 }
 // BOTTOM OF METADATA
 });

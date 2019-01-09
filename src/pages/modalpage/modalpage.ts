@@ -6,8 +6,8 @@ import { SigninPage } from '../signin/signin';
 import { DataProvider } from '../../providers/data/data';
 import { OneSignal, OSNotificationPayload } from '@ionic-native/onesignal';
 import { Geolocation } from '@ionic-native/geolocation';
-
-
+import { CallNumber } from '@ionic-native/call-number';
+import { ServiceProvider } from '../../providers/service/service';
 /**
  * Generated class for the ModalpagePage page.
  *
@@ -48,7 +48,7 @@ export class ModalpagePage {
   display_relative : any = '';
   loadingCtr : any;
 
-  constructor(public eve : Events, private loading: LoadingController, public geolocation: Geolocation,private oneSignal: OneSignal, public data : DataProvider, public navCtrl: NavController, private storage: Storage, public navParams: NavParams,public viewCtrl: ViewController) {
+  constructor(public service: ServiceProvider, private callNumber: CallNumber, public eve : Events, private loading: LoadingController, public geolocation: Geolocation,private oneSignal: OneSignal, public data : DataProvider, public navCtrl: NavController, private storage: Storage, public navParams: NavParams,public viewCtrl: ViewController) {
     this.loadingCtr = this.loading.create({
       content :"Please wait...",
       spinner : 'crescent'
@@ -133,13 +133,21 @@ export class ModalpagePage {
           console.log(result.success.driver.first_name);
           this.driver.fname = result.success.driver.first_name;
           this.driver.lname = result.success.driver.last_name;
-          //this.user_details.email = result.success.profile[0].email;
+          //this.driver.profile = result.success.profile[0].profile;
           this.driver.phone = result.success.driver.phone;
           this.driver.address = result.success.driver.address;
           this.driver.vehicle_type = result.success.driver.vehicle_type;
           this.driver.vehicle_no = result.success.driver.vehicle_number;
           this.driver.email = result.success.driver.email;
           this.driver.rate = result.success.driver.rating;
+
+          if(result.success.driver.profile == null)
+          {
+            this.driver.profile = 'assets/imgs/kisspng-user-profile-computer-icons-girl-customer-5af32956696762.8139603615258852704317.png';
+          }
+          else{
+            this.driver.profile = 'http://transport.walstarmedia.com/public/storage/images/driver/profile_image/'+result.success.driver.profile;
+          }
         }
         else{
 
@@ -320,35 +328,8 @@ export class ModalpagePage {
 
   signout()
   {
-    this.oneSignal.deleteTag('user_id');
-    this.storage.set('isRemember', false); 
-    this.storage.get('user').then(data=>{   
-      let param = data[0].id;
-      let role = data[0].role;
-      console.log(role);    
-      if(role == 3)
-      {
-        this.data.getDriverToggle(param).subscribe(result=>{
-          if(result.status == 'OK')
-          {
-            if(result.success.available == 'on')
-            {
-              this.data.AvailableToggle().subscribe(result=>{
-                console.log(result);
-                if(result.status == 'OK')
-                {
-                  console.log(result.success.available);
-                }
-                else{
-                  this.data.presentToast('Error');
-                }
-              });
-            }
-          }
-        });
-      }
-    });
-    this.navCtrl.setRoot(SigninPage);
+    this.viewCtrl.dismiss(true);
+    //this.navCtrl.setRoot(SigninPage);
   }
 
   /*ride(ride)
@@ -374,6 +355,20 @@ export class ModalpagePage {
     }
   }
 
+  callDriver(phone){
+    var msg = 'Do you want to call Driver?';
+    this.service.presentConfirmationAlert(msg).then((data)=>{
+      if(data == true)
+      {
+        this.callNumber.callNumber(phone, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+      }
+      else{
+
+      }
+    });
+  }
   /*gotoTransactions()
   {
     if(this.fromDate && this.toDate)              

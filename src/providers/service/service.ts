@@ -58,5 +58,29 @@ loader:any;
     });
     prompt.present();
   }
-
+  presentConfirmationAlert(msg){
+    let resolveFunction: (confirm: boolean) => void;
+    let promise = new Promise<boolean>(resolve => {
+      resolveFunction = resolve;
+    });
+    let confirmAlert = this.alertCtrl.create({
+      message: msg,
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            resolveFunction(true)
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            resolveFunction(false)
+          }
+        }
+      ]
+    });
+    confirmAlert.present();
+    return promise;
+  }
 }

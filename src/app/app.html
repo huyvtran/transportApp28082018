@@ -3,7 +3,7 @@
       <!--<ion-toolbar>
         <ion-title>Menu</ion-title>
       </ion-toolbar>-->
-      <ion-card class="menu-card" menuClose (click)="nav.push(pages.customerProfilePage)">
+      <ion-card class="menu-card" menuClose (click)="nav.setRoot(pages.customerProfilePage)">
         <ion-item text-center>
           <ion-avatar>
             <img class="menu_header_avtar" src="{{avatar}}">
@@ -33,7 +33,7 @@
               </ion-row>
             </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.packageBooking)">
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.packageBooking)">
             <!--<ion-icon class="sideMenuIcons" name="home"></ion-icon>-->
             <ion-grid>
               <ion-row>
@@ -46,7 +46,7 @@
               </ion-row>
             </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.customerProfilePage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.customerProfilePage)">  
             <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
             <ion-grid>
                 <ion-row>
@@ -59,7 +59,7 @@
                 </ion-row>
               </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.bookinghistoryPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.bookinghistoryPage)">  
               <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
               <ion-grid>
                   <ion-row>
@@ -72,7 +72,7 @@
                   </ion-row>
                 </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.paymentwalletPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.paymentwalletPage)">  
               <!--<ion-icon ios="ios-cog" md="md-cog"></ion-icon>-->
               <ion-grid>
                   <ion-row>
@@ -85,7 +85,7 @@
                   </ion-row>
                 </ion-grid> 
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.settingsPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.settingsPage)">  
               <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
               <ion-grid>
                   <ion-row>
@@ -124,7 +124,7 @@
                   </ion-row>
                 </ion-grid>   
           </button>-->
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.helpPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.helpPage)">  
               <!--<ion-icon ios="ios-help-circle" md="md-help-circle"></ion-icon>-->
               <ion-grid>
                   <ion-row>      
@@ -181,7 +181,7 @@
               </ion-row>
             </ion-grid>
           </button>
-            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.customerProfilePage)">  
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.customerProfilePage)">  
               <!--<ion-icon ios="ios-person" md="md-person"></ion-icon>-->
               <ion-grid>
                   <ion-row>
@@ -194,7 +194,7 @@
                   </ion-row>
                 </ion-grid>
             </button>
-            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.driverTransactionsPage)">  
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.driverTransactionsPage)">  
                 <!--<ion-icon ios="ios-cog" md="md-cog"></ion-icon>-->
                 <ion-grid>
                     <ion-row>
@@ -207,7 +207,7 @@
                     </ion-row>
                   </ion-grid> 
             </button>
-            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.driversettingPage)">  
+            <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.driversettingPage)">  
                 <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
                 <ion-grid>
                     <ion-row>
@@ -233,7 +233,7 @@
                   </ion-row>
                 </ion-grid>
           </button>
-          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.push(pages.notificationsPage)">  
+          <button class="sideMenuItem" menuClose detail-none ion-item icon-left (click)="nav.setRoot(pages.notificationsPage)">  
             <!--<ion-icon ios="ios-book" md="md-book"></ion-icon>-->
             <ion-grid>
                 <ion-row>

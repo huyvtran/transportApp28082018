@@ -2,7 +2,7 @@ import { Injectable, Component, ViewChild, ElementRef   } from '@angular/core';
 import { Platform,Events } from 'ionic-angular';
 import { ConnectivityServiceProvider } from '../../providers/connectivity-service/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation';
-import { filter } from 'rxjs/operators';
+import { filter, delay } from 'rxjs/operators';
 
 
 declare var google;
@@ -44,7 +44,7 @@ export class GoogleMapsProvider {
  
     this.mapElement = mapElement;
     this.pleaseConnect = pleaseConnect;
- 
+
     return this.loadGoogleMaps();
  
   }     
@@ -54,16 +54,13 @@ export class GoogleMapsProvider {
     return new Promise((resolve) => {
  
       if(typeof google == "undefined" || typeof google.maps == "undefined"){
- 
         console.log("Google maps JavaScript needs to be loaded.");
         this.disableMap();
  
         if(this.connectivityService.isOnline()){
- 
           window['mapInit'] = () => {
- 
-            this.initMap().then(() => {
-              resolve(true);
+            this.initMap().then((data) => {
+              resolve(data);
             });
             this.enableMap();
           }
@@ -87,22 +84,28 @@ export class GoogleMapsProvider {
         }
         resolve(true);
       }
+     
       this.addConnectivityListeners();
     });
   }
  
   initMap(): Promise<any> {
     this.mapInitialised = true;
-    
     return new Promise((resolve) => {
-      this.platform.ready().then(() => {
       /*this.geolocation.watchPosition().pipe(
         filter((p) => p.coords !== undefined) //Filter Out Errors
       )
       .subscribe*/
-      this.geolocation.getCurrentPosition().then((position) => {
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 0,
+        distanceFilter: 1
+      };
+      this.geolocation.getCurrentPosition(options).then((position) => {
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         console.log('latLng==>'+latLng);
+        //alert(latLng);
         let mapOptions = {
           center: latLng,
           zoom: 15,
@@ -113,14 +116,12 @@ export class GoogleMapsProvider {
           enableHighAccuracy: true,
         }
         var geocoder = new google.maps.Geocoder;
-        
         this.map = new google.maps.Map(this.mapElement, mapOptions);
-        resolve(true);
+        resolve(this.map);
         console.log("I am called");   
         this.addMarker();
       },err=>{console.log(JSON.stringify(err))});
     });
-  });
   }
  
   disableMap(): void {
@@ -137,32 +138,30 @@ export class GoogleMapsProvider {
 
  
   addConnectivityListeners(): void {
- 
-    this.connectivityService.watchOnline().subscribe(() => {
- 
-      setTimeout(() => {
+    //alert('hii');
+      this.connectivityService.watchOnline().subscribe(() => {
+        setTimeout(() => {
 
-        if(typeof google == "undefined" || typeof google.maps == "undefined"){
-          this.loadGoogleMaps();
-        }
-        else {
-          if(!this.mapInitialised){
-            this.initMap();
+          if(typeof google == "undefined" || typeof google.maps == "undefined"){
+            this.loadGoogleMaps();
           }
- 
-          this.enableMap();
-        }
- 
-      }, 2000);
- 
-    });
- 
-    this.connectivityService.watchOffline().subscribe(() => {
- 
-      this.disableMap();
-    
-    });
- 
+          else {
+            if(!this.mapInitialised){
+              this.initMap();
+            }
+  
+            this.enableMap();
+          }
+  
+        }, 2000);
+  
+      });
+  
+      this.connectivityService.watchOffline().subscribe(() => {
+  
+        this.disableMap();
+      
+      });
   }
 
   addMarker(){

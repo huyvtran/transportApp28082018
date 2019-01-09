@@ -35,7 +35,7 @@ export class DataProvider {
       let toast = this.toast.create({
 
             message : msg,
-            duration : 2000,
+            duration : 3000,
             position : 'middle'
       });
 

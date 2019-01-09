@@ -96,7 +96,13 @@ export class BookingListPage {
               return false;
             }
             else{
-              this.booking_history = result.success.booking.data;
+              let history = result.success.booking.data;
+              for (var key in history) {
+                console.log(history[key]);
+                this.booking_history[key]=history[key];
+                //console.log(this.passangers[value]);
+              }
+              console.log("this.booking_history==>"+this.booking_history);
               this.loadingCtr.dismiss();
               if(infiniteScroll) {
                 infiniteScroll.complete();

@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+      <button ion-button menuToggle >
+          <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
+      </button>
     <ion-title>Notifications</ion-title>
   </ion-navbar>
 
@@ -45,7 +48,7 @@
           </ion-grid>  
         </div>
       </ion-item>
-      <div class="nulldiv emptyDiv" *ngIf='users == ""'>
+      <div class="nulldiv emptyDiv" *ngIf='isNotification == true'>
           <img src="assets/imgs/empty_notification.png" />
           There is no notifications yet.
       </div>

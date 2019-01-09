@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController,Events } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -22,13 +23,26 @@ export class SigninPage {
   long : any;  
   isRemember :any = false;
 
-  constructor( private oneSignal: OneSignal, public navCtrl: NavController, public alertCtrl: AlertController, public data : DataProvider, private storage: Storage, private loading: LoadingController,public events: Events, public geolocation: Geolocation) {
-
+  constructor( private oneSignal: OneSignal, public navCtrl: NavController,private androidPermissions: AndroidPermissions, public alertCtrl: AlertController, public data : DataProvider, private storage: Storage, private loading: LoadingController,public events: Events, public geolocation: Geolocation) {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+      result => {console.log('Has permission?',result.hasPermission); 
+      //alert('result.hasPermission==>'+result.hasPermission);
+      if(result.hasPermission == false)
+      {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+      }
+    },
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+    );
     this.signin = new FormGroup({
       email: new FormControl('', [Validators.required,Validators.email]),
       password: new FormControl('', [Validators.required]),
       });	     
   }      
+
+  ionViewCanLeave(){
+    
+  }
 
   createUser(user) {
     console.log('User created!')
@@ -146,7 +160,9 @@ export class SigninPage {
               else
               {    
                 loader.dismiss(); 
-                this.navCtrl.push(EmailverificationPage,{data:result.success.user});  
+                //this.navCtrl.push(EmailverificationPage,{data:result.success.user}); 
+                this.navCtrl.push(EmailverificationPage,{first_name:result.success.user[0].first_name,last_name:result.success.user[0].last_name,email:result.success.user[0].email});  
+                
               }    
             }                           
  

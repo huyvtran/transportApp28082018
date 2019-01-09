@@ -10,6 +10,11 @@
     <!--<button ion-button menuToggle >
       <ion-icon ios="ios-list" md="md-list" class="ion-md-list"></ion-icon>
     </button>-->
+    <ion-buttons end icon-only *ngIf="traking === 'div'">
+      <button ion-button (click)="showSelectDriverModal(driver_id)">
+        <ion-icon class="callIcon" name="call"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title *ngIf ='rideType == "now"'>Ride Tracking</ion-title>
     <ion-title *ngIf ='rideType == "later"'>Ride Information</ion-title>
   </ion-navbar>

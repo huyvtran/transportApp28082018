@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-ang
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../../providers/data/data';
 import { SigninPage } from '../signin/signin';
-
+import { EmailverificationPage } from '../emailverification/emailverification';
 /**
  * Generated class for the SignupPage page.
  *
@@ -90,8 +90,12 @@ export class SignupPage {
             else
             {
               //this.storage.set("customer_data",data.msg[0]);
-              this.data.presentToast('Registration Successfull!');
-              this.navCtrl.setRoot(SigninPage);     
+              //this.data.presentToast('Registration Successfull!');
+              //this.navCtrl.setRoot(SigninPage);  
+              let currentIndex = this.navCtrl.getActive().index;
+              this.navCtrl.push(EmailverificationPage,{first_name:this.user_details['fname'],last_name:this.user_details['lname'],email:this.user_details['email']}).then(()=>{
+                this.navCtrl.remove(currentIndex);
+              });
             }                    
     });
   }  

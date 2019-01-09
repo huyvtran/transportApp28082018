@@ -46,7 +46,7 @@ export class UploadProfilePage {
     var srcType;
     if(useAlbum == true)
     {
-      srcType= this.camera.PictureSourceType.CAMERA;
+      srcType = this.camera.PictureSourceType.CAMERA;
     }
     else{
       srcType = this.camera.PictureSourceType.SAVEDPHOTOALBUM;
